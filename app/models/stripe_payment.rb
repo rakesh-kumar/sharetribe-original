@@ -17,4 +17,19 @@
 #
 
 class StripePayment < ActiveRecord::Base
+  monetize :sum_cents, allow_nil: true, with_model_currency: :currency
+
+  def sum_exists?
+    !sum_cents.nil?
+  end
+
+  def total_sum
+    sum
+  end
+
+  # Build default payment sum by listing
+  # Note: Consider removing this :(
+  def default_sum(listing, vat=0)
+    self.sum = listing.price
+  end
 end

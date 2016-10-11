@@ -15,4 +15,20 @@
 #
 
 class StripeAccount < ActiveRecord::Base
+  serialize :stripe_account_status, JSON
+
+  belongs_to :person
+
+  # Stripe account type checks
+  def oauth?; stripe_account_type == 'oauth'; end
+
+  def stripe_manager
+    case stripe_account_type
+    when 'oauth' then StripeOauth.new(self)
+    end
+  end
+
+  def tranfers_enabled?
+    true
+  end
 end

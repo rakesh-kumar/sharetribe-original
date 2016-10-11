@@ -5,6 +5,7 @@ class CreateStripePaymentGateways < ActiveRecord::Migration
       t.string :stripe_publishable_key
       t.string :stripe_secret_key
       t.string :stripe_client_id
+      t.integer  :commission_from_seller
       t.timestamps null: false
     end
   end

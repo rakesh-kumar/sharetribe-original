@@ -651,7 +651,7 @@ class ListingsController < ApplicationController
     payment_type = MarketplaceService::Community::Query.payment_type(community.id)
     payment_settings = TransactionService::API::Api.settings.get_active(community_id: community.id).maybe
     currency = community.default_currency
-
+    
     case [payment_type, process]
     when matches([__, :none])
       {seller_commission_in_use: false,
@@ -671,7 +671,16 @@ class ListingsController < ApplicationController
        commission_from_seller: p_set[:commission_from_seller],
        minimum_price_cents: p_set[:minimum_price_cents]}
     else
-      raise ArgumentError.new("Unknown payment_type, process combination: [#{payment_type}, #{process}]")
+      p_set = Maybe(payment_settings_api.get_active(community_id: community.id))
+        .select {|res| res[:success]}
+        .map {|res| res[:data]}
+        .or_else({})
+      # raise ArgumentError.new("Unknown payment_type, process combination: [#{payment_type}, #{process}]")
+      {seller_commission_in_use: !!community.commission_from_seller,
+       payment_gateway: payment_type,
+       minimum_commission: Money.new(0, currency),
+       commission_from_seller: p_set[:commission_from_seller],
+       minimum_price_cents: p_set[:minimum_price_cents]}
     end
   end
 

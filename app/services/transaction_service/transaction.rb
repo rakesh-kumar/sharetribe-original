@@ -11,12 +11,14 @@ module TransactionService::Transaction
 
   SETTINGS_ADAPTERS = {
     paypal: TransactionService::Gateway::PaypalSettingsAdapter.new,
+    stripe: TransactionService::Gateway::StripeSettingsAdapter.new,
     none: TransactionService::Gateway::FreeSettingsAdapter.new
   }
 
   GATEWAY_ADAPTERS = {
     paypal: TransactionService::Gateway::PaypalAdapter.new,
-    none: TransactionService::Gateway::FreeAdapter.new,
+    stripe: TransactionService::Gateway::StripeAdapter.new,
+    none: TransactionService::Gateway::FreeAdapter.new
   }
 
   TX_PROCESSES = {

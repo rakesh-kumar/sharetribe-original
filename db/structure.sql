@@ -285,6 +285,7 @@ CREATE TABLE `communities` (
   `small_cover_photo_processing` tinyint(1) DEFAULT NULL,
   `favicon_processing` tinyint(1) DEFAULT NULL,
   `deleted` tinyint(1) DEFAULT NULL,
+  `commission_from_seller` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_communities_on_uuid` (`uuid`),
   KEY `index_communities_on_domain` (`domain`) USING BTREE,
@@ -1477,6 +1478,7 @@ CREATE TABLE `stripe_payment_gateways` (
   `stripe_publishable_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `stripe_secret_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `stripe_client_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `commission_from_seller` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -1656,7 +1658,7 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-11 17:44:44
+-- Dump completed on 2016-10-11 19:06:52
 INSERT INTO schema_migrations (version) VALUES ('20080806070738');
 
 INSERT INTO schema_migrations (version) VALUES ('20080807071903');
@@ -3234,4 +3236,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161011120755');
 INSERT INTO schema_migrations (version) VALUES ('20161011121151');
 
 INSERT INTO schema_migrations (version) VALUES ('20161011121406');
+
+INSERT INTO schema_migrations (version) VALUES ('20161011133639');
 

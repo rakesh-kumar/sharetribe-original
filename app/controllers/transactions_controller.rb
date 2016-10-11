@@ -34,6 +34,8 @@ class TransactionsController < ApplicationController
         render_free(listing_model: listing_model, author_model: author_model, community: @current_community, params: transaction_params)
       when matches([:preauthorize, :paypal])
         redirect_to initiate_order_path(transaction_params)
+      when matches([:preauthorize, :stripe])
+        redirect_to stripe_preauthorize_payment_path(transaction_params)
       else
         opts = "listing_id: #{listing_id}, payment_gateway: #{gateway}, payment_process: #{process}, booking: #{booking}"
         raise ArgumentError.new("Cannot find new transaction path to #{opts}")
