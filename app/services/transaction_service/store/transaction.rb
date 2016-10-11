@@ -40,6 +40,7 @@ module TransactionService::Store::Transaction
     [:listing_author_id, :string, :mandatory],
     [:unit_type, :to_symbol, one_of: [:hour, :day, :night, :week, :month, :custom, nil]],
     [:unit_price, :money, default: Money.new(0)],
+    [:unit_price_currency, :string, :mandatory],
     [:unit_tr_key, :string],
     [:unit_selector_tr_key, :string],
     [:availability, :to_symbol, one_of: [:none, :booking]],

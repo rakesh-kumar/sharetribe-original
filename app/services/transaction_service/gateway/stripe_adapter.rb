@@ -5,15 +5,16 @@ module TransactionService::Gateway
 
     def create_payment(tx:, gateway_fields:, force_sync: nil)
       payment_gateway_id = StripePaymentGateway.where(community_id: tx[:community_id]).pluck(:id).first
-      payment = StripePayment.create(
-        {
-          transaction_id: tx[:id],
-          community_id: tx[:community_id],
-          status: :pending,
-          payer_id: tx[:starter_id],
-          recipient_id: tx[:listing_author_id],
-          currency: "USD",
-          sum_cents: tx[:unit_price] * tx[:listing_quantity]})
+      
+      payment = StripePayment.create({
+        transaction_id: tx[:id],
+        community_id: tx[:community_id],
+        status: :pending,
+        payer_id: tx[:starter_id],
+        recipient_id: tx[:listing_author_id],
+        currency: tx[:unit_price_currency],
+        sum_cents: tx[:unit_price] * tx[:listing_quantity]
+      })
 
       result, error = StripeSaleService.new(payment, gateway_fields).pay(false)
       
@@ -43,10 +44,12 @@ module TransactionService::Gateway
     end
 
     def get_payment_details(tx:)
-      payment_total = Maybe(PaymentModel.where(transaction_id: tx[:id]).first).total_sum.or_else(nil)
-      shipping_total = tx[:shipping_price]
-      
-      total_price = (tx[:unit_price] + shipping_total) * tx[:listing_quantity]
+      shipping_price = if tx[:shipping_price].present?
+        shipping_price
+      else
+        Money.new(0, tx[:unit_price_currency])
+      end
+      total_price = (tx[:unit_price] + shipping_price) * tx[:listing_quantity]
       { payment_total: total_price,
         total_price: total_price,
         charged_commission: nil,
