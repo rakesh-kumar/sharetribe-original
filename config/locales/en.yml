@@ -750,6 +750,7 @@ en:
     exp_month: Expiry Month (MM)
     exp_year: Expiry Year (YY)
     cvc: CVC
+    confirm_payment: Confirm Payment
 
   feedback:
     feedback_subject: "New feedback from %{service_name}"

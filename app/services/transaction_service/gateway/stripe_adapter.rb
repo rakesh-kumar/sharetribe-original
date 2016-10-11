@@ -44,7 +44,9 @@ module TransactionService::Gateway
 
     def get_payment_details(tx:)
       payment_total = Maybe(PaymentModel.where(transaction_id: tx[:id]).first).total_sum.or_else(nil)
-      total_price = tx[:unit_price] * tx[:listing_quantity]
+      shipping_total = tx[:shipping_price]
+      
+      total_price = (tx[:unit_price] + shipping_total) * tx[:listing_quantity]
       { payment_total: total_price,
         total_price: total_price,
         charged_commission: nil,
