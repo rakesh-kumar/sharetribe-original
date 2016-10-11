@@ -108,6 +108,7 @@ module MarketplaceService
           booking_uuid: transaction_model.booking_uuid_object,
           __model: transaction_model
         })]
+        
       end
 
       def transaction_with_conversation(transaction_model, community_id)

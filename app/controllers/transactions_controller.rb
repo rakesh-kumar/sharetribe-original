@@ -385,7 +385,7 @@ class TransactionsController < ApplicationController
       quantity = tx[:listing_quantity]
       show_subtotal = !!tx[:booking] || quantity.present? && quantity > 1 || tx[:shipping_price].present?
       total_label = (tx[:payment_process] != :preauthorize) ? t("transactions.price") : t("transactions.total")
-
+      
       TransactionViewUtils.price_break_down_locals({
         listing_price: tx[:listing_price],
         localized_unit_type: localized_unit_type,

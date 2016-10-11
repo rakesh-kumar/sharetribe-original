@@ -9,7 +9,6 @@ module TransactionService::Gateway
         {
           transaction_id: tx[:id],
           community_id: tx[:community_id],
-          # payment_gateway_id: payment_gateway_id,
           status: :pending,
           payer_id: tx[:starter_id],
           recipient_id: tx[:listing_author_id],
@@ -46,7 +45,7 @@ module TransactionService::Gateway
     def get_payment_details(tx:)
       payment_total = Maybe(PaymentModel.where(transaction_id: tx[:id]).first).total_sum.or_else(nil)
       total_price = tx[:unit_price] * tx[:listing_quantity]
-      { payment_total: payment_total,
+      { payment_total: total_price,
         total_price: total_price,
         charged_commission: nil,
         payment_gateway_fee: nil }

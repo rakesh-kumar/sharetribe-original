@@ -5,7 +5,6 @@
   :javascript
     Stripe.setPublishableKey(#{@current_community.payment_gateway.stripe_publishable_key.to_json});
     $(function() {
-      console.log('jhjlkhlkj')
       var $form = $('#transaction-form');
       $form.submit(function(event) {
         // Disable the submit button to prevent repeated clicks:
