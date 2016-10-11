@@ -363,6 +363,42 @@ class Admin::CommunitiesController < ApplicationController
 
   end
 
+  def payment_gateways
+    # Redirect if payment gateway in use but it's not stripe
+    return redirect_to edit_details_admin_community_path(@current_community) if @current_community.payment_gateway && !@current_community.stripe_in_use?
+
+    @selected_left_navi_link = "payment_gateways"
+    @community = @current_community
+    @payment_gateway = Maybe(@current_community).payment_gateway.or_else { StripePaymentGateway.new }
+
+    render :stripe_payment_gateway and return
+  end
+
+  def update_payment_gateway
+    # Redirect if payment gateway in use but it's not stripe
+    return redirect_to edit_details_admin_community_path(@current_community) if @current_community.payment_gateway && !@current_community.stripe_in_use?
+
+    stripe_params = payment_gateway_params
+    community_params = params.require(:community).permit(:commission_from_seller)
+
+    unless @current_community.update_attributes(community_params)
+      flash.now[:error] = t("layouts.notifications.community_update_failed")
+      return render :payment_gateways
+    end
+
+    update(@current_community.payment_gateway,
+      stripe_params,
+      payment_gateways_admin_community_path(@current_community),
+      :payment_gateways)
+    payment_setting = PaymentSettings.where(community_id: @current_community.id).last
+    payment_setting.update_attributes!(commission_from_seller: params[:community][:commission_from_seller].to_i)
+  end
+
+  def create_payment_gateway
+    @current_community.payment_gateway = StripePaymentGateway.create(payment_gateway_params.merge(community: @current_community))
+    update_payment_gateway
+  end
+
   private
 
   def enqueue_status_sync!(address)
