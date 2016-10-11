@@ -1,20 +1,20 @@
 module TransactionService::Gateway
   class StripeAdapter < GatewayAdapter
 
-    PaymentModel = ::Payment
+    PaymentModel = ::StripePayment
 
-    def create_payment(tx:, gateway_fields:, prefer_async: nil)
+    def create_payment(tx:, gateway_fields:, force_sync: nil)
       payment_gateway_id = StripePaymentGateway.where(community_id: tx[:community_id]).pluck(:id).first
       payment = StripePayment.create(
         {
           transaction_id: tx[:id],
           community_id: tx[:community_id],
-          payment_gateway_id: payment_gateway_id,
+          # payment_gateway_id: payment_gateway_id,
           status: :pending,
           payer_id: tx[:starter_id],
           recipient_id: tx[:listing_author_id],
           currency: "USD",
-          sum: tx[:unit_price] * tx[:listing_quantity]})
+          sum_cents: tx[:unit_price] * tx[:listing_quantity]})
 
       result, error = StripeSaleService.new(payment, gateway_fields).pay(false)
       

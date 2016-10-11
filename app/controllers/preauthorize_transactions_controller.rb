@@ -259,7 +259,7 @@ class PreauthorizeTransactionsController < ApplicationController
         item_total: item_total,
         shipping_total: shipping_total)
 
-      render "listing_conversations/initiate",
+      render "listing_conversations/stripe_preauthorize",
              locals: {
                start_on: tx_params[:start_on],
                end_on: tx_params[:end_on],
@@ -268,7 +268,7 @@ class PreauthorizeTransactionsController < ApplicationController
                quantity: tx_params[:quantity],
                author: query_person_entity(listing_entity[:author_id]),
                action_button_label: translate(listing_entity[:action_button_tr_key]),
-               expiration_period: MarketplaceService::Transaction::Entity.authorization_expiration_period(:paypal),
+               expiration_period: MarketplaceService::Transaction::Entity.authorization_expiration_period(:stripe),
                form_action: initiated_order_path(person_id: @current_user.id, listing_id: listing_entity[:id]),
                country_code: LocalizationUtils.valid_country_code(@current_community.country),
                price_break_down_locals: TransactionViewUtils.price_break_down_locals(
@@ -339,9 +339,9 @@ class PreauthorizeTransactionsController < ApplicationController
         else
           NoShippingFee.new
         end
-
+      
       tx_response = create_preauth_transaction(
-        payment_type: :paypal,
+        payment_type: :stripe,
         community: @current_community,
         listing: listing,
         listing_quantity: quantity,
@@ -350,6 +350,7 @@ class PreauthorizeTransactionsController < ApplicationController
         force_sync: !request.xhr?,
         delivery_method: tx_params[:delivery],
         shipping_price: shipping_total.total,
+        stripeToken: params[:stripeToken].present? ? params[:stripeToken] : nil,
         booking_fields: {
           start_on: tx_params[:start_on],
           end_on: tx_params[:end_on]
@@ -409,10 +410,8 @@ class PreauthorizeTransactionsController < ApplicationController
         redirect_to tx_response[:data][:gateway_fields][:redirect_url]
       end
     else
-      render json: {
-               op_status_url: transaction_op_status_path(tx_response[:data][:gateway_fields][:process_token]),
-               op_error_msg: t("error_messages.paypal.generic_error")
-             }
+      transaction_id = tx_response.data[:transaction][:id]
+      redirect_to person_transaction_path(:person_id => @current_user.id, :id => transaction_id)
     end
   end
 
@@ -527,14 +526,15 @@ class PreauthorizeTransactionsController < ApplicationController
     logo_url = Maybe(opts[:community])
                  .wide_logo
                  .select { |wl| wl.present? }
-                 .url(:paypal, timestamp: false)
+                 .url(:stripe, timestamp: false)
                  .or_else(nil)
 
     gateway_fields =
       {
-        merchant_brand_logo_url: logo_url,
-        success_url: success_paypal_service_checkout_orders_url,
-        cancel_url: cancel_paypal_service_checkout_orders_url(listing_id: opts[:listing].id)
+        stripeToken: opts[:stripeToken]
+        # merchant_brand_logo_url: logo_url,
+        # success_url: success_paypal_service_checkout_orders_url,
+        # cancel_url: cancel_paypal_service_checkout_orders_url(listing_id: opts[:listing].id)
       }
 
     transaction = {

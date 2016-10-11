@@ -23,13 +23,13 @@ module StripeService
         end
 
         if result and result.status == "succeeded"
-          BTLog.info("=================================================================================")
-          BTLog.info("Submitted authorized payment #{transaction_id} to settlement")
-          BTLog.info("=================================================================================")
+          StripeLog.info("=================================================================================")
+          StripeLog.info("Submitted authorized payment #{transaction_id} to settlement")
+          StripeLog.info("=================================================================================")
         else
-          BTLog.error("=================================================================================")
-          BTLog.error("Could not submit authorized payment #{transaction_id} to settlement (#{error})")
-          BTLog.error("=================================================================================")
+          StripeLog.error("=================================================================================")
+          StripeLog.error("Could not submit authorized payment #{transaction_id} to settlement (#{error})")
+          StripeLog.error("=================================================================================")
         end
 
         return result, error
@@ -55,13 +55,13 @@ module StripeService
         end
 
         if result and result.status == "succeeded"
-          BTLog.info("=================================================================================")
-          BTLog.info("Voided transaction #{transaction_id}")
-          BTLog.info("=================================================================================")
+          StripeLog.info("=================================================================================")
+          StripeLog.info("Voided transaction #{transaction_id}")
+          StripeLog.info("=================================================================================")
         else
-          BTLog.error("=================================================================================")
-          BTLog.error("Could not void transaction #{transaction_id}. #{error}")
-          BTLog.error("=================================================================================")
+          StripeLog.error("=================================================================================")
+          StripeLog.error("Could not void transaction #{transaction_id}. #{error}")
+          StripeLog.error("=================================================================================")
         end
 
         return result, error

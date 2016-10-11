@@ -5,7 +5,8 @@
   :javascript
     Stripe.setPublishableKey(#{@current_community.payment_gateway.stripe_publishable_key.to_json});
     $(function() {
-      var $form = $('#payment-form');
+      console.log('jhjlkhlkj')
+      var $form = $('#transaction-form');
       $form.submit(function(event) {
         // Disable the submit button to prevent repeated clicks:
         $form.find('.submit').prop('disabled', true);
@@ -20,7 +21,7 @@
 
     function stripeResponseHandler(status, response) {
       // Grab the form:
-      var $form = $('#payment-form');
+      var $form = $('#transaction-form');
 
       if (response.error) { 
         // Problem!
@@ -42,7 +43,7 @@
     };
 
     $(document).ready(function() {
-      var stripePaymentForm = $("#payment-form");
+      var stripePaymentForm = $("#transaction-form");
       initialize_stripe_preauthorize_form("#{I18n.locale}", function beforeSubmit(next) {
       });
 
@@ -72,16 +73,17 @@
       %li
         = render partial: "transactions/price_break_down", locals: price_break_down_locals
 
-  = form_for preauthorize_form,
-    :url => form_action,
-      :method => "post",
-      :html => { :id => "payment-form", :class => "hidden" } do |form|
-
+  / = form_for preauthorize_form,
+  /   :url => form_action,
+  /     :method => "post",
+  /     :html => { :id => "payment-form", :class => "hidden" } do |form|
+  = form_tag form_action, method: :post, id: "transaction-form" do
     -# TODO Fix this, no respond_to?
-    - if preauthorize_form.respond_to?(:start_on) && preauthorize_form.respond_to?(:end_on)
-      = form.date_select :start_on, { value: preauthorize_form.start_on }, { class: "hidden" }
-      = form.date_select :end_on, { value: preauthorize_form.end_on }, { class: "hidden" }
-
+    / - if preauthorize_form.respond_to?(:start_on) && preauthorize_form.respond_to?(:end_on)
+    /   = form.date_select :start_on, { value: preauthorize_form.start_on }, { class: "hidden" }
+    /   = form.date_select :end_on, { value: preauthorize_form.end_on }, { class: "hidden" }
+    = hidden_field_tag(:start_on, start_on&.iso8601 )
+    = hidden_field_tag(:end_on, end_on&.iso8601 )
     .preauthorize-section
       %h2
         = t("listing_conversations.preauthorize.payment")
@@ -94,20 +96,24 @@
 
       .row
         .col-12
-          = form.text_area :content, :class => "text_area"
-          = form.hidden_field :sender_id, :value => @current_user.id
+          / = form.text_area :content, :class => "text_area"
+          / = form.hidden_field :sender_id, :value => @current_user.id
+          = text_area_tag :message, nil, :class => "text_area"
 
       - if @current_community.transaction_agreement_in_use
         = render :partial => "listing_conversations/transaction_agreement_checkbox", locals: { form: form }
+      - if quantity
+        = hidden_field_tag :quantity, quantity
 
-      - if local_assigns.has_key?(:quantity)
-        = form.hidden_field :quantity, value: quantity
+      - if delivery_method
+        = hidden_field_tag :delivery, delivery_method
 
-      = hidden_field_tag :delivery, params[:delivery]
+      / - if local_assigns.has_key?(:quantity)
+      /   = form.hidden_field :quantity, value: quantity
 
       .row
         .col-12
-          = form.button t("preauthorize_payments.edit.confirm_payment"), :class => "send_button"
+          = button_tag t("preauthorize_payments.edit.confirm_payment"), :class => "send_button"
       .row
         .col-12
           %p

@@ -91,6 +91,7 @@ module TransactionService::Transaction
 
     tx_process = tx_process(tx[:payment_process])
     gateway_adapter = gateway_adapter(tx[:payment_gateway])
+    
     res = tx_process.create(tx: tx,
                             gateway_fields: opts[:gateway_fields],
                             gateway_adapter: gateway_adapter,

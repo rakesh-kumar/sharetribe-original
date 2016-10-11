@@ -29,7 +29,7 @@ class StripeSaleService
 
   def call_stripe_api(capture)
     with_expection_logging do
-      BTLog.warn("Sending sale transaction from #{@payer.id} to #{@recipient.id}. Amount: #{@amount}, fee: #{@service_fee}")
+      StripeLog.warn("Sending sale transaction from #{@payer.id} to #{@recipient.id}. Amount: #{@amount}, fee: #{@service_fee}")
       charge, error = nil, nil
       token = @params[:stripeToken]
       # Get the credit card details submitted by the form
@@ -72,9 +72,9 @@ class StripeSaleService
   def log_result(response, error)
     if response.present?
       transaction_id = response.id
-      BTLog.warn("Successful sale transaction #{transaction_id} from #{@payer.id} to #{@recipient.id}. Amount: #{@amount}, fee: #{@service_fee}")
+      StripeLog.warn("Successful sale transaction #{transaction_id} from #{@payer.id} to #{@recipient.id}. Amount: #{@amount}, fee: #{@service_fee}")
     else
-      BTLog.error("Unsuccessful sale transaction from #{@payer.id} to #{@recipient.id}. Amount: #{@amount}, fee: #{@service_fee}: #{error}")
+      StripeLog.error("Unsuccessful sale transaction from #{@payer.id} to #{@recipient.id}. Amount: #{@amount}, fee: #{@service_fee}: #{error}")
     end
   end
 
@@ -82,7 +82,7 @@ class StripeSaleService
     begin
       block.call
     rescue Exception => e
-      BTLog.error("Expection #{e}")
+      StripeLog.error("Expection #{e}")
       raise e
     end
   end
