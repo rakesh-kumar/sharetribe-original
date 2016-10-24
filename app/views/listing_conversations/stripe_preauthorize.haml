@@ -1,7 +1,5 @@
 - content_for :extra_javascript do
   = javascript_include_tag 'https://js.stripe.com/v2/'
-
-- content_for :extra_javascript do
   :javascript
     Stripe.setPublishableKey(#{@current_community.payment_gateway.stripe_publishable_key.to_json});
     $(function() {
@@ -72,15 +70,7 @@
       %li
         = render partial: "transactions/price_break_down", locals: price_break_down_locals
 
-  / = form_for preauthorize_form,
-  /   :url => form_action,
-  /     :method => "post",
-  /     :html => { :id => "payment-form", :class => "hidden" } do |form|
   = form_tag form_action, method: :post, id: "transaction-form" do
-    -# TODO Fix this, no respond_to?
-    / - if preauthorize_form.respond_to?(:start_on) && preauthorize_form.respond_to?(:end_on)
-    /   = form.date_select :start_on, { value: preauthorize_form.start_on }, { class: "hidden" }
-    /   = form.date_select :end_on, { value: preauthorize_form.end_on }, { class: "hidden" }
     = hidden_field_tag(:start_on, start_on&.iso8601 )
     = hidden_field_tag(:end_on, end_on&.iso8601 )
     .preauthorize-section
@@ -95,20 +85,16 @@
 
       .row
         .col-12
-          / = form.text_area :content, :class => "text_area"
-          / = form.hidden_field :sender_id, :value => @current_user.id
           = text_area_tag :message, nil, :class => "text_area"
 
       - if @current_community.transaction_agreement_in_use
-        = render :partial => "listing_conversations/transaction_agreement_checkbox", locals: { form: form }
+        = render :partial => "listing_conversations/transaction_agreement_checkbox"
+
       - if quantity
         = hidden_field_tag :quantity, quantity
 
       - if delivery_method
         = hidden_field_tag :delivery, delivery_method
-
-      / - if local_assigns.has_key?(:quantity)
-      /   = form.hidden_field :quantity, value: quantity
 
       .row
         .col-12
