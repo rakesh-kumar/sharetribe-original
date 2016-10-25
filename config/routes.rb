@@ -81,11 +81,11 @@ Kassi::Application.routes.draw do
   }
 
   # Conditional routes for search view if landing page is enabled
-  get '/:locale/s' => 'homepage#index', as: :search_with_locale, constraints: ->(request) {
+  get '/:locale/lists' => 'homepage#index', as: :search_with_locale, constraints: ->(request) {
     locale_matcher_anchored.match(request.params["locale"]) &&
       CustomLandingPage::LandingPageStore.enabled?(request.env[:current_marketplace]&.id)
   }
-  get '/s' => 'homepage#index', as: :search_without_locale, constraints: ->(request) {
+  get '/lists' => 'homepage#index', as: :search_without_locale, constraints: ->(request) {
     CustomLandingPage::LandingPageStore.enabled?(request.env[:current_marketplace]&.id)
   }
 
@@ -93,8 +93,8 @@ Kassi::Application.routes.draw do
   # Inside this constraits are the routes that are used when request has subdomain other than www
   get '/:locale/' => 'homepage#index', :constraints => { :locale => locale_matcher }, as: :homepage_with_locale
   get '/' => 'homepage#index', as: :homepage_without_locale
-  get '/:locale/s', to: redirect('/%{locale}', status: 307), constraints: { locale: locale_matcher }
-  get '/s', to: redirect('/', status: 307)
+  get '/:locale/lists', to: redirect('/%{locale}', status: 307), constraints: { locale: locale_matcher }
+  get '/lists', to: redirect('/', status: 307)
 
   # error handling: 3$: http://blog.plataformatec.com.br/2012/01/my-five-favorite-hidden-features-in-rails-3-2/
   get '/500' => 'errors#server_error'

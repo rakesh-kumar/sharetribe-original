@@ -2,7 +2,7 @@ worker_processes 2
 timeout 3500
 preload_app true
 
-root_dir = "/home/deployer/apps/vint"
+root_dir = "/home/dev921/apps/vint"
 
 listen "/tmp/vint.sock", :backlog => 64
 pid "#{root_dir}/tmp/pids/unicorn.pid"
