@@ -1,0 +1,17 @@
+/* Add here all your CSS customizations */
+.simplified a {
+	text-decoration: none;
+}
+
+.simplified:hover {
+	background-color: #f1f1f1;
+}
+
+@media (min-width: 37.5em) {
+h2 {
+  font-size: 2.2em;
+  line-height: 1.09091em;
+  font-weight: 600;
+  font-weight: 500;
+  text-transform: none;
+} }

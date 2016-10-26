@@ -1,0 +1,268 @@
+<div class="body">
+  <%= render partial: 'layouts/global_header', locals: header_props()%>
+  <input type="hidden" value="grid" id="view" name="view">
+  <section class="marketplace-lander">
+    <div class="coverimage">
+      <figure class="marketplace-cover fluidratio" style="background-image: url('/assets/background-storage.jpg') !important">
+        <div class="lander-content marketplace-lander-content">
+          <h1 class="marketplace-lander-content-title">Vint - varastot ja autotallit helposti</h1>
+          <p>Etsi helposti tyhjiä tiloja lähialueeltasi.</p>
+          <div class="search-form">
+            <%=form_tag search_without_locale_path, id: 'search_form', class: 'search_form', method: :get do%>
+              <div class="search-form-input search-form-text-field">
+                <!-- <input type="text" placeholder="Syötä esim. kaupunki tai postinumero" id="searchField" name="q"> -->
+                <%= text_field_tag "q", params[:q], :placeholder => (@community_customization && @community_customization.search_placeholder) || t("homepage.index.what_do_you_need") %>
+              </div>
+              <div class="search-form-input">
+                <button type="submit" id="search-button" class="action-button" style="height:48px">
+                  <i class="ss-search icon-part"></i>
+                </button>
+              </div>
+            <%end%>
+          </div>
+          <div style="margin-top:10px">
+            <a href="/?view=list" style="color:white;">Näytä kaikki </a> <span style="color:white;">|</span> <a href="/fi/listings/new" style="color:white;"> Tyhjä varasto? Ilmoita tilasi </a>
+          </div>
+          <div style="margin-top:10px; color:white">
+            Kyllästynyt etsimään? Kokeile <a href="#pilvivarasto"> Vint Pilvivarastoa.</a>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+  <div role="main" class="main">
+  </div>
+  <section class="section section-default mb-none" style="margin-top:0px">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 center">
+          <h2 class="mt-xl"><strong style="color:#00CDBE">Vint</strong> on varastotilojen markkinapaikka</h2>
+          <p class="lead mb-xl">Tarjoamme parhaan mahdollisen markkinapaikan tyhjälle tilallesi oli se
+            <br>sitten vinttikomero, kellaritila, tyhjä huone, autokatos tai autotalli.
+          </p>
+        </div>
+        <div class="divider divider-primary divider-large divider-medium-center mb-xl">
+          <hr>
+        </div>
+      </div>
+      <div class="row mt-xl" style="
+        align-items: center;
+        ">
+        <a class="simplified" href="/">
+          <div class="col-md-4 center simplified">
+            <div class="feature-box feature-box-style-4 appear-animation fadeInUp appear-animation-visible" data-appear-animation="fadeInUp" data-appear-animation-delay="300" style="animation-delay: 300ms;">
+              <span class="featured-boxes featured-boxes-style-6 p-none m-none">
+              <span class="featured-box featured-box-primary featured-box-effect-6 p-none m-none" style="height: 100px;">
+              <span class="box-content p-none m-none">
+              <i class="icon-featured fa fa-cubes"></i>
+              </span>
+              </span>
+              </span> 
+              <div class="feature-box-info">
+                <h2 class="mb-sm">Varasto</h2>
+                <p class="mb-lg">Edullinen varastotila hakusessa? Me autamme sinua löytämään sinulle sopivan vintin, kellarikomeron, tyhjän huoneen tai piharakennuksen.</p>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="simplified" href="/?view=list&q=&checkbox_filter_option_97233=97233">
+          <div class="col-md-4 center simplified">
+            <div class="feature-box feature-box-style-4 appear-animation fadeInUp appear-animation-visible" data-appear-animation="fadeInUp" data-appear-animation-delay="0">
+              <span class="featured-boxes featured-boxes-style-6 p-none m-none">
+              <span class="featured-box featured-box-primary featured-box-effect-6 p-none m-none" style="height: 100px;">
+              <span class="box-content p-none m-none">
+              <i class="icon-featured fa fa-car"></i>
+              </span>
+              </span>
+              </span> 
+              <div class="feature-box-info">
+                <h2 class="mb-sm">Autotalli</h2>
+                <p class="mb-lg">Meiltä löytyy monenlaisia ratkaisuja moottoriajoneuvojen säilytykseen, kuten autotalleja, jaettuja halleja ja autokatoksia.</p>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="simplified" href="https://vint.fi/varasto.php">
+          <div class="col-md-4 center simplified">
+            <div class="feature-box feature-box-style-4 appear-animation fadeInUp appear-animation-visible" data-appear-animation="fadeInUp" data-appear-animation-delay="300" style="animation-delay: 300ms;">
+              <span class="featured-boxes featured-boxes-style-6 p-none m-none">
+              <span class="featured-box featured-box-primary featured-box-effect-6 p-none m-none" style="height: 100px;">
+              <span class="box-content p-none m-none">
+              <i class="icon-featured fa fa-list"></i>
+              </span>
+              </span>
+              </span> 
+              <div class="feature-box-info">
+                <h2 class="mb-sm">Kaikki varastotyypit</h2>
+                <p class="mb-lg">Palvelumme avulla voi vuokrata tai laittaa vuokralle erikoisempiakin tiloja. Katso minkälaisia tiloja Vintillä on.</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+    <div class="row mt-xl mb-xl">
+      <div class="col-md-6">
+        <!-- <img class="img-responsive mt-xl appear-animation" src="mac_vint.png" alt="" data-appear-animation="fadeInLeft"> -->
+        <%=image_tag 'mac_vint.png', :class => 'img-responsive mt-xl appear-animation'%>
+      </div>
+      <div class="col-md-6" style="text-align:center; margin-top:90px">
+        <h2 class="mt-xl">Näin Vint toimii</h2>
+        <p class="lead mb-xl">
+          Selaa edullisia varastotiloja läheltäsi, varaa tila haluamallesi ajanjaksolle ja siirrä tavarasi.
+        </p>
+        <div class="call-to-action-btn">
+          <a href="https://vint.fi/info.php#how-it-works" class="btn btn-lg btn-primary"><i class="fa fa-cark mr-xs"></i> Lue lisää</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="section section-default mb-none">
+    <div class="container">
+      <div class="row mt-xl mb-xl">
+        <div class="col-md-6" style="text-align:center" data-appear-animation="fadeInLeft">
+          <h2 class="mt-xl">Tilan <strong><span style="color:#00CDBE">tarvitsija</span></strong></h2>
+          <p class="lead mb-xl">Löydä tila läheltäsi</p>
+          <p>Selaa edullisia varastotiloja läheltäsi, varaa tila haluamallesi ajanjaksolle ja siirrä tavarasi.</p>
+          <div class="call-to-action-btn">
+            <a href="/?view=list" class="btn btn-lg btn-primary"><i class="fa fa-cark mr-xs"></i> Selaa </a>
+          </div>
+        </div>
+        <div class="col-md-6" style="text-align:center" data-appear-animation="fadeInRight">
+          <h2 class="mt-xl">Tilan<strong> <span style="color:#00CDBE">tarjoaja</span></strong></h2>
+          <p class="lead mb-xl">Tienaa tyhjällä tilallasi</p>
+          <p>Tarjoamme parhaan mahdollisen markkinapaikan tyhjälle tilallesi oli se sitten vinttikomero, kellaritila, tyhjä huone tai vaikkapa autotalli.</p>
+          <div class="call-to-action-btn">
+            <a href="https://vint.fi/info.php#renter" class="btn btn-lg btn-primary"><i class="fa fa-cark mr-xs"></i> Lue lisää</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 center">
+        <h2 class="mt-xl">Miksi <strong><span style="color:#00CDBE">Vint?</span></strong></h2>
+        <p class="lead mb-xl">Toimintamme keskipisteinä ovat hyvät arvot ja kestävä kehitys. Tässä muutama syy käyttää Vinttiä:</p>
+        <hr class="invisible">
+      </div>
+    </div>
+    <div class="row">
+      <div class="counters">
+        <div class="col-md-3 col-sm-6">
+          <div class="counter counter-dark" data-appear-animation="fadeInRight">
+            <i class="fa fa-lock" style="color: #00CDBE"></i>
+            <h2 class="mt-xl">Turvallisuus</h2>
+            <p>Huolehdimme että tavarasi ovat turvassa.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="counter counter-dark" data-appear-animation="fadeInRight">
+            <i class="fa fa-money" style="color: #00CDBE"></i>
+            <h2 class="mt-xl">Edullisuus</h2>
+            <p>Vintillä on edullista.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="counter counter-dark" data-appear-animation="fadeInLeft">
+            <i class="fa fa-map-marker" style="color: #00CDBE"></i>
+            <h2 class="mt-xl">Sijainti</h2>
+            <p>Tarjoamme varastotiloja läheltäsi, siellä missä sinä niitä tarvitset. </p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="counter counter-dark" data-appear-animation="fadeInLeft">
+            <i class="fa fa-leaf" style="color: #00CDBE"></i>
+            <h2 class="mt-xl">Ekologisuus</h2>
+            <p>Laitamme tyhjät tilat hyötykäyttöön.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<section class="section mt-none section-footer">
+  <div class="container">
+    <section id="pilvivarasto"></section>
+    <div class="row" style="text-align: center;">
+      <div class="counters">
+        <div class="col-md-6">
+          <h2 class="mt-xl"> <strong><span style="color:#00CDBE">Pilvivarasto</span></strong></h2>
+          <p class="lead mb-xl">Pilvivarasto on helppokäyttöinen ja edullinen varastointipalvelu. Haemme, varastoimme ja tuomme tavarasi takaisin milloin sinä haluat eikä sinun tarvitse tehdä mitään. Soveltuu niin pitkäaikaiseen kun lyhytaikaiseen irtaimiston säilömiseen. </p>
+          <hr class="invisible">
+          <div class="call-to-action-btn">
+            <a href="http://pilvivarasto.fi/" class="btn btn-lg btn-primary"><i class="fa fa-cark mr-xs"></i> Siirry pilvivarastoon </a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="counter counter-dark" data-appear-animation="fadeInLeft">
+            <hr class="invisible">
+            <hr class="invisible">
+            <i class="fa fa-user" style="color: #00CDBE"></i>
+            <h4 class="mt-xl">1. Haemme tavarasi</h4>
+            <p> Haemme tavarat joustavasti haluamallasi ajankohdalla.</p>
+          </div>
+          <div class="counter counter-dark" data-appear-animation="fadeInLeft">
+            <hr class="invisible">
+            <hr class="invisible">
+            <i class="fa fa-lock" style="color: #00CDBE"></i>
+            <h4 class="mt-xl">2. Säilytämme tavarasi turvassa</h4>
+            <p>Meillä on valvotut, kuivat ja lämpimät tilat.</p>
+          </div>
+          <div class="counter counter-dark" data-appear-animation="fadeInLeft">
+            <hr class="invisible">
+            <hr class="invisible">
+            <i class="fa fa-truck" style="color: #00CDBE"></i>
+            <h4 class="mt-xl">3. Palautamme tavarasi kun tarvitset niitä</h4>
+            <p>Voit tilata yksittäisiä tavaroita tai kaikki tavarat kerralla kotiin.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="contact-details">
+          <h4 style="color:#00CDBE">Vint Finland Oy</h4>
+          <p>Y-tunnus: 2763497-8</p>
+          <p><a href="http://blog.vint.fi/" target="_blank" title="Blogi">Seuraa blogiamme</a></p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="contact-details">
+          <h4>Lisätietoa</h4>
+          <a href="https://vint.fi/info.php#about-us">Vintistä</a><br/>
+          <a href="https://vint.fi/info.php#how-it-works">Miten Vint toimii?</a><br/>
+          <a href="https://vint.fi/info.php#faq">Usein kysyttyä</a><br/>
+          <a href="https://vint.fi/info.php#renter">Tilan tarjoajalle</a>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="contact-details">
+          <h4>Ota yhteyttä</h4>
+          <ul class="contact">
+            <li>
+              <p><i class="fa fa-map-marker"></i> <strong>Osoite:</strong> Tykistökatu 4, 20520 Turku</p>
+            </li>
+            <li>
+              <p><i class="fa fa-envelope"></i> <strong>Sähköposti:</strong> <a href="mailto:info@vint.fi">info@vint.fi</a></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <h4>Seuraa meitä</h4>
+        <ul class="social-icons">
+          <li class="social-icons-facebook"><a href="https://www.facebook.com/vint.fi/" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+          <li class="social-icons-twitter"><a href="http://www.twitter.com/" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -60,7 +60,7 @@ module Kassi
     config.assets.initialize_on_precompile = false
 
     # Add webfonts folder which can contain icons used like fonts
-    config.assets.paths << Rails.root.join("app", "assets", "webfonts")
+    config.assets.paths << Rails.root.join("app", "assets", "webfonts, fonts")
     config.assets.paths << VENDOR_CSS_PATH
 
     # Define here additional Asset Pipeline Manifests to include to precompilation
