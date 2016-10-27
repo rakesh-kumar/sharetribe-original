@@ -5592,61 +5592,17 @@ a.toggle-menu-subitem {
     text-align: center;
     margin-left: 0.75em
 }
-.header-wide-logo-text,
-.header-square-logo-text {
-    margin-top: 0.625rem;
-    margin-bottom: 0.625rem;
-    line-height: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.75em;
-    letter-spacing: -0.03em;
-    text-transform: uppercase;
-    font-weight: 800
-}
-.header-wide-logo-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 9.375rem;
-    height: 2.5rem
-}
-.header-square-logo-text {
-    width: 2.5rem;
-    height: 2.5rem
-}
-.header-wide-logo {
-    background-image: url("../../images/communities/wide_logos/25605/header/vint-logo-13b1d.png?1466401873");
-    width: 10.5em;
-    height: 2.5em;
-    background-repeat: no-repeat;
-    -webkit-background-size: 10.5em auto;
-    -moz-background-size: 10.5em auto;
-    -o-background-size: 10.5em auto;
-    background-size: 10.5em auto;
-    display: inline-block
-}
+
+
+
 @media (-webkit-min-device-pixel-ratio: 1.5),
 (min-resolution: 144dpi) {
-    .header-wide-logo {
-        background-image: url("../../images/communities/wide_logos/25605/header_highres/vint-logo-13b1d.png?1466401873")
-    }
+    
 }
-.header-square-logo {
-    background-image: url("../../images/communities/logos/25605/header_icon/vint_600x6000e7e.png?1467451715");
-    width: 2.5em;
-    height: 2.5em;
-    background-repeat: no-repeat;
-    -webkit-background-size: 2.5em auto;
-    -moz-background-size: 2.5em auto;
-    -o-background-size: 2.5em auto;
-    background-size: 2.5em auto;
-    display: inline-block
-}
+
 @media (-webkit-min-device-pixel-ratio: 1.5),
 (min-resolution: 144dpi) {
-    .header-square-logo {
-        background-image: url("../../images/communities/logos/25605/header_icon_highres/vint_600x6000e7e.png?1467451715")
-    }
+    
 }
 .home-fluid-thumbnail-grid-narrow .home-fluid-thumbnail-grid {
     overflow: hidden;
