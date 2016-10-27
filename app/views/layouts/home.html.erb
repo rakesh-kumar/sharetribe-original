@@ -2,58 +2,57 @@
 <html>
 <head>
 
-	<meta charset="utf-8">
+    <meta charset="utf-8">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	<meta property="og:type" content="website">
-	<meta http-equiv="content-language" content="fi">
-	<meta name="twitter:card" content="summary">
-	<meta name="robots" content="index,follow">
-	<!-- Additional meta tags for SEO, etc. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta property="og:type" content="website">
+    <meta http-equiv="content-language" content="fi">
+    <meta name="twitter:card" content="summary">
+    <meta name="robots" content="index,follow">
+    <!-- Additional meta tags for SEO, etc. -->
 
-	<title>Vint - Varasto, autotalli tai varastotilaa edullisesti</title>
-	<meta name="description" content="Vint on varastotilojen markkinapaikka. Ansaitse tyhjällä tilallasi tai vuokraa varasto, autotalli tai muuta varastotilaa helposti.">
+    <title>Vint - Varasto, autotalli tai varastotilaa edullisesti</title>
+    <meta name="description" content="Vint on varastotilojen markkinapaikka. Ansaitse tyhjällä tilallasi tai vuokraa varasto, autotalli tai muuta varastotilaa helposti.">
 
-	<!-- CSS -->
-	<%=stylesheet_link_tag 'application'%>
+    <!-- CSS -->
+    <%=stylesheet_link_tag 'application'%>
+    <% if @current_community.has_customizations? %>
+      <%= render partial: "layouts/style_overrides", locals: MarketplaceHelper.style_customizations_map(@current_community) %>
+    <% end %>
+    <%= stylesheet_link_tag "landing_page_new/base" %>
+    
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= javascript_include_tag 'application'%>
-	<!-- Modernizr, in the head tag, right after stylesheets, for best performance: -->
-	<%= javascript_include_tag "modernizr.min"%>
-	<!-- Android pre Jellybean has an ugly bug, which prevents font-size 0 technique from -->
-	<!-- removing the spaces between inline-blocks. Remove this piece of code when pre Jellybean becomes unsupported -->
-	<script>
-	Modernizr.addTest('androidPreJellybean', function(){
-		var ua = navigator.userAgent;
-		if( ua.indexOf("Android") >= 0 ) {
-			var androidversion = parseFloat(ua.slice(ua.indexOf("Android")+8));
-			return androidversion &lt; 4.1
-		}
-	});
-	</script>
-	<meta content="authenticity_token" name="csrf-param">
-	<meta content="CF9vIoYbwbWcfSevjlAlcLIsw+eh5OZhx6oBeHgnlBMNGsdrZdBwZuqX5CJ5u9BQKZKvx5XaAs+DWxA8qBbmgg==" name="csrf-token">
+    <!-- Modernizr, in the head tag, right after stylesheets, for best performance: -->
+    <%= javascript_include_tag "modernizr.min"%>
+    <!-- Android pre Jellybean has an ugly bug, which prevents font-size 0 technique from -->
+    <!-- removing the spaces between inline-blocks. Remove this piece of code when pre Jellybean becomes unsupported -->
+    <script>
+    Modernizr.addTest('androidPreJellybean', function(){
+        var ua = navigator.userAgent;
+        if( ua.indexOf("Android") >= 0 ) {
+            var androidversion = parseFloat(ua.slice(ua.indexOf("Android")+8));
+            return androidversion &lt; 4.1
+        }
+    });
+    </script>
+    <meta content="authenticity_token" name="csrf-param">
+    <meta content="CF9vIoYbwbWcfSevjlAlcLIsw+eh5OZhx6oBeHgnlBMNGsdrZdBwZuqX5CJ5u9BQKZKvx5XaAs+DWxA8qBbmgg==" name="csrf-token">
 
-	<!-- Favicon -->
-	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-	<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 
-	<!-- Mobile Metas -->
-	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<!-- Web Fonts  -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css">
+    <!-- Web Fonts  -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css">
 
-	<!-- Vendor CSS -->
-	<%= stylesheet_link_tag "bootstrap.min" %>
-	<%= stylesheet_link_tag "custom-styles" %>
-	<%= stylesheet_link_tag "theme.css" %>
-	<%= stylesheet_link_tag "theme-elements" %>
-	<%= stylesheet_link_tag "default" %>
-	<%#= stylesheet_link_tag "theme-animate" %>
-	<%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" %>
-	<!-- Head Libs -->
-	
-	
+    <!-- Vendor CSS -->
+    <!-- Head Libs -->
+    
+    
 </head>
 <body>
   <%=yield%>

@@ -75,12 +75,7 @@ module Kassi
       'app-bundle.css',
       'app-bundle.js',
       'vendor-bundle.js',
-      'theme.css',
-      'bootstrap.min',
-      'custom-styles',
-      'theme-elements',
-      'default',
-      'theme-animate'
+      'landing_page_new/base.css'
     ]
 
     # Read the config from the config.yml
