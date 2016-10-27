@@ -5,8 +5,8 @@
     <div class="coverimage">
       <figure class="marketplace-cover fluidratio" style="background-image: url('/assets/background-storage.jpg') !important">
         <div class="lander-content marketplace-lander-content">
-          <h1 class="marketplace-lander-content-title">Vint - varastot ja autotallit helposti</h1>
-          <p>Etsi helposti tyhjiä tiloja lähialueeltasi.</p>
+          <h1 class="marketplace-lander-content-title"> <%= community_slogan.html_safe%> </h1>
+          <p><%= community_description.html_safe%></p>
           <div class="search-form">
             <%=form_tag search_without_locale_path, id: 'search_form', class: 'search_form', method: :get do%>
               <div class="search-form-input search-form-text-field">

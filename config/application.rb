@@ -79,7 +79,8 @@ module Kassi
       'bootstrap.min',
       'custom-styles',
       'theme-elements',
-      'default'
+      'default',
+      'theme-animate'
     ]
 
     # Read the config from the config.yml
