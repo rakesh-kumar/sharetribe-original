@@ -383,6 +383,11 @@ fr:
       subscription: Abonnement
       preview: "Prévisualiser le site"
     listing_shapes:
+      availability_title: Disponibilité
+      allow_availability_management: "Activer la gestion automatique de la disponibilité (empêcher les doubles réservations)"
+      per_day_availability: "Disponibilité \"par jour\""
+      per_night_availability: "Disponibilité \"par nuit\""
+      pricing_units_disabled_info: "Les unités de prix ne peuvent être utilisées lorsque le calendrier de disponibilité est activé."
       index:
         listing_shapes: "Types de transaction"
         description: "Les types de transaction déterminent comment le processus de transaction fonctionne sur votre site. Vous pouvez choisir de permettre à vos utilisateurs de louer ou vendre, ou même de simplement publier des informations et de communiquer sans paiement."
@@ -447,7 +452,7 @@ fr:
       units_title: "Unités de prix"
       units_desc: "Si vous choisissez des unités de prix, le prix de l'annonce sera affiché avec le format \"prix par unité de prix\". Par exemple : \"39€ par heure\"."
       units:
-        piece: "Par élément"
+        piece: "Par unité"
         hour: "Par heure"
         day: "Par jour"
         night: "Par nuit"
@@ -465,7 +470,7 @@ fr:
         per: Par
         unit_type:
           heading: "Type d'unité"
-          quantity_label: "Quantité (par élément, par kg, par personne, par visite de 2 heures...)"
+          quantity_label: "Quantité (par unité, par kg, par personne, par visite de 2 heures...)"
           time_label: "Temps (par 30 minutes, par 2 semaines, par année...)"
     paypal_accounts:
       marketplace_paypal_integration: "Paramètres du système de paiements"
@@ -884,6 +889,12 @@ fr:
       remember_to_accept: "N'oubliez pas d'accepter la demande de %{requester} à propos de l'annonce \"%{listing_title}\". %{requester} a déjà payé pour cette annonce. Vous devez accepter la demande pour recevoir le paiement."
       one_day_left: "Si vous n'acceptez pas la demande sous une journée la demande sera automatiquement refusée et vous ne recevrez pas le paiement."
       click_here_to_reply: "Cliquez ici pour répondre à la demande"
+    welcome_email:
+      welcome_email_subject: "Bienvenue sur %{service_name}"
+      welcome_to_marketplace: "Bienvenue sur %{service_name} ! Ravi que vous nous ayez rejoint."
+      love_marketplace_crew: "Love,<br /><i>L'équipe de %{service_name}</i>"
+      welcome_email_footer_text: "Quels types d'emails souhaitez vous recevoir de la part de %{service_name} ? %{settings_link}"
+      settings_link_text: "Vérifiez vos paramètres"
     new_listing_by_followed_person:
       subject: "%{author_name} a publié une nouvelle annonce sur %{service_name}"
       has_posted_a_new_listing: "%{author_name} a publié une nouvelle annonce : "
@@ -895,6 +906,9 @@ fr:
       person_name: "Nom : "
       person_email: "Email : "
   error_messages:
+    booking:
+      booking_failed_payment_voided: "La réservation a échoué à cause d'une erreur inattendue. Veuillez essayer de nouveau un peu plus tard. Vous n'avez pas été facturé."
+      double_booking_payment_voided: "Hélas les dates que vous avez choisi ne sont plus disponibles. Veuillez choisir d'autres dates. Vous n'avez pas été facturé."
     onboarding:
       server_rendering: "Le chargement du guide de démarrage a échoué. Nous en avons été prévenus et nous sommes en train de résoudre cela !"
     listings:
@@ -1345,6 +1359,8 @@ fr:
     error:
       something_went_wrong: "Quelque chose s'est mal passé, code d'erreur : %{error_code}"
       something_went_wrong_plain: "Quelque chose s'est mal passé"
+      create_failed_to_connect_to_booking_service: "La création de l'annonce a échoué : impossible de se connecter au service de réservation. Veuillez essayer de nouveau."
+      update_failed_to_connect_to_booking_service: "La mise à jour de l'annonce a échoué : impossible de se connecter au service de réservation. Veuillez essayer de nouveau."
     follow_links:
       follow: "Recevoir les nouveaux commentaires par email."
       unfollow: "Ne pas recevoir les nouveaux commentaires par email."
@@ -1492,6 +1508,7 @@ fr:
       booking_to: Au
       how_paypal_works: "Comment fonctionne PayPal"
       payment_help: "Aide à propos du paiement"
+      unable_load_availability: "Impossible de charger les informations de disponibilités. Veuillez essayer de nouveau dans quelques instants."
     new:
       listing: annonce
       selected_category: "Catégorie : %{category}"
@@ -1566,6 +1583,8 @@ fr:
       verification_required: "Vérification nécessaire"
   listing_conversations:
     preauthorize:
+      dates_not_available: "Les dates choisies ne sont pas disponibles"
+      error_in_checking_availability: "Impossible de vérifier la disponibilité des dates sélectionnés"
       details: Détails
       by: "%{listing} par %{author}"
       payment: Paiement
@@ -2035,6 +2054,17 @@ fr:
     day: jour
     days: jours
   web:
+    listings:
+      pricing_units:
+        piece: unité
+        hour: heure
+        day: jour
+        night: nuit
+        week: semaine
+        month: mois
+    no_listings:
+      sorry: "Désolé, aucune annonce n'a pu être trouvée avec vos critères de recherche."
+      try_other_search_terms: "Essayez peut-être avec d'autres termes ?"
     listing_card:
       no_picture: "Aucune image"
     topbar:
@@ -2052,6 +2082,9 @@ fr:
       signup: S'inscrire
       admin_dashboard: "Panneau d'administration"
       language: Langue
+    utils:
+      km: km
+      mi: mi
     branding:
       powered_by: "%{service_name} est propulsé par la plate-forme de places de marché %{sharetribe_link}."
       create_own: "Voulez-vous créer votre propre place de marché en ligne, comme %{service_name} ? %{learn_more}."

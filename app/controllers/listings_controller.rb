@@ -200,6 +200,23 @@ class ListingsController < ApplicationController
       admin_getting_started_guide_path,
       Admin::OnboardingWizard.new(@current_community.id).setup_status)
 
+    blocked_dates_start_on = 1.day.ago.to_date
+    blocked_dates_end_on = 12.months.from_now.to_date
+
+    blocked_dates_result =
+      if FeatureFlagHelper.feature_enabled?(:availability) &&
+         @listing.availability.to_sym == :booking
+
+        get_blocked_dates(
+          start_on: blocked_dates_start_on,
+          end_on: blocked_dates_end_on,
+          community: @current_community,
+          user: @current_user,
+          listing: @listing)
+      else
+        Result::Success.new([])
+      end
+
     view_locals = {
       form_path: form_path,
       payment_gateway: payment_gateway,
@@ -211,7 +228,9 @@ class ListingsController < ApplicationController
       received_testimonials: received_testimonials,
       received_positive_testimonials: received_positive_testimonials,
       feedback_positive_percentage: feedback_positive_percentage,
-      youtube_link_ids: youtube_link_ids
+      youtube_link_ids: youtube_link_ids,
+      blocked_dates_result: blocked_dates_result,
+      blocked_dates_end_on: DateUtils.to_midnight_utc(blocked_dates_end_on)
     }
 
     render(locals: onboarding_popup_locals.merge(view_locals))
@@ -265,7 +284,11 @@ class ListingsController < ApplicationController
     listing_uuid = UUIDUtils.create
 
     if FeatureFlagHelper.feature_enabled?(:availability) && shape.present? && shape[:availability] == :booking
-      bookable_res = create_bookable(@current_community.uuid_object, listing_uuid, @current_user.uuid_object)
+      auth_context = {
+        marketplace_id: @current_community.uuid_object,
+        actor_id: @current_user.uuid_object
+      }
+      bookable_res = create_bookable(@current_community.uuid_object, listing_uuid, @current_user.uuid_object, auth_context)
       unless bookable_res.success
         flash[:error] = t("listings.error.create_failed_to_connect_to_booking_service")
         return redirect_to new_listing_path
@@ -401,10 +424,14 @@ class ListingsController < ApplicationController
 
     if FeatureFlagHelper.feature_enabled?(:availability) &&
        shape.present? &&
-       shape[:availability] == :booking &&
-       @listing.availability.to_sym != :booking
+       shape[:availability] == :booking
 
-      bookable_res = create_bookable(@current_community.uuid_object, @listing.uuid_object, @current_user.uuid_object)
+      auth_context = {
+        marketplace_id: @current_community.uuid_object,
+        actor_id: @current_user.uuid_object
+      }
+
+      bookable_res = create_bookable(@current_community.uuid_object, @listing.uuid_object, @current_user.uuid_object, auth_context)
       unless bookable_res.success
         flash[:error] = t("listings.error.update_failed_to_connect_to_booking_service")
         return redirect_to edit_listing_path(@listing)
@@ -515,7 +542,7 @@ class ListingsController < ApplicationController
 
   private
 
-  def create_bookable(community_uuid, listing_uuid, author_uuid)
+  def create_bookable(community_uuid, listing_uuid, author_uuid, auth_context)
     res = HarmonyClient.post(
       :create_bookable,
       body: {
@@ -524,7 +551,8 @@ class ListingsController < ApplicationController
         authorId: author_uuid
       },
       opts: {
-        max_attempts: 3
+        max_attempts: 3,
+        auth_context: auth_context
       })
 
     if !res[:success] && res[:data][:status] == 409
@@ -532,6 +560,35 @@ class ListingsController < ApplicationController
     else
       res
     end
+  end
+
+  def get_blocked_dates(start_on:, end_on:, community:, user:, listing:)
+    HarmonyClient.get(
+      :query_timeslots,
+      params: {
+        marketplaceId: community.uuid_object,
+        refId: listing.uuid_object,
+        start: start_on,
+        end: end_on
+      },
+      opts: {
+        auth_context: { marketplace_id: community.uuid_object,
+                        actor_id: user ? user.uuid_object : UUIDUtils.v0_uuid }
+      }
+    ).rescue {
+      Result::Error.new(nil, code: :harmony_api_error)
+    }.and_then { |res|
+      available_slots = dates_to_ts_set(
+        res[:body][:data].map { |timeslot| timeslot[:attributes][:start].to_date }
+      )
+      Result::Success.new(
+        dates_to_ts_set(start_on..end_on).subtract(available_slots)
+      )
+    }
+  end
+
+  def dates_to_ts_set(dates)
+    Set.new(dates.map { |d| DateUtils.to_midnight_utc(d) })
   end
 
   def select_shape(shapes, id)

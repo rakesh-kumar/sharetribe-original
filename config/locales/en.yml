@@ -390,6 +390,11 @@ en:
       subscription: Subscription
       preview: "Preview site"
     listing_shapes:
+      availability_title: Availability
+      allow_availability_management: "Enable automatic availability management (prevent double bookings)"
+      per_day_availability: "\"Per day\" availability"
+      per_night_availability: "\"Per night\" availability"
+      pricing_units_disabled_info: "Pricing units cannot be used when availability calendar is enabled."
       index:
         listing_shapes: "Order types"
         description: "Order types determine how the order process works in your site. You can decide whether your users are renting or selling, or perhaps just posting announcements and communicating via free messages."
@@ -929,6 +934,12 @@ en:
       remember_to_accept: "Remember to accept the request from %{requester} about listing \"%{listing_title}\". %{requester} has already paid for the listing. You have to accept the request in order to receive the payment."
       one_day_left: "If you don't accept the request within one day the request will be automatically rejected and you will not get paid."
       click_here_to_reply: "Click here to respond to the request"
+    welcome_email:
+      welcome_email_subject: "Welcome to %{service_name}"
+      welcome_to_marketplace: "Welcome to %{service_name}! Glad to have you on board."
+      love_marketplace_crew: "Love,<br /><i>%{service_name} crew</i>"
+      welcome_email_footer_text: "What kind of emails do you want to receive from %{service_name}? %{settings_link}"
+      settings_link_text: "Check your settings"
     new_listing_by_followed_person:
       subject: "%{author_name} has posted a new listing in %{service_name}"
       has_posted_a_new_listing: "%{author_name} has posted a new listing:"
@@ -940,6 +951,9 @@ en:
       person_name: "Name:"
       person_email: "Email:"
   error_messages:
+    booking:
+      booking_failed_payment_voided: "Booking failed due to an unexpected error. Please try again later. You haven't been charged."
+      double_booking_payment_voided: "Unfortunately the dates you chose are no longer available. Please choose different dates. You haven’t been charged."
     onboarding:
       server_rendering: "Getting started guide failed to load. We have been informed about the situation and we are fixing it."
     listings:
@@ -1390,6 +1404,8 @@ en:
     error:
       something_went_wrong: "Something went wrong, error code: %{error_code}"
       something_went_wrong_plain: "Something went wrong"
+      create_failed_to_connect_to_booking_service: "Listing creation failed: Failed to connect to the booking service. Please try again."
+      update_failed_to_connect_to_booking_service: "Listing update failed: Failed to connect to the booking service. Please try again."
     follow_links:
       follow: "Get emails about new comments"
       unfollow: "Don't get emails about new comments"
@@ -1537,6 +1553,7 @@ en:
       booking_to: To
       how_paypal_works: "How PayPal Works"
       payment_help: "Payment help"
+      unable_load_availability: "Could not load availability information. Please try again later."
     new:
       listing: listing
       selected_category: "Category: %{category}"
@@ -1611,6 +1628,8 @@ en:
       verification_required: "Verification required"
   listing_conversations:
     preauthorize:
+      dates_not_available: "Selected dates are not available"
+      error_in_checking_availability: "Could not check availability for the selected dates"
       details: Details
       by: "%{listing} by %{author}"
       payment: Payment
@@ -2177,6 +2196,17 @@ en:
     day: day
     days: days
   web:
+    listings:
+      pricing_units:
+        piece: piece
+        hour: hour
+        day: day
+        night: night
+        week: week
+        month: month
+    no_listings:
+      sorry: "Sorry, no listings could be found for your search criteria."
+      try_other_search_terms: "Maybe try other search terms?"
     listing_card:
       no_picture: "No picture"
     topbar:
@@ -2194,6 +2224,9 @@ en:
       signup: "Sign up"
       admin_dashboard: "Admin dashboard"
       language: Language
+    utils:
+      km: km
+      mi: mi
     branding:
       powered_by: "%{service_name} is powered by the %{sharetribe_link} marketplace platform."
       create_own: "Want to create your own online marketplace website like %{service_name}? %{learn_more}."

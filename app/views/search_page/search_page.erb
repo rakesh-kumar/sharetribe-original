@@ -4,14 +4,22 @@
   },
   i18n: {
     locale: I18n.locale,
-    defaultLocale: I18n.default_locale
+    defaultLocale: I18n.default_locale,
+    localeInfo: I18nHelper.locale_info(Sharetribe::AVAILABLE_LOCALES, I18n.locale)
   },
   marketplace: {
     marketplace_color1: CommonStylesHelper.marketplace_colors(@current_community)[:marketplace_color1],
-    location: request.fullpath
+    location: request.fullpath,
+    notifications: notifications_to_react,
+    displayBrandingInfo: display_branding_info?,
+    linkToSharetribe: "https://www.sharetribe.com/?utm_source=#{@current_community.ident}.sharetribe.com&utm_medium=referral&utm_campaign=nowl-footer"
   },
-
-  data: bootstrapped_data,
+  searchPage: {
+    page: page,
+    per_page: per_page,
+    data: bootstrapped_data
+  },
+  topbar: topbar_props,
   }
 %>
 <%= react_component("SearchPageApp", props: props, prerender: true, id: 'searchpage-container') %>
