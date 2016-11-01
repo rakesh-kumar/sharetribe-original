@@ -114,7 +114,7 @@ CREATE TABLE `category_custom_fields` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_category_custom_fields_on_category_id_and_custom_field_id` (`category_id`,`custom_field_id`) USING BTREE,
-  KEY `index_category_custom_fields_on_custom_field_id` (`custom_field_id`) USING BTREE
+  KEY `index_category_custom_fields_on_custom_field_id` (`custom_field_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1443,7 +1443,7 @@ CREATE TABLE `shipping_addresses` (
   `updated_at` datetime NOT NULL,
   `country_code` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_shipping_addresses_on_transaction_id` (`transaction_id`) USING BTREE
+  KEY `index_shipping_addresses_on_transaction_id` (`transaction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1664,11 +1664,7 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-<<<<<<< HEAD
--- Dump completed on 2016-10-11 19:06:52
-=======
--- Dump completed on 2016-11-01 12:49:50
->>>>>>> c34bcae0ca69c1a86915c525487f7a0c79cb7ded
+-- Dump completed on 2016-11-01 22:47:37
 INSERT INTO schema_migrations (version) VALUES ('20080806070738');
 
 INSERT INTO schema_migrations (version) VALUES ('20080807071903');
@@ -3241,7 +3237,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161004141208');
 
 INSERT INTO schema_migrations (version) VALUES ('20161006074506');
 
-<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20161011120755');
 
 INSERT INTO schema_migrations (version) VALUES ('20161011121151');
@@ -3249,7 +3244,7 @@ INSERT INTO schema_migrations (version) VALUES ('20161011121151');
 INSERT INTO schema_migrations (version) VALUES ('20161011121406');
 
 INSERT INTO schema_migrations (version) VALUES ('20161011133639');
-=======
+
 INSERT INTO schema_migrations (version) VALUES ('20161012132850');
 
 INSERT INTO schema_migrations (version) VALUES ('20161018090313');
@@ -3271,5 +3266,4 @@ INSERT INTO schema_migrations (version) VALUES ('20161019125057');
 INSERT INTO schema_migrations (version) VALUES ('20161023074355');
 
 INSERT INTO schema_migrations (version) VALUES ('20161101104218');
->>>>>>> c34bcae0ca69c1a86915c525487f7a0c79cb7ded
 
