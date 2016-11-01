@@ -75,6 +75,11 @@ module Kassi
       'app-bundle.css',
       'app-bundle.js',
       'vendor-bundle.js',
+      'homepage',
+      'home-styles',
+      'theme.css',
+      'font-file',
+      'custom'
     ]
 
     # Read the config from the config.yml
