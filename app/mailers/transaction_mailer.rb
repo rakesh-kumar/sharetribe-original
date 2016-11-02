@@ -27,12 +27,14 @@ class TransactionMailer < ActionMailer::Base
     set_up_layout_variables(recipient, transaction.community)
     with_locale(recipient.locale, transaction.community.locales.map(&:to_sym), transaction.community.id) do
 
-      payment_type = MarketplaceService::Community::Query.payment_type(@community.id)
-      gateway_expires = MarketplaceService::Transaction::Entity.authorization_expiration_period(payment_type)
+      # payment_type = MarketplaceService::Community::Query.payment_type(@community.id)
+      # gateway_expires = MarketplaceService::Transaction::Entity.authorization_expiration_period(payment_type)
 
-      expires = Maybe(transaction).booking.end_on.map { |booking_end|
-        MarketplaceService::Transaction::Entity.preauth_expires_at(gateway_expires.days.from_now, booking_end)
-      }.or_else(gateway_expires.days.from_now)
+      # expires = Maybe(transaction).booking.end_on.map { |booking_end|
+      #   MarketplaceService::Transaction::Entity.preauth_expires_at(gateway_expires.days.from_now, booking_end)
+      # }.or_else(gateway_expires.days.from_now)
+
+      expires = 7.days.from_now
 
       buffer = 1.minute # Add a small buffer (it might take a couple seconds until the email is sent)
       expires_in = TimeUtils.time_to(expires + buffer)
