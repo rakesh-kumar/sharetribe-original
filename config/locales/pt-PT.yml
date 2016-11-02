@@ -1491,6 +1491,7 @@ pt-PT:
       booking_to: Até
       how_paypal_works: ~
       payment_help: ~
+      unable_load_availability: ~
     new:
       listing: anúncio
       selected_category: "Categoria: %{category}"
@@ -2025,6 +2026,9 @@ pt-PT:
         night: ~
         week: ~
         month: ~
+    no_listings:
+      sorry: ~
+      try_other_search_terms: ~
     listing_card:
       no_picture: ~
     topbar:

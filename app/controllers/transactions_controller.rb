@@ -27,13 +27,19 @@ class TransactionsController < ApplicationController
         ensure_can_start_transactions(listing_model: listing_model, current_user: @current_user, current_community: @current_community)
       }
     ).on_success { |((listing_id, listing_model, author_model, process, gateway))|
-      transaction_params = HashUtils.symbolize_keys({listing_id: listing_model.id}.merge(params.slice(:start_on, :end_on, :quantity, :delivery)))
+      # booking = listing_model.unit_type == :day
 
+      transaction_params = HashUtils.symbolize_keys({listing_id: listing_model.id}.merge(params.slice(:start_on, :end_on, :quantity, :delivery)))
+      
       case [process[:process], gateway]
       when matches([:none])
         render_free(listing_model: listing_model, author_model: author_model, community: @current_community, params: transaction_params)
-      when matches([:preauthorize, :paypal])
+      # when matches([:preauthorize, __, true])
+      #   redirect_to book_path(transaction_params)
+      when matches([:preauthorize, :stripe])
         redirect_to initiate_order_path(transaction_params)
+      # when matches([:preauthorize, :stripe])
+      #   redirect_to stripe_preauthorize_payment_path(transaction_params)
       else
         opts = "listing_id: #{listing_id}, payment_gateway: #{gateway}, payment_process: #{process}, booking: #{booking}"
         raise ArgumentError.new("Cannot find new transaction path to #{opts}")
@@ -396,7 +402,7 @@ class TransactionsController < ApplicationController
       quantity = tx[:listing_quantity]
       show_subtotal = !!tx[:booking] || quantity.present? && quantity > 1 || tx[:shipping_price].present?
       total_label = (tx[:payment_process] != :preauthorize) ? t("transactions.price") : t("transactions.total")
-
+      
       TransactionViewUtils.price_break_down_locals({
         listing_price: tx[:listing_price],
         localized_unit_type: localized_unit_type,

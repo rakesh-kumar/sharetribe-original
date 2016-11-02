@@ -1496,6 +1496,7 @@ ka:
       booking_to: ზე
       how_paypal_works: "როგორ მუშაობს PayPal"
       payment_help: "გადახდის დახმარება"
+      unable_load_availability: ~
     new:
       listing: სია
       selected_category: "კატეგორია: %{category}"
@@ -2041,6 +2042,9 @@ ka:
         night: ~
         week: ~
         month: ~
+    no_listings:
+      sorry: ~
+      try_other_search_terms: ~
     listing_card:
       no_picture: ~
     topbar:

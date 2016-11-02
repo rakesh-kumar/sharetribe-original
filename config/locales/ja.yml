@@ -1487,6 +1487,7 @@ ja:
       booking_to: この日まで
       how_paypal_works: PayPalの仕組み
       payment_help: ~
+      unable_load_availability: ~
     new:
       listing: リスト
       selected_category: "カテゴリー： %{category}"
@@ -2019,6 +2020,9 @@ ja:
         night: ~
         week: ~
         month: ~
+    no_listings:
+      sorry: ~
+      try_other_search_terms: ~
     listing_card:
       no_picture: ~
     topbar:

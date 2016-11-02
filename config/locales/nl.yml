@@ -1500,6 +1500,7 @@ nl:
       booking_to: Tot
       how_paypal_works: "Hoe PayPal werkt"
       payment_help: ~
+      unable_load_availability: ~
     new:
       listing: advertentie
       selected_category: "Categorie: %{category}"
@@ -2034,6 +2035,9 @@ nl:
         night: ~
         week: ~
         month: ~
+    no_listings:
+      sorry: ~
+      try_other_search_terms: ~
     listing_card:
       no_picture: ~
     topbar:

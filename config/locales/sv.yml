@@ -1506,6 +1506,7 @@ sv:
       booking_to: Till
       how_paypal_works: "Hur PayPal fungerar"
       payment_help: Betalningshjälp
+      unable_load_availability: ~
     new:
       listing: annons
       selected_category: "Kategori: %{category}"
@@ -2053,6 +2054,9 @@ sv:
         night: ~
         week: ~
         month: ~
+    no_listings:
+      sorry: ~
+      try_other_search_terms: ~
     listing_card:
       no_picture: ~
     topbar:

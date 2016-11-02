@@ -181,7 +181,8 @@ class ListingsController < ApplicationController
       [nil, nil]
     end
 
-    payment_gateway = MarketplaceService::Community::Query.payment_type(@current_community.id)
+    # payment_gateway = MarketplaceService::Community::Query.payment_type(@current_community.id)
+    payment_gateway = :stripe
     process = get_transaction_process(community_id: @current_community.id, transaction_process_id: @listing.transaction_process_id)
     form_path = new_transaction_path(listing_id: @listing.id)
     community_country_code = LocalizationUtils.valid_country_code(@current_community.country)
@@ -199,6 +200,23 @@ class ListingsController < ApplicationController
       admin_getting_started_guide_path,
       Admin::OnboardingWizard.new(@current_community.id).setup_status)
 
+    blocked_dates_start_on = 1.day.ago.to_date
+    blocked_dates_end_on = 12.months.from_now.to_date
+
+    blocked_dates_result =
+      if FeatureFlagHelper.feature_enabled?(:availability) &&
+         @listing.availability.to_sym == :booking
+
+        get_blocked_dates(
+          start_on: blocked_dates_start_on,
+          end_on: blocked_dates_end_on,
+          community: @current_community,
+          user: @current_user,
+          listing: @listing)
+      else
+        Result::Success.new([])
+      end
+
     view_locals = {
       form_path: form_path,
       payment_gateway: payment_gateway,
@@ -210,7 +228,9 @@ class ListingsController < ApplicationController
       received_testimonials: received_testimonials,
       received_positive_testimonials: received_positive_testimonials,
       feedback_positive_percentage: feedback_positive_percentage,
-      youtube_link_ids: youtube_link_ids
+      youtube_link_ids: youtube_link_ids,
+      blocked_dates_result: blocked_dates_result,
+      blocked_dates_end_on: DateUtils.to_midnight_utc(blocked_dates_end_on)
     }
 
     render(locals: onboarding_popup_locals.merge(view_locals))
@@ -404,8 +424,7 @@ class ListingsController < ApplicationController
 
     if FeatureFlagHelper.feature_enabled?(:availability) &&
        shape.present? &&
-       shape[:availability] == :booking &&
-       @listing.availability.to_sym != :booking
+       shape[:availability] == :booking
 
       auth_context = {
         marketplace_id: @current_community.uuid_object,
@@ -543,6 +562,35 @@ class ListingsController < ApplicationController
     end
   end
 
+  def get_blocked_dates(start_on:, end_on:, community:, user:, listing:)
+    HarmonyClient.get(
+      :query_timeslots,
+      params: {
+        marketplaceId: community.uuid_object,
+        refId: listing.uuid_object,
+        start: start_on,
+        end: end_on
+      },
+      opts: {
+        auth_context: { marketplace_id: community.uuid_object,
+                        actor_id: user ? user.uuid_object : UUIDUtils.v0_uuid }
+      }
+    ).rescue {
+      Result::Error.new(nil, code: :harmony_api_error)
+    }.and_then { |res|
+      available_slots = dates_to_ts_set(
+        res[:body][:data].map { |timeslot| timeslot[:attributes][:start].to_date }
+      )
+      Result::Success.new(
+        dates_to_ts_set(start_on..end_on).subtract(available_slots)
+      )
+    }
+  end
+
+  def dates_to_ts_set(dates)
+    Set.new(dates.map { |d| DateUtils.to_midnight_utc(d) })
+  end
+
   def select_shape(shapes, id)
     if shapes.size == 1
       shapes.first
@@ -660,7 +708,7 @@ class ListingsController < ApplicationController
     payment_type = MarketplaceService::Community::Query.payment_type(community.id)
     payment_settings = TransactionService::API::Api.settings.get_active(community_id: community.id).maybe
     currency = community.default_currency
-
+    
     case [payment_type, process]
     when matches([__, :none])
       {seller_commission_in_use: false,
@@ -680,7 +728,16 @@ class ListingsController < ApplicationController
        commission_from_seller: p_set[:commission_from_seller],
        minimum_price_cents: p_set[:minimum_price_cents]}
     else
-      raise ArgumentError.new("Unknown payment_type, process combination: [#{payment_type}, #{process}]")
+      p_set = Maybe(payment_settings_api.get_active(community_id: community.id))
+        .select {|res| res[:success]}
+        .map {|res| res[:data]}
+        .or_else({})
+      # raise ArgumentError.new("Unknown payment_type, process combination: [#{payment_type}, #{process}]")
+      {seller_commission_in_use: !!community.commission_from_seller,
+       payment_gateway: payment_type,
+       minimum_commission: Money.new(0, currency),
+       commission_from_seller: p_set[:commission_from_seller],
+       minimum_price_cents: p_set[:minimum_price_cents]}
     end
   end
 

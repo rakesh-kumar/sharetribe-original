@@ -1,15 +1,17 @@
 import { Component, PropTypes } from 'react';
-import r, { div, a } from 'r-dom';
+import r, { div } from 'r-dom';
 import Immutable from 'immutable';
+import classNames from 'classnames';
 import styleVariables from '../../../assets/styles/variables';
 import { routes as routesProp } from '../../../utils/PropTypes';
-import { upsertSearchQueryParam } from '../../../utils/url';
 
 import Topbar from '../../sections/Topbar/Topbar';
 import ListingCard from '../../composites/ListingCard/ListingCard';
 import ListingCardPanel from '../../composites/ListingCardPanel/ListingCardPanel';
 import Branding from '../../composites/Branding/Branding';
 import FlashNotification from '../../composites/FlashNotification/FlashNotification';
+import PageSelection from '../../composites/PageSelection/PageSelection';
+import NoResults from '../../composites/NoResults/NoResults';
 
 import css from './SearchPage.css';
 
@@ -24,38 +26,10 @@ class SearchPage extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.listings = listingsByIds(props.searchPage.listings, props.searchPage.currentPage) || [];
+    this.listings = listingsByIds(props.searchPage.listings, props.searchPage.currentPage) || new Immutable.List();
     this.listingProps = this.listingProps.bind(this);
-    this.nextPage = this.nextPage.bind(this);
-    this.prevPage = this.prevPage.bind(this);
 
     this.totalPages = Math.ceil(this.props.searchPage.state.get('total') / this.props.searchPage.state.get('pageSize'));
-    this.hasNextPage = this.totalPages > this.props.searchPage.state.get('page');
-    this.hasPrevPage = this.props.searchPage.state.get('page') > 1;
-  }
-
-  nextPage() {
-    return this.props.searchPage.state.get('page') + 1;
-  }
-
-  prevPage() {
-    return this.props.searchPage.state.get('page') - 1;
-  }
-
-  setPage(num) {
-    return (e) => {
-      e.preventDefault();
-
-      // placeholder for page change without page load
-      window.location = this.pageUrl(num);
-      return false;
-    };
-  }
-
-  pageUrl(num) {
-    const newParams = upsertSearchQueryParam(this.props.marketplace.location, 'page', num);
-    const locationBase = this.props.marketplace.location.split('?')[0];
-    return `${locationBase}?${newParams}`;
   }
 
   listingProps(listing, color) {
@@ -70,21 +44,34 @@ class SearchPage extends Component {
   render() {
     const { marketplace_color1: marketplaceColor1, displayBrandingInfo, linkToSharetribe } = { ...DEFAULT_CONTEXT, ...this.props.marketplace };
     const displayBranding = this.props.marketplace && displayBrandingInfo && linkToSharetribe;
-    return div({ className: css.searchPage }, [
+
+    const searchResults = div(
+      {
+        className: classNames('SearchPage_main', css.main),
+      },
+      [
+        r(ListingCardPanel,
+          { className: css.listingContainer },
+          this.listings.map((listing) =>
+            r(ListingCard, this.listingProps(listing, marketplaceColor1))
+        )),
+        r(PageSelection, {
+          currentPage: this.props.searchPage.state.get('page'),
+          totalPages: this.totalPages,
+          location: this.props.marketplace.location,
+          pageParam: 'page',
+        }),
+      ]);
+    const noResults = r(NoResults, {
+      className: classNames('SearchPage_main', css.empty),
+    });
+
+    return div({ className: classNames('SearchPage', css.SearchPage) }, [
       r(Topbar, {
         ...this.props.topbar,
         routes: this.props.routes,
       }),
-      r(ListingCardPanel,
-        { className: css.listingContainer },
-        this.listings.map((listing) =>
-          r(ListingCard, this.listingProps(listing, marketplaceColor1))
-      )),
-      div({}, [
-        `${this.props.searchPage.state.get('total')} listings, page ${this.props.searchPage.state.get('page')}/${this.totalPages}`,
-        this.hasPrevPage ? a({ onClick: this.setPage(this.prevPage()), href: this.pageUrl(this.prevPage()) }, 'prev') : null,
-        this.hasNextPage ? a({ onClick: this.setPage(this.nextPage()), href: this.pageUrl(this.nextPage()) }, 'next') : null,
-      ]),
+      this.listings.size > 0 ? searchResults : noResults,
       displayBranding ? r(Branding, { linkToSharetribe }) : null,
       r(FlashNotification, {
         actions: this.props.actions,

@@ -14,6 +14,8 @@ const fontSizeMobile = '17px';
 const fontWeightMedium = '500';
 const fontWeightSemibold = '600';
 
+const lineHeight = 22;
+
 const textColor = 'rgb(82, 89, 97)';
 const textColorFocus = 'rgb(0, 0, 0)';
 const textColorGrey = 'rgb(122, 125, 128)';
@@ -35,6 +37,8 @@ const borderColorNotification = '#e1e1e1';
 const topbarItemHeight = `${minimumButtonSize}px`;
 const topbarMediumItemHeight = '36px';
 const bodyPadding = '24px';
+
+const searchPageShadow = '0 2px 3px 0 rgba(0, 0, 0, 0.1)';
 
 // With minimum z-index we try to avoid most clashes with rails components
 const zIndexMinimum = 5;
@@ -287,13 +291,15 @@ module.exports = {
   '--AddNewListingButton_textPadding': '1.5em',
 
   // SEARCH PAGE
+  '--SearchPage_backgroundColor': backgroundColorGrey,
+
   '--ListingCard_noImageText': textColor,
   '--ListingCard_fontSize': fontSize,
   '--ListingCard_fontSizeTitle': fontSizeBig,
   '--ListingCard_fontSizeDistance': fontSizeSmaller,
   '--ListingCard_fontSizePrice': fontSizeBigger,
   '--ListingCard_lineHeight': '26px',
-  '--ListingCard_lineHeightTitle': '22px',
+  '--ListingCard_lineHeightTitle': `${lineHeight}px`,
   '--ListingCard_colorTitle': textColorDark,
   '--ListingCard_colorDistance': textColorGrey,
   '--ListingCard_colorBackground': backgroundLightColor,
@@ -305,9 +311,16 @@ module.exports = {
   '--ListingCard_letterSpacing': '0.2px',
   '--ListingCard_fontWeightMedium': fontWeightMedium,
   '--ListingCard_fontWeightSemibold': fontWeightSemibold,
+  '--ListingCard_shadow': searchPageShadow,
 
   '--ListingCardPanel_gutterSpacing': bodyPadding,
-  '--ListingCardPanel_backgroundColor': backgroundColorGrey,
+
+  '--RoundButton_shadow': searchPageShadow,
+
+  '--NoResults_textColor': textColorDark,
+  '--NoResults_fontSize': fontSizeBig,
+  '--NoResults_lineHeight': `${lineHeight}px`,
+  '--NoResults_spacing': bodyPadding,
 
   '--Branding_textColor': textColor,
   '--Branding_borderColor': borderColor,

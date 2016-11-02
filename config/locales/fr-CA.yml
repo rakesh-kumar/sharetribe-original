@@ -1492,6 +1492,7 @@ fr-CA:
       booking_to: Au
       how_paypal_works: "Comment fonctionne PayPal"
       payment_help: ~
+      unable_load_availability: ~
     new:
       listing: annonce
       selected_category: "Catégorie : %{category}"
@@ -2026,6 +2027,9 @@ fr-CA:
         night: ~
         week: ~
         month: ~
+    no_listings:
+      sorry: ~
+      try_other_search_terms: ~
     listing_card:
       no_picture: ~
     topbar:

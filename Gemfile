@@ -56,12 +56,12 @@ gem 'web_translate_it', "~>2.1.8"
 gem 'rails-i18n', '~> 4.0.8'
 gem 'devise', "~>3.5.0"
 gem 'devise-encryptable', '~> 0.2.0'
-gem "omniauth-facebook", "~> 3.0.0"
+gem "omniauth-facebook", "~> 4.0.0"
 
 # Dynamic form adds helpers that are needed, e.g. error_messages
 gem 'dynamic_form', "~>1.1.4"
 gem "truncate_html", "~>0.9.1"
-gem 'money-rails', "~>1.3.0"
+gem 'money-rails', "~>1.4.0"
 
 # The latest release (0.9.0) is not Rails 4 compatible
 gem 'mercury-rails',
@@ -187,3 +187,4 @@ gem 'color', '~> 1.8'
 gem 'uuidtools', '~> 2.1'
 gem 'transit-ruby', '~> 0.8'
 gem "font-awesome-rails"
+gem 'stripe'

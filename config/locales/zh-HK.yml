@@ -1494,6 +1494,7 @@ zh-HK:
       booking_to: 到
       how_paypal_works: PayPal如何運作
       payment_help: 付款說明
+      unable_load_availability: ~
     new:
       listing: 訊息
       selected_category: "類別：%{category}"
@@ -2026,6 +2027,9 @@ zh-HK:
         night: ~
         week: ~
         month: ~
+    no_listings:
+      sorry: ~
+      try_other_search_terms: ~
     listing_card:
       no_picture: ~
     topbar:

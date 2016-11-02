@@ -1473,6 +1473,7 @@ pl:
       booking_to: ~
       how_paypal_works: ~
       payment_help: ~
+      unable_load_availability: ~
     new:
       listing: oferta
       selected_category: "Kategoria: %{category}"
@@ -2021,6 +2022,9 @@ pl:
         night: ~
         week: ~
         month: ~
+    no_listings:
+      sorry: ~
+      try_other_search_terms: ~
     listing_card:
       no_picture: ~
     topbar:

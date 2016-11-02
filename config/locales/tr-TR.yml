@@ -1489,6 +1489,7 @@ tr-TR:
       booking_to: "'a"
       how_paypal_works: "PayPal Nasıl Çalışır"
       payment_help: ~
+      unable_load_availability: ~
     new:
       listing: ilan
       selected_category: "Kategori: %{category}"
@@ -2021,6 +2022,9 @@ tr-TR:
         night: ~
         week: ~
         month: ~
+    no_listings:
+      sorry: ~
+      try_other_search_terms: ~
     listing_card:
       no_picture: ~
     topbar:

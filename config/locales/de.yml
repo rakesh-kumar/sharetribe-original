@@ -1508,6 +1508,7 @@ de:
       booking_to: Bis
       how_paypal_works: "Wie PayPal funktioniert"
       payment_help: "Hilfe beim Bezahlen"
+      unable_load_availability: ~
     new:
       listing: Eintrag
       selected_category: "Kategorie: %{category}"
@@ -2055,6 +2056,9 @@ de:
         night: ~
         week: ~
         month: ~
+    no_listings:
+      sorry: ~
+      try_other_search_terms: ~
     listing_card:
       no_picture: ~
     topbar:
