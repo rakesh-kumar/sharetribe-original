@@ -1,6 +1,7 @@
 require 'will_paginate/array'
 
 class ApplicationController < ActionController::Base
+  before_filter :authenticate
 
   module DefaultURLOptions
     # Adds locale to all links
@@ -582,4 +583,11 @@ class ApplicationController < ActionController::Base
   def render_not_found!(msg = "Not found")
     raise ActionController::RoutingError.new(msg)
   end
+
+  protected
+    def authenticate
+      authenticate_or_request_with_http_basic do |username, password|
+        username == "vint_admin" && password == "vint@2016#"
+      end
+    end
 end
