@@ -1,0 +1,79 @@
+body, * { 
+	margin:0;
+	padding:0;
+}
+.wrapper {
+    width: 100%;
+    float: left;
+    margin-top: -100px;
+    margin-left: -25px;
+    margin-bottom: 100px;
+}
+
+.building-animate {
+    margin: 0 70px auto;
+    width: 210px;
+    padding: 0 15px;
+    float: left;
+    display: block;
+}
+.building-animate .owl-carousel {
+    overflow: hidden;
+    position: relative;
+}
+.building-animate .owl-carousel::before, .building-animate .owl-carousel::after {
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width:210px;
+    z-index: 1;
+}
+.building-animate .owl-carousel::before {
+    background-repeat: repeat-x;
+    left: 0;
+}
+.building-animate .owl-carousel::after {
+    background-repeat: repeat-x;
+    right: 0;
+}
+
+
+.selves {
+    position: relative;
+    margin: 42px 0;
+    width: 220px;
+    padding: 0 15px;
+    float: left;
+    /* margin-left: -30px; */
+    display: block;
+    margin: 0px 76px auto;
+}
+
+.selves .owl-carousel{
+    height: 160px;
+    left: 32px;
+    overflow: hidden;
+    position: absolute;
+    width: 165px;
+	top: 123px; 
+}
+
+
+.delivery-truck {
+    position: relative;
+    margin: 25px 72px auto;
+    width: 220px;
+    padding: 0 15px;
+    float: left;
+    display: block;
+}
+.delivery-truck .owl-carousel {
+    height: 160px;
+    left: 20px;
+    overflow: hidden;
+    position: absolute;
+    top: 150px;
+    width: 189px;
+}
