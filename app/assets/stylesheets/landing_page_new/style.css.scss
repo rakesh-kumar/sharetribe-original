@@ -42,18 +42,6 @@
     :: Import all css 
     ************************* */
     
-    @import 'css/bootstrap.min.css';
-    @import 'css/nivoslider.css';
-    @import 'css/magnific-popup.css';
-    @import 'css/animate.css';
-    @import 'css/meanmenu.css';
-    @import 'css/font-awesome.min.css';
-    @import 'css/owl.carousel.css';
-    @import 'css/et-line.css';
-    @import 'css/YTPlayer.css';
-    /* *************************
-    :: 1.0 Fonts 
-    ************************* */
     
     @import 'https://fonts.googleapis.com/css?family=Open+Sans:400,700,800';
     @font-face {
@@ -187,6 +175,10 @@
         z-index: 1;
         text-align: center;
     }
+
+    section.slick-slider-grid {
+    margin-bottom: 100px;
+}
     
     .section_heading > h3 {
         color: #e67e22;
