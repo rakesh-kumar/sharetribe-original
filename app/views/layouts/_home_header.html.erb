@@ -1,0 +1,42 @@
+<% if logged_in %>
+
+ <li> <%= link_to  inbox_path do %> 
+ <i class="fa fa-envelope-o" aria-hidden="true"></i>
+ <% end -%>
+ </li>
+            <li>
+            	<%= render :partial => "layouts/header_user_menu", locals: {unread_count: unread_count, inbox_path: inbox_path, profile_path: profile_path, manage_listings_path: manage_listings_path, settings_path: settings_path, logout_path: logout_path, icons: icons} %>
+            </li>
+            <li class="dropdown">
+                    <a href="#" class="dropdown-toggle nav-links" data-toggle="dropdown" role="button" aria-expanded="false">Menu<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a class="nav-links" href="/">Home</a></li>
+                        <li><a class="nav-links" href="/en/infos/about">About</a></li>
+                        <li><a class="nav-links" href="#">Contact Us</a></li>
+                          <li class="divider"></li>
+                        <li><%= link_to ("Logout"), logout_path%></li> 
+                    </ul>
+        <li> 
+<% end %>
+
+<% unless logged_in %>
+      <li>
+      	<li> <%= link_to t("Log In"),  login_path  %> 
+      </li>
+      <li>
+        <%= link_to ("Sign Up"), sign_up_path %>
+        </li>
+         <li class="dropdown">
+                    <a href="#" class="dropdown-toggle nav-links" data-toggle="dropdown" role="button" aria-expanded="false">Menu<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a class="nav-links" href="/">Home</a></li>
+                        <li><a class="nav-links" href="/en/infos/about">About</a></li>
+                        <li><a class="nav-links" href="#">Contact Us</a></li> 
+                    </ul>
+                    </li>
+        <% end %>
+
+<%#= render :partial => "layouts/header_right_visible_tablet", locals: {unread_count: unread_count, inbox_path: inbox_path, icons: icons} %>
+  <%#= link_to t("List Your Space"), new_listing_path, :class => "new-listing-link", :id => "new-listing-link" %>
+
+  

@@ -16,21 +16,20 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Sign Up</a></li>
-            <li><a href="#">Log In</a></li>
-           <li class="dropdown">
-                    <a href="#" class="dropdown-toggle nav-links" data-toggle="dropdown" role="button" aria-expanded="false">Menu<span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a class="nav-links" href="#">Account</a></li>
-                        <li><a class="nav-links" href="#">Settings</a></li>
-                        <li><a class="nav-links" href="#">Misc</a></li>
-                         <li class="divider"></li>
-                        <li><a class="nav-links" href="#exit">Admin Dash</a></li>
-                    </ul>
-            <li>
-              <a class="btn btn-default btn-outline btn-circle"  data-toggle="collapse" href="#nav-collapse1" aria-expanded="false" aria-controls="nav-collapse1">List Your Space</a>
+
+       <%= render partial: 'layouts/home_header', locals: header_props()%>
+
+          
+        <li> 
+          <%#= link_to "RSS feed", :class => "homepage.index.post_new_listing" %>
+             <%#= link_to "Add to your favorites list",
+            :class=>"ui-button-text button_text"}  %>
+             <%= link_to t("List Your Space"), new_listing_path, :class => "new-listing-link", :id => "new-listing-link" %>
+             <!--  <a class="btn btn-default btn-outline btn-circle" data-target="/en/listings/new"  data-toggle="collapse" href="/en/listings/new" method="get" aria-expanded="false" aria-controls="nav-collapse1">List Your Space</a> -->
             </li>
           </ul>
+
+
           </div>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
@@ -47,8 +46,8 @@
         <h1 class="lander-texts">Find shelf space for food<br> exposure</h1>  
         <h3>get your products on the shelves of independent retails and in front of your customers</h3>
         <br>
-        <form class="form-wrapper">
-    <input type="text" id="search" placeholder="Where do you want to sell?" required>
+        <form class="form-wrapper" action="/s" method="GET">
+    <input type="text" id="search" placeholder="Where do you want to sell?">
     <input type="submit" value="Search" id="submit">
 </form>
      </div>

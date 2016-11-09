@@ -61,6 +61,17 @@ body, * {
 }
 
 
+a#new-listing-link {
+    border-radius: 0px;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: #C71E6B;
+    border-color: #C71E6B;
+    color: #fff;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
 .delivery-truck {
     position: relative;
     margin: 25px 72px auto;

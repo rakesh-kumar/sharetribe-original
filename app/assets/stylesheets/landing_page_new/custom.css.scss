@@ -95,6 +95,17 @@ a {
     transition: 0.2s;
 }
 
+.dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 600;
+    line-height: 1.42857143;
+    color: #2d9ea4;
+    white-space: nowrap;
+    font-size: 15px;
+}
+
 .page-landing .hero-container form .left-input-container {
     width: 730px;
     float: left;
