@@ -1,8 +1,7 @@
 require 'will_paginate/array'
 
 class ApplicationController < ActionController::Base
-  before_filter :authenticate
-
+  
   module DefaultURLOptions
     # Adds locale to all links
     def default_url_options

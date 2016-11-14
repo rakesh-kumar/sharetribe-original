@@ -18,10 +18,10 @@ $textLineHeight: $headerHeight - em(3);
 $elementSpacing: lines(0.5);
 
 .header {
-  height: $headerHeight;
+  height:5.2em;
   width: 100%;
+  padding-top: 15px;
 }
-
 .header-wrapper {
   @include wrapper(0);
 }

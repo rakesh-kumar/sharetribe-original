@@ -11,18 +11,22 @@
     <meta name="robots" content="index,follow">
     <!-- Additional meta tags for SEO, etc. -->
 
-    <title>Vint - Varasto, autotalli tai varastotilaa edullisesti</title>
+    <title>My Local Shelf</title>
     <meta name="description" content="Vint on varastotilojen markkinapaikka. Ansaitse tyhjällä tilallasi tai vuokraa varasto, autotalli tai muuta varastotilaa helposti.">
 
     <!-- CSS -->
-    <%=stylesheet_link_tag 'application'%>
+   
     <% if @current_community.has_customizations? %>
       <%= render partial: "layouts/style_overrides", locals: MarketplaceHelper.style_customizations_map(@current_community) %>
     <% end %>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+     <%= javascript_include_tag 'landing_page_new/base'%>
     <%= stylesheet_link_tag "landing_page_new/base" %>
     
     <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" %>
-    <%= javascript_include_tag 'application'%>
     <!-- Modernizr, in the head tag, right after stylesheets, for best performance: -->
     <%= javascript_include_tag "modernizr.min"%>
     <!-- Android pre Jellybean has an ugly bug, which prevents font-size 0 technique from -->
@@ -36,11 +40,39 @@
         }
     });
     </script>
+
+     <script>
+    $(function(){
+
+        $("#typed").typed({
+            // strings: ["Typed.js is a <strong>jQuery</strong> plugin.", "It <em>types</em> out sentences.", "And then deletes them.", "Try it out!"],
+            stringsElement: $('#typed-strings'),
+            typeSpeed: 100,
+            backDelay: 500,
+            loop: true,
+            contentType: 'html', // or text
+            // defaults to false for infinite loop
+            loopCount: false,
+            callback: function(){ foo(); },
+            resetCallback: function() { newTyped(); }
+        });
+
+        $(".reset").click(function(){
+            $("#typed").typed('reset');
+        });
+
+    });
+
+    function newTyped(){ /* A new typed object */ }
+
+    function foo(){ console.log("Callback"); }
+
+    </script>
     <meta content="authenticity_token" name="csrf-param">
     <meta content="CF9vIoYbwbWcfSevjlAlcLIsw+eh5OZhx6oBeHgnlBMNGsdrZdBwZuqX5CJ5u9BQKZKvx5XaAs+DWxA8qBbmgg==" name="csrf-token">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+   
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 
     <!-- Mobile Metas -->
@@ -48,13 +80,54 @@
 
     <!-- Web Fonts  -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css">
+    
+  <script>
 
-    <!-- Vendor CSS -->
-    <!-- Head Libs -->
-    
-    
+     jQuery(document).ready(function($) {
+        $("#owl-building").owlCarousel({
+            items:1,
+            stagePadding: 90,
+            loop:true,
+            margin:15,
+            autoplay:true,
+            autoplayTimeout:3800
+        });
+        $("#owl-selves").owlCarousel({
+            items:2,
+            loop:true,
+            autoplay:true,
+            autoplayTimeout:2500
+        });
+        $("#owl-delivery").owlCarousel({
+            items:1,
+            loop:true,
+            autoplay:true,
+            autoplayTimeout:4600
+        });
+        
+    });
+</script>
+
+
 </head>
 <body>
   <%=yield%>
+  <script type="text/javascript">
+  $(document).ready(function () {
+
+    $(".player").mb_YTPlayer();
+
+});
+</script>
+
+
+
+<script type="text/javascript">
+
+     $("#sticky").sticky({
+        topSpacing: 0
+    });
+
+</script>
 </body>
 <html>
