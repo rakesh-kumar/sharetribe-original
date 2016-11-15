@@ -126,6 +126,24 @@ a {
     float: left;
 }
 
+.new-listing-link {
+    background: #c71e6b !important;
+    color: #fff !important;
+}
+
+.new-listing-link:hover {
+    background: #b52866 !important;
+    color: #fff !important;
+    font-size:15.5;
+}
+
+.new-listing-link:active{
+    background: #c71e6b !important;
+    color: #fff !important;
+    
+}
+
+
 @media only screen and (min-width: 64.063em) {
 section.spaced {
     padding: 20px 0;
