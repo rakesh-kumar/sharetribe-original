@@ -39,7 +39,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-        <h1 class="lander-texts">Find shelf space for food</h1>
+        <h1 class="lander-texts"><%= community_slogan.html_safe %></h1>
            <div class="type-wrap">
             <div id="typed-strings">
               <h1 class="text-center">Exposure</h1>
@@ -48,7 +48,7 @@
             </div>
             <span id="typed" style="white-space:pre;"></span>
         </div>
-        <h3>get your products on the shelves of independent retails and in front of your customers</h3>
+        <h3><%= community_description.html_safe %></h3>
         <br>
         <form class="form-wrapper" action="/s" method="GET">
     <input type="text" id="search" placeholder="Where do you want to sell?">
@@ -70,28 +70,33 @@
 </section>
 
 <div id="steps" class="row width-limit">
-  <ul class="list-unstyled">
-    <li id="image-panel" class="col-sm-4">
+  <div class="col-md-4">
       <b>search and connect</b>
       <p>Discover and book shelf space with independent store owners in areas that match your target customers.</p>
-     <div class="building-animate">
-    <div class="owl-carousel" id="owl-building">
-        <div class="item">
-           <img src="landing_page_new/grocery-shop.svg" alt="" width="200"/>           
-        </div>
-        <div class="item">
-           <img src="landing_page_new/bar-pub.svg" alt="" width="200"/>           
-        </div>
-        <div class="item">
-           <img src="landing_page_new/coffee-shop.svg" alt="" width="179"/>           
-        </div>
-    </div>
-  </div>
-    </li>
-    <li id="image-panel" class="col-sm-4">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+   <div class="carousel-inner">
+      <div class="item active">
+         <img src="landing_page_new/svg2.png" alt="First slide">
+      </div>
+      <div class="item">
+         <img src="landing_page_new/svg1.png" alt="Second slide">
+      </div>
+      <div class="item">
+         <img src="landing_page_new/svg3.png" alt="Third slide">
+      </div>
+   </div>
+</div>
+
+
+</div>
+
+
+  
+
+    <div class="col-md-4">
       <b>Contact and Book</b>
       <p>Get the products to the store and start selling to your customers.</p>
-          <div class="selves">
+     <div class="selves">
      <img src="landing_page_new/shelf.svg" alt="" width="200"/>
     <div class="owl-carousel" id="owl-selves">
         <div class="item">
@@ -120,9 +125,8 @@
         </div>
     </div>
   </div>
-  
-    </li>
-    <li id="image-panel" class="col-sm-4">
+    </div>
+    <div class="col-md-4">
       <b>Deliver and display</b>
       <p>Get paid for sales and build a relationship with the retailer for future orders.</p>
       <div class="delivery-truck">
@@ -142,10 +146,11 @@
         </div>
     </div>
   </div>
-    </li>
-  </ul>
+   </div>
+
 </div>
 
+</div>
 
 
 <section class="images grid">
@@ -166,13 +171,13 @@
         </a>
       </li>
       <li class="col-xs-6 col-sm-4">
-        <a href="" style="background-image: url('http://wallpaper.uplsho.com/upload/6e6592e6c59788204ed1645c593ed46c.jpg')">
+        <a href="" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/600x400_kastra.jpg')">
           <p class="sm-text">Small Text</p>
           <p class="bg-sub-text">Large</p>
         </a>
       </li>
       <li class="col-xs-6">
-        <a href="" style="background-image: url('http://cdn.pcwallart.com/images/city-street-wallpaper-4.jpg')">
+        <a href="" style="background-image: url('http://cdn.pinthiscars.com/images/dodge-challenger-white-stripes-wallpaper-6.jpg')">
           <p class="sm-text">Small Text</p>
           <p class="bg-sub-text">Large</p>
         </a>

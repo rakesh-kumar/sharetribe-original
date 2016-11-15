@@ -1,7 +1,7 @@
 
 .building-animate { 
     margin: 42px 0;
-    width:376px;
+    width:630px;
     padding: 0 15px;
     float:left;
 }
@@ -15,25 +15,25 @@
     height: 100%;
     position: absolute;
     top: 0;
-    width:90px;
+    width:210px;
     z-index: 1;
 }
 .building-animate .owl-carousel::before {
-    background-image:linear-gradient(to right,rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.7) 50%);
+    background-image:linear-gradient(to right, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.7) 50%);
     background-repeat: repeat-x;
     left: 0;
 }
 .building-animate .owl-carousel::after {
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.7) 50%);
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 1) 50%);
     background-repeat: repeat-x;
     right: 0;
 }
 .selves {
     position: relative;
-    margin: 42px 0;
-    width:220px;
-    padding:0 15px;
-    float:left;
+    margin: 0 80px auto;
+    width: 220px;
+    padding: 0 15px;
+    float: left;
 }
 .selves .owl-carousel{
     height: 160px;
@@ -45,10 +45,10 @@
 }
 .delivery-truck {
     position: relative;
-    margin: 42px 0;
-    width:220px;
-    padding:0 15px;
-    float:left;
+    margin: 20px 80px auto;
+    width: 220px;
+    padding: 0 15px;
+    float: left;
 }
 .delivery-truck .owl-carousel {
     height: 160px;
@@ -58,3 +58,23 @@
     top: 150px;
     width: 189px;
 }
+
+@media not all and (min-width: 1150px) {
+.delivery-truck {
+    position: relative;
+    margin: 20px 74px auto;
+    width: 220px;
+    padding: 0 15px;
+    float: left;
+}
+
+}
+
+@media not all and (min-width: 1100px) {
+.delivery-truck {
+    position: relative;
+    margin: 20px 42px auto;
+    width: 220px;
+    padding: 0 15px;
+    float: left;
+} }

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.43, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.52, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: vintapp_development
 -- ------------------------------------------------------
--- Server version	5.5.43-0ubuntu0.14.04.1
+-- Server version	5.5.52-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -692,6 +692,24 @@ CREATE TABLE `follower_relationships` (
   KEY `index_follower_relationships_on_follower_id` (`follower_id`) USING BTREE,
   KEY `index_follower_relationships_on_person_id` (`person_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `homepages`
+--
+
+DROP TABLE IF EXISTS `homepages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `homepages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `text_variation1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text_variation2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text_variation3` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1848,7 +1866,7 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-03 22:31:21
+-- Dump completed on 2016-11-15 18:07:56
 INSERT INTO schema_migrations (version) VALUES ('20080806070738');
 
 INSERT INTO schema_migrations (version) VALUES ('20080807071903');
@@ -3450,4 +3468,12 @@ INSERT INTO schema_migrations (version) VALUES ('20161019125057');
 INSERT INTO schema_migrations (version) VALUES ('20161023074355');
 
 INSERT INTO schema_migrations (version) VALUES ('20161101104218');
+
+INSERT INTO schema_migrations (version) VALUES ('20161115114634');
+
+INSERT INTO schema_migrations (version) VALUES ('20161115123605');
+
+INSERT INTO schema_migrations (version) VALUES ('20161115123622');
+
+INSERT INTO schema_migrations (version) VALUES ('20161115123638');
 
