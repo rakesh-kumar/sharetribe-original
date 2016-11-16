@@ -424,7 +424,14 @@ module ApplicationHelper
         :icon_class => icon_class("form"),
         :path => admin_custom_fields_path,
         :name => "listing_fields"
-      }
+      },
+      {
+        :topic => :configure,
+        :text => 'Homepage section',
+        :icon_class => 'ss-page',
+        :path => admin_homepages_path,
+        :name => "homepage"
+      },
     ]
 
     links << {

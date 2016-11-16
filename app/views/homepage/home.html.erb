@@ -1,356 +1,319 @@
- <header class=" header_area">
- <div class="main_header_area" id="sticky">
-      <div class="container-fluid nav-collapse-sc">
-        <div class="navbar">
+<%homepage = Homepage.last%>
+<header class=" header_area">
+  <div class="main_header_area" id="sticky">
+    <div class="container-fluid nav-collapse-sc">
+      <div class="navbar">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#"><img class="logo-main" src="landing_page_new/mls_logo.png" alt=""></a>
         </div>
-    
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-
-       <%= render partial: 'layouts/home_header', locals: header_props()%>
-
-          
-        <li> 
-             <%= link_to "List Your Space", new_listing_path, :class => "new-listing-link", :id => "new-listing-link" %>
+            <%= render partial: 'layouts/home_header', locals: header_props()%>
+            <li> 
+              <%= link_to "List Your Space", new_listing_path, :class => "new-listing-link", :id => "new-listing-link" %>
             </li>
           </ul>
-
-
-          </div>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container -->
+        </div>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
   </div>
-  </header>
-
-
+</header>
 <section class="content-section video-section">
   <div class="pattern-overlay">
-  <a id="bgndVideo" class="player" data-property="{videoURL:'https://youtu.be/WEkINa-n5BI',containment:'.video-section', quality:'large', autoPlay:true, mute:true, opacity:1}">bg</a>
+    <a id="bgndVideo" class="player" data-property="{videoURL:'https://youtu.be/WEkINa-n5BI',containment:'.video-section', quality:'large', autoPlay:true, mute:true, opacity:1}">bg</a>
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-        <h1 class="lander-texts"><%= community_slogan.html_safe %></h1>
-           <div class="type-wrap">
+          <h1 class="lander-texts"><%= community_slogan.html_safe %></h1>
+          <div class="type-wrap">
             <div id="typed-strings">
-              <h1 class="text-center">Exposure</h1>
-              <h1 class="text-center">Sales</h1>
-              <h1 class="text-center">Tasting</h1>
+              <h1 class="text-center"><%=homepage.present? && homepage.text_variation1.present? ? homepage.text_variation1 : 'Exposure'%></h1>
+              <h1 class="text-center"><%=homepage.present? && homepage.text_variation2.present? ? homepage.text_variation2 : 'Sales'%></h1>
+              <h1 class="text-center"><%=homepage.present? && homepage.text_variation3.present? ? homepage.text_variation3 : 'Exposure'%></h1>
             </div>
             <span id="typed" style="white-space:pre;"></span>
+          </div>
+          <h3><%= community_description.html_safe %></h3>
+          <br>
+          <form class="form-wrapper" action="/s" method="GET">
+            <input type="text" id="search" placeholder="Where do you want to sell?">
+            <input type="submit" value="Search" id="submit">
+          </form>
         </div>
-        <h3><%= community_description.html_safe %></h3>
-        <br>
-        <form class="form-wrapper" action="/s" method="GET">
-    <input type="text" id="search" placeholder="Where do you want to sell?">
-    <input type="submit" value="Search" id="submit">
-</form>
-     </div>
       </div>
     </div>
   </div>
 </section>
-
-
 <section class='text-center spaced show-for-large-up'>
-<div class='row'>
-<div class='col-md-12'>
- <img class="img-responsive" src="landing_page_new/brand-logo.png">
-</div>
-</div>
+  <div class='row'>
+    <div class='col-md-12'>
+      <img class="img-responsive" src="landing_page_new/brand-logo.png">
+    </div>
+  </div>
 </section>
-
-<div id="steps" class="row width-limit">
+<div class="container steple">
+<div class="row">
   <div class="col-md-4">
-      <b>search and connect</b>
-      <p>Discover and book shelf space with independent store owners in areas that match your target customers.</p>
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-   <div class="carousel-inner">
-      <div class="item active">
-         <img src="landing_page_new/svg2.png" alt="First slide">
-      </div>
-      <div class="item">
-         <img src="landing_page_new/svg1.png" alt="Second slide">
-      </div>
-      <div class="item">
-         <img src="landing_page_new/svg3.png" alt="Third slide">
-      </div>
-   </div>
-</div>
-
-
-</div>
-
-
-  
-
-    <div class="col-md-4">
-      <b>Contact and Book</b>
-      <p>Get the products to the store and start selling to your customers.</p>
-     <div class="selves">
-     <img src="landing_page_new/shelf.svg" alt="" width="200"/>
-    <div class="owl-carousel" id="owl-selves">
-        <div class="item">
-           <img src="landing_page_new/shelf1.svg" alt="" width="83"/>           
-        </div>
-        <div class="item">
-           <img src="landing_page_new/shelf1.svg" alt="" width="83"/>           
-        </div>
-        <div class="item">
-           <img src="landing_page_new/shelf2-1.svg" alt="" width="75"/>           
-        </div>
-        <div class="item">
-           <img src="landing_page_new/shelf2-2.svg" alt="" width="75"/>           
-        </div>
-        <div class="item">
-           <img src="landing_page_new/shelf3-1.svg" alt="" width="83"/>           
-        </div>
-        <div class="item">
-           <img src="landing_page_new/shelf3-2.svg" alt="" width="83"/>           
-        </div>
-        <div class="item">
-           <img src="landing_page_new/shelf1.svg" alt="" width="83"/>           
-        </div>
-        <div class="item">
-           <img src="landing_page_new/shelf1.svg" alt="" width="83"/>           
-        </div>
-    </div>
-  </div>
-    </div>
-    <div class="col-md-4">
-      <b>Deliver and display</b>
-      <p>Get paid for sales and build a relationship with the retailer for future orders.</p>
-      <div class="delivery-truck">
-     <img src="landing_page_new/groc-delv.svg" alt="" width="200"/>
-    <div class="owl-carousel" id="owl-delivery">
-      <div class="item">
-           <img src="landing_page_new/delivery-van.svg" alt="" width="189"/>           
-        </div>
-        <div class="item">
-           <img src="landing_page_new/Small-Truck.svg" alt="" width="189"/>           
-        </div>
-        <div class="item">
-           <img src="landing_page_new/Large-Truck.svg" alt="" width="189"/>           
-        </div>
-        <div class="item">
-           <img src="landing_page_new/delivery-van.svg" alt="" width="189"/>           
-        </div>
-    </div>
-  </div>
-   </div>
-
-</div>
-
-</div>
-
-
-<section class="images grid">
-<div class="container">
-  <div id="destinations" class="row width-limit">
-   <h3 class="section-title">SEE YOUR PRODUCTS ON SHELVES EVERYWHERE</h3>
-  <ul class="list-unstyled">
-      <li class="col-xs-6 col-sm-4">
-        <a href="" style="background-image: url('http://www.svrta.org/wp-content/uploads/2009/10/disco-70s-inspiration-7-600x400.jpg')"">
-         <p class="sm-text">Small Text</p>
-         <p class="bg-sub-text">Large</p>
-        </a>
-      </li>
-      <li class="col-xs-6 col-sm-4">
-        <a href="" style="background-image: url('http://www.zeutch.com/wp-content/uploads/2010/07/Sly2VitryParis2.jpg')">
-         <p class="sm-text">Small Text</p>
-         <p class="bg-sub-text">Large</p>
-        </a>
-      </li>
-      <li class="col-xs-6 col-sm-4">
-        <a href="" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/600x400_kastra.jpg')">
-          <p class="sm-text">Small Text</p>
-          <p class="bg-sub-text">Large</p>
-        </a>
-      </li>
-      <li class="col-xs-6">
-        <a href="" style="background-image: url('http://cdn.pinthiscars.com/images/dodge-challenger-white-stripes-wallpaper-6.jpg')">
-          <p class="sm-text">Small Text</p>
-          <p class="bg-sub-text">Large</p>
-        </a>
-      </li>
-      <li class="col-xs-6">
-        <a href="" style="background-image: url('http://www.ilikewallpaper.net/ipad-wallpapers/download/16122/Bicycle-On-The-City-Street-ipad-wallpaper-ilikewallpaper_com.jpg')">
-          <p class="sm-text">Small Text</p>
-          <p class="bg-sub-text">Large</p>
-        </a>
-      </li>
-      <li class="col-xs-6 col-sm-4">
-        <a href="" style="background-image: url('http://cdn.wallpapersafari.com/59/41/vnp2fz.jpg')">
-          <p class="sm-text">Small Text</p>
-          <p class="bg-sub-text">Large</p>
-        </a>
-      </li>
-      <li class="col-xs-6 col-sm-4">
-        <a href="" style="background-image: url('http://images.huffingtonpost.com/2015-09-18-1442587557-684306-AliC_Alice_Pasquini_Mural_Streetart_Berlin_9086.jpg')">
-          <p class="sm-text">Small Text</p>
-          <p class="bg-sub-text">Large</p>
-        </a>
-      </li>
-      <li class="col-xs-6 col-sm-4">
-        <a href="" style="background-image: url('http://www.moinid.com/ideas/2012/11/zebrating-street-art-1.jpg')">
-          <p class="sm-text">Small Text</p>
-          <p class="bg-sub-text">Large</p>
-        </a>
-      </li>
-  </ul>
-</div>
-</div>
-</section>
-
-<section class="slick-slider-grid">
-   <h3 class="section-title">THE VERY LATEST FOOD INSPIRATIONS</h3>
-      <div class="carousel slide media-carousel" id="media">
-        <div class="carousel-inner">
-          <div class="item  active">
-            <div class="row">
-              <div class="col-md-3">
-                <a class="thumbnail" href="#"><img class="slider-img" height="400" width="287" alt="" src="https://appearhere.imgix.net/https%3A%2F%2Fa3.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fapple.jpg?ixlib=rb-0.3.5&q=70&w=1&s=74740a489ba44e1b3407093bec1b816a"></a>
-              </div>          
-             <div class="col-md-3">
-                <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa0.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fcoke.jpg?ixlib=rb-0.3.5&q=70&w=1&s=dd6fa0c3081117bb0db0bd6bca204d5f"></a>
-              </div>    
-              <div class="col-md-3">
-                <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa0.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fbenefit.jpg?ixlib=rb-0.3.5&q=70&w=1&s=d4677f035baad61ae50be7ed58158c2b"></a>
-              </div>        
-              <div class="col-md-3">
-                <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa2.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fsourced.jpg?ixlib=rb-0.3.5&q=70&w=1&s=0322a62f6023045adb2222ac78dcfa9a"></a>
-              </div>        
-            </div>
+    <b>Search and Explore</b>
+      <p class="parag">Find accommodation that suits your budget and style.</p>
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+         
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+          <div class="item active">
+            <img class="img-responsive owl-slr" src="landing_page_new/4.png" alt="">
+           
           </div>
           <div class="item">
-            <div class="row">
-              <div class="col-md-3">
-                <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa0.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fmoleskine.jpg?ixlib=rb-0.3.5&q=70&w=1&s=aec9d34ad5645bc61607235ba75a4889"></a>
-              </div>          
-              <div class="col-md-3">
-                <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa2.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Ffinery.jpg?ixlib=rb-0.3.5&q=70&w=1&s=c200a03e54dbd6a36c3d2ec3930ee6f1"></a>
-              </div>
-              <div class="col-md-3">
-                <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa1.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fgrains.jpg?ixlib=rb-0.3.5&q=70&w=1&s=aac74e608ab076c01346e9ed035f2414"></a>
-              </div>
-              <div class="col-md-3">
-                <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa2.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fjaime-oliver.jpg?ixlib=rb-0.3.5&q=70&w=1&s=1741e23d2587dda25e20df57d7b20668"></a>
-              </div>        
+            <img class="img-responsive owl-slr" src="landing_page_new/5.png" alt="">
+         
+          </div>
+
+          <div class="item">
+            <img class="img-responsive owl-slr" src="landing_page_new/6.png" alt="">
+         
+          </div>
+          </div>
+      </div>
+   </div>
+  <div class="col-md-4">
+      <b>Search and Explore</b>
+      <p class="parag">Find accommodation that suits your budget and style.</p>
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+         
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+          <div class="item active">
+            <img class="img-responsive owl-slr" src="landing_page_new/1.png" alt="">
+          </div>
+          <div class="item">
+            <img class="img-responsive owl-slr" src="landing_page_new/2.png" alt="">
+          </div>
+
+          <div class="item">
+            <img class="img-responsive owl-slr" src="landing_page_new/3.png" alt="">
+          </div>
+          </div>
+      </div>
+    </div>
+   <div class="col-md-4">
+    <b>Search and Explore</b>
+      <p class="parag">Find accommodation that suits your budget and style.</p>
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+          <div class="item active">
+            <img class="img-responsive owl-slr" src="landing_page_new/7.png" alt="">
+        
+          </div>
+          <div class="item">
+            <img class="img-responsive owl-slr" src="landing_page_new/8.png" alt="">
+            <div class="carousel-caption">
+            ...
             </div>
           </div>
-         
+
+          <div class="item">
+            <img class="img-responsive owl-slr" src="landing_page_new/9.png" alt="">
+            <div class="carousel-caption">
+            ...
+            </div>
+          </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
+<section class="images grid">
+  <div class="container">
+    <div id="destinations" class="row width-limit">
+      <h3 class="section-title">SEE YOUR PRODUCTS ON SHELVES EVERYWHERE</h3>
+      <ul class="list-unstyled">
+        <li class="col-xs-6 col-sm-4">
+          <a href="" style="background-image: url('http://www.svrta.org/wp-content/uploads/2009/10/disco-70s-inspiration-7-600x400.jpg')">
+            <p class="sm-text">Small Text</p>
+            <p class="bg-sub-text">Large</p>
+          </a>
+        </li>
+        <li class="col-xs-6 col-sm-4">
+          <a href="" style="background-image: url('http://www.zeutch.com/wp-content/uploads/2010/07/Sly2VitryParis2.jpg')">
+            <p class="sm-text">Small Text</p>
+            <p class="bg-sub-text">Large</p>
+          </a>
+        </li>
+        <li class="col-xs-6 col-sm-4">
+          <a href="" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/600x400_kastra.jpg')">
+            <p class="sm-text">Small Text</p>
+            <p class="bg-sub-text">Large</p>
+          </a>
+        </li>
+        <li class="col-xs-6">
+          <a href="" style="background-image: url('http://cdn.pinthiscars.com/images/dodge-challenger-white-stripes-wallpaper-6.jpg')">
+            <p class="sm-text">Small Text</p>
+            <p class="bg-sub-text">Large</p>
+          </a>
+        </li>
+        <li class="col-xs-6">
+          <a href="" style="background-image: url('http://www.ilikewallpaper.net/ipad-wallpapers/download/16122/Bicycle-On-The-City-Street-ipad-wallpaper-ilikewallpaper_com.jpg')">
+            <p class="sm-text">Small Text</p>
+            <p class="bg-sub-text">Large</p>
+          </a>
+        </li>
+        <li class="col-xs-6 col-sm-4">
+          <a href="" style="background-image: url('http://cdn.wallpapersafari.com/59/41/vnp2fz.jpg')">
+            <p class="sm-text">Small Text</p>
+            <p class="bg-sub-text">Large</p>
+          </a>
+        </li>
+        <li class="col-xs-6 col-sm-4">
+          <a href="" style="background-image: url('http://images.huffingtonpost.com/2015-09-18-1442587557-684306-AliC_Alice_Pasquini_Mural_Streetart_Berlin_9086.jpg')">
+            <p class="sm-text">Small Text</p>
+            <p class="bg-sub-text">Large</p>
+          </a>
+        </li>
+        <li class="col-xs-6 col-sm-4">
+          <a href="" style="background-image: url('http://www.moinid.com/ideas/2012/11/zebrating-street-art-1.jpg')">
+            <p class="sm-text">Small Text</p>
+            <p class="bg-sub-text">Large</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="slick-slider-grid">
+  <h3 class="section-title">THE VERY LATEST FOOD INSPIRATIONS</h3>
+  <div class="carousel slide media-carousel" id="media">
+    <div class="carousel-inner">
+      <div class="item  active">
+        <div class="row">
+          <div class="col-md-3">
+            <a class="thumbnail" href="#"><img class="slider-img" height="400" width="287" alt="" src="https://appearhere.imgix.net/https%3A%2F%2Fa3.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fapple.jpg?ixlib=rb-0.3.5&q=70&w=1&s=74740a489ba44e1b3407093bec1b816a"></a>
+          </div>
+          <div class="col-md-3">
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa0.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fcoke.jpg?ixlib=rb-0.3.5&q=70&w=1&s=dd6fa0c3081117bb0db0bd6bca204d5f"></a>
+          </div>
+          <div class="col-md-3">
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa0.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fbenefit.jpg?ixlib=rb-0.3.5&q=70&w=1&s=d4677f035baad61ae50be7ed58158c2b"></a>
+          </div>
+          <div class="col-md-3">
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa2.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fsourced.jpg?ixlib=rb-0.3.5&q=70&w=1&s=0322a62f6023045adb2222ac78dcfa9a"></a>
+          </div>
         </div>
-        
-        <a data-slide="prev" href="#media" class="left carousel-control" style=" margin-top: 182px;
-    margin-left: 14px;"><i class="fa fa-chevron-circle-left" aria-hidden="true" ></i>
-</a>
-        <a data-slide="next" href="#media" class="right carousel-control" style=" margin-top: 182px;
-    margin-right: 14px;"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
-     
-  
+      </div>
+      <div class="item">
+        <div class="row">
+          <div class="col-md-3">
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa0.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fmoleskine.jpg?ixlib=rb-0.3.5&q=70&w=1&s=aec9d34ad5645bc61607235ba75a4889"></a>
+          </div>
+          <div class="col-md-3">
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa2.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Ffinery.jpg?ixlib=rb-0.3.5&q=70&w=1&s=c200a03e54dbd6a36c3d2ec3930ee6f1"></a>
+          </div>
+          <div class="col-md-3">
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa1.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fgrains.jpg?ixlib=rb-0.3.5&q=70&w=1&s=aac74e608ab076c01346e9ed035f2414"></a>
+          </div>
+          <div class="col-md-3">
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa2.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fjaime-oliver.jpg?ixlib=rb-0.3.5&q=70&w=1&s=1741e23d2587dda25e20df57d7b20668"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a data-slide="prev" href="#media" class="left carousel-control" style=" margin-top: 182px;
+      margin-left: 14px;"><i class="fa fa-chevron-circle-left" aria-hidden="true" ></i>
+    </a>
+    <a data-slide="next" href="#media" class="right carousel-control" style=" margin-top: 182px;
+      margin-right: 14px;"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
 </section>
 <section class="action-buttons">
-
 <div class="container-fluid action-container">
-  <div class="row">
-    <div class="col-lg-6">
-     <!--   <div class="image-case"> -->
-        <img width="647" height="300" class="img-responsive" src="https://www.tes.com/sites/default/files/styles/news_article_hero/public/open_your_shop.png?itok=cfujHVSO">
-       <!-- </div> -->
-          </div>
-    <div class="col-lg-6">
-    <h2 class="action-heading">
-      Are you a shop owner?
-    </h2>
-    <p class="action-para">
-      Get access to the latest and great food products.<br>
-      Total control over which products you choose to<br>
-      stock and get paid for the ones that you do. 
-    </p>
-
-    <div class="btn btn-custom">List Your Store</div>
-     
-    </div>
-  </div>
+<div class="row">
+<div class="col-lg-6">
+<!--   <div class="image-case"> -->
+<img width="647" height="300" class="img-responsive" src="https://www.tes.com/sites/default/files/styles/news_article_hero/public/open_your_shop.png?itok=cfujHVSO">
+<!-- </div> -->
 </div>
-
-  
+<div class="col-lg-6">
+<h2 class="action-heading">
+Are you a shop owner?
+</h2>
+<p class="action-para">
+Get access to the latest and great food products.<br>
+Total control over which products you choose to<br>
+stock and get paid for the ones that you do. 
+</p>
+<div class="btn btn-custom">List Your Store</div>
+</div>
+</div>
+</div>
 </section>
-  <footer id="myFooter">
-  <div class="container">
-   <div class="row">
-      <div class="col-sm-3">
-        <img class="footer-logo" src="landing_page_new/footer-logo.png">
-      </div>
-       <div class="col-sm-3">
-        <div class="social-networks">
-          <a class="facebook" href="">
-            <i class="fa fa-facebook" aria-hidden="true"></i>
-          </a>
-          <a class="twitter" href="">
-            <i class="fa fa-twitter" aria-hidden="true"></i>
-          </a>
-          <a class="instagram" href="">
-            <i class="fa fa-instagram" aria-hidden="true"></i>
-          </a>
-          <a class="google" href="">
-            <i class="fa fa-google-plus" aria-hidden="true"></i>
-          </a>
-        </div>
-      </div>
-      <div class="col-md-6">
-      <div class="col-sm-3">
-        <h5><a href=""> About</a></h5>
-      </div>
-      <div class="col-sm-3">
-        <h5><a href=""> Contact</a></h5>
-      </div>
-      <div class="col-sm-3">
-        <h5><a href=""> Terms</a></h5>
-      </div>
-       <div class="col-sm-3">
-        <h5><a href=""> Privacy</a></h5>
-      </div>
-     </div>
-   </div>
-    <hr class="style13">
-    <div class="ft-in">
-            <p class="text-center footer-info"> All Rights Reserved 2015 - &copy My Local Shelf</p>
-          </div>
-    </div>
-  </div>
-
+<footer id="myFooter">
+<div class="container">
+<div class="row">
+<div class="col-sm-3">
+<img class="footer-logo" src="landing_page_new/footer-logo.png">
+</div>
+<div class="col-sm-3">
+<div class="social-networks">
+<a class="facebook" href="">
+<i class="fa fa-facebook" aria-hidden="true"></i>
+</a>
+<a class="twitter" href="">
+<i class="fa fa-twitter" aria-hidden="true"></i>
+</a>
+<a class="instagram" href="">
+<i class="fa fa-instagram" aria-hidden="true"></i>
+</a>
+<a class="google" href="">
+<i class="fa fa-google-plus" aria-hidden="true"></i>
+</a>
+</div>
+</div>
+<div class="col-md-6">
+<div class="col-sm-3">
+<h5><a href=""> About</a></h5>
+</div>
+<div class="col-sm-3">
+<h5><a href=""> Contact</a></h5>
+</div>
+<div class="col-sm-3">
+<h5><a href=""> Terms</a></h5>
+</div>
+<div class="col-sm-3">
+<h5><a href=""> Privacy</a></h5>
+</div>
+</div>
+</div>
+<hr class="style13">
+<div class="ft-in">
+<p class="text-center footer-info"> All Rights Reserved 2015 - &copy My Local Shelf</p>
+</div>
+</div>
+</div>
 </footer>
-
-
-
- 
-
-
-
 <script type="text/javascript">
   $(document).ready(function () {
-
+  
     $(".player").mb_YTPlayer();
-
-});
+  
+  });
 </script>
-
-
-
 <script type="text/javascript">
-
-     $("#sticky").sticky({
-        topSpacing: 0
-    });
-
+  $("#sticky").sticky({
+     topSpacing: 0
+  });
+  
 </script>

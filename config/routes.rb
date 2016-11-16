@@ -204,6 +204,8 @@ Kassi::Application.routes.draw do
       # Landing page menu
       get   "/landing_page"         => "communities#landing_page",                  as: :landing_page
 
+      resources :homepages
+
       resources :communities do
         member do
           get :edit_welcome_email
