@@ -731,10 +731,11 @@ a.btn.btn-default.btn-outline.btn-circle:hover {
     color: #999;
     float: left;
     font: 16px Lucida Sans, Trebuchet MS, Tahoma, sans-serif;
-    height: 20px;
+    height: 42px !important;
     padding: 10px;
-    width: 250px;
+    width: 266px;
     border-radius: 0px !important;
+
 } 
    
 .video-section h1 {
@@ -742,13 +743,34 @@ a.btn.btn-default.btn-outline.btn-circle:hover {
 }
 
 
+span#typed {
+    font-size: 23px;
+}
 
 .form-wrapper {
     -webkit-border-radius: 0px;
-    margin: 100px auto;
+    margin: 120px auto;
     overflow: hidden;
     /* padding: 8px; */
-    width: 355px;
+    width: 370px;
+}
+
+input#search {
+    height: 42px !important;
+}
+
+.form-wrapper #submit {
+    background-color: #C71E6B;
+    border: 1px solid #C71E6B;
+    height: 42px;
+    float: right;
+    font: 14px Arial,Helvetica;
+    padding: 0px;
+    text-transform: uppercase;
+    text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
+    width: 100px;
+    letter-spacing: 1.5px;
+    color: #FFF;
 }
 
 
@@ -815,6 +837,148 @@ ul.social-icons {
 .container-fluid.nav-collapse-sc {
     background-color: #fff;
 } }
+
+
+
+@media not all and (min-width: 400px) {
+
+span#typed {
+    font-size: 18px;
+}
+
+.video-section h1 {
+    font-size: 18px;
+}
+
+.video-section h3 {
+    font-weight: 600;
+    margin: 0px auto 15px;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.7px;
+    margin-bottom: -120px;
+    margin-top: 10px;
+}
+
+.form-wrapper #submit {
+    background-color: #C71E6B;
+    border: 1px solid #C71E6B;
+    height: 42px;
+    float: right;
+    font: 13px Arial,Helvetica;
+    padding: 0px;
+    text-transform: uppercase;
+    text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
+    width: 90px;
+    letter-spacing: 0.5px;
+    color: #FFF;
+}
+
+.form-wrapper {
+    margin: 120px auto;
+    overflow: hidden;
+    width: 334px;
+    height: 42px;
+}
+
+.form-wrapper #search {
+    border: 1px solid #CCC;
+    box-shadow: 0px 1px 1px #DDD inset, 0px 1px 0px #FFF;
+    color: #999;
+    float: left;
+    font: 16px Lucida Sans,Trebuchet MS,Tahoma,sans-serif;
+    height: 20px;
+    padding: 10px;
+    width: 240px;
+    border-radius: 0px !important;
+    padding-top: 6px;
+}
+
+}
+
+
+@media not all and (min-width: 350px) {
+
+.form-wrapper {
+    margin: 120px auto;
+    overflow: hidden;
+    width: 294px;
+    height: 38px;
+}
+
+.form-wrapper #search {
+    border: 1px solid #CCC;
+    box-shadow: 0px 1px 1px #DDD inset, 0px 1px 0px #FFF;
+    color: #999;
+    float: left;
+    font: 16px Lucida Sans,Trebuchet MS,Tahoma,sans-serif;
+    height: 20px;
+    padding: 10px;
+    width: 220px;
+    border-radius: 0px !important;
+    padding-top: 6px;
+}
+
+input#search {
+    height: 35px !important;
+    border: medium none !important;
+    font-size: 13px !important;
+    margin-left: 8px;
+    padding-top: 11px !important;
+}
+
+.form-wrapper #submit {
+    background-color: #C71E6B;
+    border: 1px solid #C71E6B;
+    height: 36px;
+    float: right;
+    font: 11px Arial,Helvetica;
+    padding: 0px;
+    text-transform: uppercase;
+    text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
+    width: 70px;
+    letter-spacing: 0.5px;
+    color: #FFF;
+}
+
+}
+
+@media not all and (min-width: 320px) {
+
+.form-wrapper #search {
+    border: 1px solid #CCC;
+    box-shadow: 0px 1px 1px #DDD inset, 0px 1px 0px #FFF;
+    color: #999;
+    float: left;
+    font: 13px Lucida Sans,Trebuchet MS,Tahoma,sans-serif;
+    height: 20px;
+    padding: 7px 10px 13px;
+    width: 191px;
+    border-radius: 0px;
+}
+
+.form-wrapper {
+    margin: 120px auto;
+    overflow: hidden;
+    width: 255px;
+    height: 35px;
+}
+
+.form-wrapper #submit {
+    background-color: #C71E6B;
+    border: 1px solid #C71E6B;
+    height: 36px;
+    float: right;
+    font: 11px Arial,Helvetica;
+    padding: 0px;
+    text-transform: uppercase;
+    text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
+    width: 60px;
+    letter-spacing: 0.5px;
+    color: #FFF;
+}
+
+}
 
 @media not all and (min-width: 1200px) {
 .carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img {
