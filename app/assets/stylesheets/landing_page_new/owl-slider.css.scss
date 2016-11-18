@@ -1,0 +1,111 @@
+
+.wrapper {
+	width:100%;
+	float:left;
+    margin-bottom: 50px;
+}
+
+.building-animation { 
+	margin: 0px 0 auto;
+    width:376px;
+	padding: 0 15px;
+	float:left;
+}
+.building-animation .owl-carousel {
+    overflow: hidden;
+    position: relative;
+}
+.building-animation .owl-carousel::before, .building-animation .owl-carousel::after {
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width:90px;
+    z-index: 1;
+}
+.building-animation .owl-carousel::before {
+    background-image:linear-gradient(to right,rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.7) 50%);
+    background-repeat: repeat-x;
+    left: 0;
+}
+.building-animation .owl-carousel::after {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.7) 50%);
+    background-repeat: repeat-x;
+    right: 0;
+}
+.selves {
+    position: relative;
+    margin: -30px 75px auto;
+    width: 220px;
+    padding: 0 15px;
+    float: left;
+}
+.selves .owl-carousel{
+    height: 160px;
+    left: 32px;
+    overflow: hidden;
+    position: absolute;
+    width: 165px;
+	top: 123px; 
+}
+.delivery-truck {
+    position: relative;
+    margin: -6px 70px auto;
+    width: 220px;
+    padding: 0 15px;
+    float: left;
+}
+.delivery-truck .owl-carousel {
+    height: 160px;
+    left: 20px;
+    overflow: hidden;
+    position: absolute;
+    top: 150px;
+    width: 189px;
+}
+
+
+
+@media only screen and (min-width:992px) and (max-width: 1200px){
+
+ .building-animation {
+    margin: 0px -40px auto;
+    width: 376px;
+    padding: 0 15px;
+    float: left;
+}
+
+.selves {
+    position: relative;
+    margin: -30px 38px auto;
+    width: 220px;
+    padding: 0 15px;
+    float: left;
+}
+
+.delivery-truck {
+    position: relative;
+    margin: -6px 37px auto;
+    width: 220px;
+    padding: 0 15px;
+    float: left;
+}
+
+}
+
+
+
+@media (max-width: 992px) {
+
+.delivery-truck {
+    display:none;
+ }
+
+.selves {
+    display:none;
+ }
+.building-animation { 
+    display:none;
+}
+}
