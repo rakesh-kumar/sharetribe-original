@@ -266,7 +266,7 @@ section.fill-grey.text-center.spaced.show-for-large-up {
 
 
 #destinations h3 {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     font-weight: bold;
     text-align: center;
     
@@ -372,7 +372,7 @@ p.action-para {
 }
 
 section.slick-slider-grid {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 p.sm-text {
@@ -1008,6 +1008,10 @@ a.right.carousel-control {
 
 .col-md-6.lo-sc {
     margin-left: 100px;
+}
+
+.slick-slider-grid h3 {
+    display: none;
 }
 
 }
