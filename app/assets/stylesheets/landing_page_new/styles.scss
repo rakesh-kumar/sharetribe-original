@@ -340,7 +340,7 @@ section.fill-grey.text-center.spaced.show-for-large-up {
 
 h2.action-heading {
     text-align: center;
-    margin-top: 60px;
+    margin-top: 80px;
     font-size: 25px;
 }
 
@@ -535,10 +535,11 @@ img.logo-main {
 }
 
 .navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 13px;
+    padding-bottom: 13px;
     color: #2c9fa5;
-    font-size: 16px;
+    font-size: 15px;
+
 }
 
 #steps b {
@@ -614,7 +615,7 @@ form {
 .form-wrapper #search {
     border: 1px solid #CCC;
     border-radius: 0px;
-  color: #999;
+    color: #000;
     float: left;
     font: 16px Lucida Sans, Trebuchet MS, Tahoma, sans-serif;
     height: 20px;
@@ -640,7 +641,6 @@ form {
 }
 
 .form-wrapper #submit {
-    background-color: #c71e6b;
     border: 1px solid #c71e6b;
     height: 49px;
     float: right;
@@ -655,7 +655,6 @@ form {
 
 .form-wrapper #submit:hover,
 .form-wrapper #submit:focus {
-    background-color: #c71e6b;
     color: #f5f5f5;
     font-size: 13.5px;
     border:none;

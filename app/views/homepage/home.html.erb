@@ -18,7 +18,7 @@
           <ul class="nav navbar-nav navbar-right">
             <%= render partial: 'layouts/home_header', locals: header_props()%>
             <li> 
-              <%= link_to "List Your Space", new_listing_path, :class => "new-listing-link", :id => "new-listing-link" %>
+              <%= link_to "List Your Store", new_listing_path, :class => "new-listing-link", :id => "new-listing-link" %>
             </li>
           </ul>
         </div>
@@ -30,7 +30,12 @@
 </header>
 <section class="content-section video-section">
   <div class="pattern-overlay">
-    <a id="bgndVideo" class="player" data-property="{videoURL:'https://youtu.be/WEkINa-n5BI',containment:'.video-section', quality:'large', autoPlay:true, mute:true, opacity:1}">bg</a>
+   <%if homepage.video_url.present?%>
+            <a href="" style="background-image: url('<%=homepage.first_collage_image.url(:thumb)%>')">
+            <a id="bgndVideo" class="player" data-property="{videoURL:'<%=homepage.video_url%>',containment:'.video-section', quality:'large', autoPlay:true, mute:true, opacity:1}">bg</a>
+          <%else%>
+            <a id="bgndVideo" class="player" data-property="{videoURL:'https://youtu.be/WEkINa-n5BI',containment:'.video-section', quality:'large', autoPlay:true, mute:true, opacity:1}">bg</a>
+          <%end%>
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -45,9 +50,9 @@
           </div>
           <h3><%= community_description.html_safe %></h3>
           <br>
-          <form class="form-wrapper" action="/s" method="GET">
-            <input type="text" id="search" placeholder="Where do you want to sell?">
-            <input type="submit" value="Search" id="submit">
+          <form class="form-wrapper" action="/lists" method="GET">
+            <input type="text" name="q" id="search" placeholder="Where do you want to sell?">
+            <input class="search-btn" type="submit" value="Search" id="submit">
           </form>
         </div>
       </div>
@@ -57,7 +62,12 @@
 <section class='text-center spaced show-for-large-up'>
   <div class='row'>
     <div class='col-md-12'>
-      <img class="img-responsive" src="landing_page_new/brand-logo.png">
+     <!--  <img class="img-responsive brand-logo-images" src="landing_page_new/brand-logo.png"> -->
+       <%if homepage.brand_image.present?%>
+                  <%=image_tag homepage.brand_image.url(:thumb)%>
+                <%else%>
+                  <img class="img-responsive" src="landing_page_new/brand-logo.png">
+                <%end%>
     </div>
   </div>
 </section>
@@ -65,8 +75,20 @@
 <div class="row">
 <div class="wrapper"> 
   <div class="col-md-4">
-    <b>Search and connect</b>
-      <p class="parag">Discover and book shelf space with independent store owners in areas that match your target customers</p>
+    <b>
+      <%if homepage.first_svg_heading.present?%>
+            <%=homepage.first_svg_heading%>
+          <%else%>
+            First Heading
+          <%end%>
+    </b>
+      <p class="parag">
+         <%if homepage.first_svg_paragraph.present?%>
+            <%=homepage.first_svg_paragraph%>
+          <%else%>
+            Some informations about this section
+          <%end%>
+      </p>
         <div class="building-animation">
     <div class="owl-carousel" id="owl-building">
         <div class="item">
@@ -82,8 +104,20 @@
   </div>
    </div>
   <div class="col-md-4">
-      <b>Deliver and display</b>
-      <p class="parag">Get the products to the store and start selling to your customers</p>
+      <b>
+      <%if homepage.second_svg_heading.present?%>
+            <%=homepage.second_svg_heading%>
+          <%else%>
+            Second Heading
+          <%end%>
+      </b>
+      <p class="parag">
+        <%if homepage.second_svg_paragraph.present?%>
+            <%=homepage.second_svg_paragraph%>
+          <%else%>
+            Some information about this section
+          <%end%>
+      </p>
           <div class="selves">
      <img src="landing_page_new/shelf.svg" alt="" width="200"/>
     <div class="owl-carousel" id="owl-selves">
@@ -109,8 +143,20 @@
   </div>
     </div>
    <div class="col-md-4">
-    <b>sell and grow</b>
-      <p class="parag">Get paid for sales and build a relationship with the retailer for future orders.</p>
+    <b>
+      <%if homepage.third_svg_heading.present?%>
+            <%=homepage.third_svg_heading%>
+          <%else%>
+            Third Heading
+          <%end%>
+    </b>
+      <p class="parag">
+       <%if homepage.third_svg_paragraph.present?%>
+            <%=homepage.third_svg_paragraph%>
+          <%else%>
+            Some information about this section
+          <%end%>
+      </p>
          <div class="delivery-truck">
      <img src="landing_page_new/groc-delv.svg" alt="" width="200"/>
     <div class="owl-carousel" id="owl-delivery">
@@ -132,54 +178,180 @@
 <section class="images grid">
   <div class="container">
     <div id="destinations" class="row width-limit">
-      <h3 class="section-title">SEE YOUR PRODUCTS ON SHELVES EVERYWHERE</h3>
+      <h3 class="section-title">
+         <%if homepage.collage_section_title.present?%>
+            <%=homepage.collage_section_title%>
+          <%else%>
+            Section Title
+          <%end%>
+      </h3>
       <ul class="list-unstyled">
         <li class="col-xs-6 col-sm-4">
-          <a href="" style="background-image: url('http://www.svrta.org/wp-content/uploads/2009/10/disco-70s-inspiration-7-600x400.jpg')">
-            <p class="sm-text">Small Text</p>
-            <p class="bg-sub-text">Large</p>
+         <%if homepage.first_collage_image.present?%>
+            <a href="" style="background-image: url('<%=homepage.first_collage_image.url(:thumb)%>')">
+          <%else%>
+            <a href="" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/600x400_kastra.jpg')">
+          <%end%>
+            <p class="sm-text"> <%if homepage.first_overlay_small_texts.present?%>
+            <%=homepage.first_overlay_small_texts%>
+          <%else%>
+            Small Text
+          <%end%>
+          </p>
+            <p class="bg-sub-text">
+               <%if homepage.first_overlay_large_texts.present?%>
+            <%=homepage.first_overlay_large_texts%>
+          <%else%>
+            Large1
+          <%end%>
+           </p>
           </a>
         </li>
         <li class="col-xs-6 col-sm-4">
-          <a href="" style="background-image: url('http://www.zeutch.com/wp-content/uploads/2010/07/Sly2VitryParis2.jpg')">
-            <p class="sm-text">Small Text</p>
-            <p class="bg-sub-text">Large</p>
+        <%if homepage.second_collage_image.present?%>
+            <a href="" style="background-image: url('<%=homepage.second_collage_image.url(:thumb)%>')">
+          <%else%>
+            <a href="" style="background-image: url('http://www.zeutch.com/wp-content/uploads/2010/07/Sly2VitryParis2.jpg')">
+          <%end%>
+            <p class="sm-text"> <%if homepage.second_overlay_large_texts.present?%>
+            <%=homepage.second_overlay_large_texts%>
+          <%else%>
+            Small Text
+          <%end%>
+          </p>
+             <p class="bg-sub-text">
+               <%if homepage.second_overlay_small_texts.present?%>
+            <%=homepage.second_overlay_small_texts%>
+          <%else%>
+            Large2
+          <%end%>
+           </p>
           </a>
         </li>
         <li class="col-xs-6 col-sm-4">
-          <a href="" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/600x400_kastra.jpg')">
-            <p class="sm-text">Small Text</p>
-            <p class="bg-sub-text">Large</p>
+         <%if homepage.third_collage_image.present?%>
+            <a href="" style="background-image: url('<%=homepage.third_collage_image.url(:thumb)%>')">
+          <%else%>
+            <a href="" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/600x400_kastra.jpg')">
+          <%end%>
+             <p class="sm-text"> <%if homepage.third_overlay_small_texts.present?%>
+            <%=homepage.third_overlay_small_texts%>
+          <%else%>
+            Small Text
+          <%end%>
+          </p>
+             <p class="bg-sub-text">
+               <%if homepage.third_overlay_large_texts.present?%>
+            <%=homepage.third_overlay_large_texts%>
+          <%else%>
+            Large3
+          <%end%>
+           </p>
           </a>
         </li>
         <li class="col-xs-6">
-          <a href="" style="background-image: url('http://cdn.pinthiscars.com/images/dodge-challenger-white-stripes-wallpaper-6.jpg')">
-            <p class="sm-text">Small Text</p>
-            <p class="bg-sub-text">Large</p>
+           <%if homepage.fourth_collage_image.present?%>
+            <a href="" style="background-image: url('<%=homepage.fourth_collage_image.url(:thumb)%>')">
+          <%else%>
+            <a href="" style="background-image: url('http://cdn.pinthiscars.com/images/dodge-challenger-white-stripes-wallpaper-6.jpg')">
+          <%end%>
+             <p class="sm-text"> <%if homepage.fourth_overlay_small_texts.present?%>
+            <%=homepage.fourth_overlay_small_texts%>
+          <%else%>
+            Small Text
+          <%end%>
+          </p>
+             <p class="bg-sub-text">
+               <%if homepage.fourth_overlay_large_texts.present?%>
+            <%=homepage.fourth_overlay_large_texts%>
+          <%else%>
+            Large4
+          <%end%>
+           </p>
           </a>
         </li>
         <li class="col-xs-6">
-          <a href="" style="background-image: url('http://www.ilikewallpaper.net/ipad-wallpapers/download/16122/Bicycle-On-The-City-Street-ipad-wallpaper-ilikewallpaper_com.jpg')">
-            <p class="sm-text">Small Text</p>
-            <p class="bg-sub-text">Large</p>
+         <%if homepage.fifth_collage_image.present?%>
+            <a href="" style="background-image: url('<%=homepage.fifth_collage_image.url(:thumb)%>')">
+          <%else%>
+            <a href="" style="background-image: url('http://www.ilikewallpaper.net/ipad-wallpapers/download/16122/Bicycle-On-The-City-Street-ipad-wallpaper-ilikewallpaper_com.jpg')">
+          <%end%>
+             <p class="sm-text"> <%if homepage.fifth_overlay_small_texts.present?%>
+            <%=homepage.fifth_overlay_small_texts%>
+          <%else%>
+            Small Text
+          <%end%>
+          </p>
+             <p class="bg-sub-text">
+               <%if homepage.fifth_overlay_large_texts.present?%>
+            <%=homepage.fifth_overlay_large_texts%>
+          <%else%>
+            Large5
+          <%end%>
+           </p>
           </a>
         </li>
         <li class="col-xs-6 col-sm-4">
-          <a href="" style="background-image: url('http://cdn.wallpapersafari.com/59/41/vnp2fz.jpg')">
-            <p class="sm-text">Small Text</p>
-            <p class="bg-sub-text">Large</p>
+         <%if homepage.sixth_collage_image.present?%>
+            <a href="" style="background-image: url('<%=homepage.sixth_collage_image.url(:thumb)%>')">
+          <%else%>
+            <a href="" style="background-image: url('http://cdn.wallpapersafari.com/59/41/vnp2fz.jpg')">
+          <%end%>
+             <p class="sm-text"> <%if homepage.sixth_overlay_small_texts.present?%>
+            <%=homepage.sixth_overlay_small_texts%>
+          <%else%>
+            Small Text
+          <%end%>
+          </p>
+             <p class="bg-sub-text">
+               <%if homepage.sixth_overlay_large_texts.present?%>
+            <%=homepage.sixth_overlay_large_texts%>
+          <%else%>
+            Large6
+          <%end%>
+           </p>
           </a>
         </li>
         <li class="col-xs-6 col-sm-4">
-          <a href="" style="background-image: url('http://images.huffingtonpost.com/2015-09-18-1442587557-684306-AliC_Alice_Pasquini_Mural_Streetart_Berlin_9086.jpg')">
-            <p class="sm-text">Small Text</p>
-            <p class="bg-sub-text">Large</p>
+            <%if homepage.seventh_collage_image.present?%>
+            <a href="" style="background-image: url('<%=homepage.seventh_collage_image.url(:thumb)%>')">
+          <%else%>
+            <a href="" style="background-image: url('http://images.huffingtonpost.com/2015-09-18-1442587557-684306-AliC_Alice_Pasquini_Mural_Streetart_Berlin_9086.jpg')">
+          <%end%>
+            <p class="sm-text"> <%if homepage.seventh_overlay_small_texts.present?%>
+            <%=homepage.seventh_overlay_small_texts%>
+          <%else%>
+            Small Text
+          <%end%>
+          </p>
+             <p class="bg-sub-text">
+               <%if homepage.seventh_overlay_large_texts.present?%>
+            <%=homepage.seventh_overlay_large_texts%>
+          <%else%>
+            Large7
+          <%end%>
+           </p>
           </a>
         </li>
         <li class="col-xs-6 col-sm-4">
-          <a href="" style="background-image: url('http://www.moinid.com/ideas/2012/11/zebrating-street-art-1.jpg')">
-            <p class="sm-text">Small Text</p>
-            <p class="bg-sub-text">Large</p>
+           <%if homepage.eighth_collage_image.present?%>
+            <a href="" style="background-image: url('<%=homepage.eighth_collage_image.url(:thumb)%>')">
+          <%else%>
+            <a href="" style="background-image: url('http://www.moinid.com/ideas/2012/11/zebrating-street-art-1.jpg')">
+          <%end%>
+            <p class="sm-text"> <%if homepage.eighth_overlay_small_texts.present?%>
+            <%=homepage.eighth_overlay_small_texts%>
+          <%else%>
+            Small Text
+          <%end%>
+          </p>
+             <p class="bg-sub-text">
+               <%if homepage.eighth_overlay_large_texts.present?%>
+            <%=homepage.eighth_overlay_large_texts%>
+          <%else%>
+            Large8
+          <%end%>
+           </p>
           </a>
         </li>
       </ul>
@@ -234,19 +406,30 @@
 <div class="row">
 <div class="col-lg-6">
 <!--   <div class="image-case"> -->
-<img width="647" height="300" class="img-responsive" src="https://www.tes.com/sites/default/files/styles/news_article_hero/public/open_your_shop.png?itok=cfujHVSO">
+     <%if homepage.action_sec_image.present?%>
+      <%=image_tag homepage.action_sec_image.url(:thumb), class: "img-responsive"%>
+
+          <%else%>
+            <img width="647" height="300" class="img-responsive" src="https://www.tes.com/sites/default/files/styles/news_article_hero/public/open_your_shop.png?itok=cfujHVSO">
+          <%end%>
 <!-- </div> -->
 </div>
 <div class="col-lg-6">
 <h2 class="action-heading">
-Are you a shop owner?
+<%if homepage.action_sec_heading.present?%>
+            <%=homepage.action_sec_heading%>
+          <%else%>
+           Place your heading here
+          <%end%>
 </h2>
 <p class="action-para">
-Get access to the latest and greatest food products.<br>
-Total control over which products you choose to<br>
-stock and get paid for the ones that you do. 
+    <%if homepage.action_sec_para.present?%>
+            <%=homepage.action_sec_para%>
+          <%else%>
+           Place your paragraph texts here
+          <%end%>
 </p>
-<div class="btn btn-custom">List Your Store</div>
+ <%= link_to "List Your Store", new_listing_path, :class => "new-listing-link btn-below", :id => "new-listing-link" %>
 </div>
 </div>
 </div>

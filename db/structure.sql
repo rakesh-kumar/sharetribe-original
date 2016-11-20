@@ -670,6 +670,73 @@ CREATE TABLE `homepages` (
   `text_variation3` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
+  `brand_image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `brand_image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `brand_image_file_size` int(11) DEFAULT NULL,
+  `brand_image_updated_at` datetime DEFAULT NULL,
+  `heading` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `first_svg_heading` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `first_svg_paragraph` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `second_svg_heading` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `third_svg_heading` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `second_svg_paragraph` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `third_svg_paragraph` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `collage_section_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `first_overlay_small_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `second_overlay_small_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `third_overlay_small_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fourth_overlay_small_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fifth_overlay_small_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sixth_overlay_small_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seventh_overlay_small_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `eighth_overlay_small_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `first_overlay_large_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `second_overlay_large_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `third_overlay_large_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fourth_overlay_large_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fifth_overlay_large_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sixth_overlay_large_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seventh_overlay_large_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `eighth_overlay_large_texts` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `first_collage_image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `first_collage_image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `first_collage_image_file_size` int(11) DEFAULT NULL,
+  `first_collage_image_updated_at` datetime DEFAULT NULL,
+  `second_collage_image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `second_collage_image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `second_collage_image_file_size` int(11) DEFAULT NULL,
+  `second_collage_image_updated_at` datetime DEFAULT NULL,
+  `third_collage_image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `third_collage_image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `third_collage_image_file_size` int(11) DEFAULT NULL,
+  `third_collage_image_updated_at` datetime DEFAULT NULL,
+  `fourth_collage_image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fourth_collage_image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fourth_collage_image_file_size` int(11) DEFAULT NULL,
+  `fourth_collage_image_updated_at` datetime DEFAULT NULL,
+  `fifth_collage_image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fifth_collage_image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fifth_collage_image_file_size` int(11) DEFAULT NULL,
+  `fifth_collage_image_updated_at` datetime DEFAULT NULL,
+  `sixth_collage_image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sixth_collage_image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sixth_collage_image_file_size` int(11) DEFAULT NULL,
+  `sixth_collage_image_updated_at` datetime DEFAULT NULL,
+  `seventh_collage_image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seventh_collage_image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seventh_collage_image_file_size` int(11) DEFAULT NULL,
+  `seventh_collage_image_updated_at` datetime DEFAULT NULL,
+  `eighth_collage_image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `eighth_collage_image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `eighth_collage_image_file_size` int(11) DEFAULT NULL,
+  `eighth_collage_image_updated_at` datetime DEFAULT NULL,
+  `action_sec_image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `action_sec_image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `action_sec_image_file_size` int(11) DEFAULT NULL,
+  `action_sec_image_updated_at` datetime DEFAULT NULL,
+  `action_sec_heading` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `action_sec_para` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `video_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1682,7 +1749,7 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-16  0:11:34
+-- Dump completed on 2016-11-20 13:33:23
 INSERT INTO schema_migrations (version) VALUES ('20080806070738');
 
 INSERT INTO schema_migrations (version) VALUES ('20080807071903');
@@ -3286,4 +3353,70 @@ INSERT INTO schema_migrations (version) VALUES ('20161023074355');
 INSERT INTO schema_migrations (version) VALUES ('20161101104218');
 
 INSERT INTO schema_migrations (version) VALUES ('20161115184021');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119160522');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119193044');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119193522');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119195132');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119195632');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119200808');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119201338');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119201418');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119201535');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119201559');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119203140');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119203959');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119204524');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119204544');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119204616');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119204642');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119204712');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119204739');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119204817');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119204854');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119204919');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119204946');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119205021');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119205047');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119205126');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119205212');
+
+INSERT INTO schema_migrations (version) VALUES ('20161119205238');
+
+INSERT INTO schema_migrations (version) VALUES ('20161120055947');
+
+INSERT INTO schema_migrations (version) VALUES ('20161120061547');
+
+INSERT INTO schema_migrations (version) VALUES ('20161120072936');
+
+INSERT INTO schema_migrations (version) VALUES ('20161120074830');
+
+INSERT INTO schema_migrations (version) VALUES ('20161120074848');
+
+INSERT INTO schema_migrations (version) VALUES ('20161120080226');
 

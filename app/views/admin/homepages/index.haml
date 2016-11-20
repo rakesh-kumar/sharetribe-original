@@ -16,6 +16,10 @@
     .section
       .row
         .col-12
+          = form.label :video_url, 'Video Url', :class => "input"
+          = form.text_field(:video_url, :class => "url_field")
+      .row
+        .col-12
           = form.label :text_variation1, 'First text Variation', :class => "input"
           = form.text_field(:text_variation1, :class => "text_field")
       .row
@@ -26,7 +30,153 @@
         .col-12
           = form.label :text_variation3, 'Third text Variation', :class => "input"
           = form.text_field(:text_variation3, :class => "text_field")
-
-    .row
-      .col-12
-        = form.button t("admin.communities.edit_details.update_information"), :id => "edit_community_button", :class => "send_button"
+      .row
+        .col-12
+          = form.label :brand_image, 'Brands Logo Image', :class => "input"
+          = form.file_field(:brand_image, :class => "file_field")
+    %h3
+      SVGs Headings And Paragraphs
+      .row
+        .col-12
+          = form.label :first_svg_heading, 'First Svg Heading', :class => "input"
+          = form.text_field(:first_svg_heading, :class => "text_field")
+      .row
+        .col-12
+          = form.label :first_svg_paragraph, 'First Svg Paragraph', :class => "input"
+          = form.text_field(:first_svg_paragraph, :class => "text_field")
+      .row
+        .col-12
+          = form.label :second_svg_heading, 'Second Svg Heading', :class => "input"
+          = form.text_field(:second_svg_heading, :class => "text_field")
+      .row
+        .col-12
+          = form.label :second_svg_paragraph, 'Second Svg Paragraph', :class => "input"
+          = form.text_field(:second_svg_paragraph, :class => "text_field")
+      .row
+        .col-12
+          = form.label :third_svg_heading, 'Third Svg Heading', :class => "input"
+          = form.text_field(:third_svg_heading, :class => "text_field")
+      .row
+        .col-12
+          = form.label :third_svg_paragraph, 'Third Svg Paragraph', :class => "input"
+          = form.text_field(:third_svg_paragraph, :class => "text_field")
+      .row
+    %h3
+      Collage Section Images and Texts
+      .row
+        .col-12
+          = form.label :collage_section_title, 'Collage Section Title', :class => "input"
+          = form.text_field(:collage_section_title, :class => "text_field")
+      .row
+        .col-12
+          = form.label :first_collage_image, 'First Collage Image', :class => "input"
+          = form.file_field(:first_collage_image, :class => "file_field")    
+      .row
+        .col-12
+          = form.label :first_overlay_small_texts, 'First Small Overlay Texts', :class => "input"
+          = form.text_field(:first_overlay_small_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :first_overlay_large_texts, 'First Large Overlay Texts', :class => "input"
+          = form.text_field(:first_overlay_large_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :second_collage_image, 'Second Collage Image', :class => "input"
+          = form.file_field(:second_collage_image, :class => "file_field")
+      .row
+        .col-12
+          = form.label :second_overlay_small_texts, 'Second Small Overlay Texts', :class => "input"
+          = form.text_field(:second_overlay_small_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :second_overlay_large_texts, 'Second Large Overlay Texts', :class => "input"
+          = form.text_field(:second_overlay_large_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :third_collage_image, 'Third Collage Image', :class => "input"
+          = form.file_field(:third_collage_image, :class => "file_field")
+      .row
+        .col-12
+          = form.label :third_overlay_small_texts, 'Third Small Overlay Texts', :class => "input"
+          = form.text_field(:third_overlay_small_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :third_overlay_large_texts, 'Third Large Overlay Texts', :class => "input"
+          = form.text_field(:third_overlay_large_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :fourth_collage_image, 'Fourth Collage Image', :class => "input"
+          = form.file_field(:fourth_collage_image, :class => "file_field")
+      .row
+        .col-12
+          = form.label :fourth_overlay_small_texts, 'Fourth Small Overlay Texts', :class => "input"
+          = form.text_field(:fourth_overlay_small_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :fourth_overlay_large_texts, 'Fourth Large Overlay Texts', :class => "input"
+          = form.text_field(:fourth_overlay_small_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :fifth_collage_image, 'Fifth Collage Image', :class => "input"
+          = form.file_field(:fifth_collage_image, :class => "file_field")
+      .row
+        .col-12
+          = form.label :fifth_overlay_small_texts, 'Fifth Small Overlay Texts', :class => "input"
+          = form.text_field(:fifth_overlay_small_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :fifth_overlay_large_texts, 'Fifth Large Overlay Texts', :class => "input"
+          = form.text_field(:fifth_overlay_large_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :sixth_collage_image, 'Sixth Collage Image', :class => "input"
+          = form.file_field(:sixth_collage_image, :class => "file_field")
+      .row
+        .col-12
+          = form.label :sixth_overlay_small_texts, 'Sixth Small Overlay Texts', :class => "input"
+          = form.text_field(:sixth_overlay_small_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :sixth_overlay_large_texts, 'Sixth Large Overlay Texts', :class => "input"
+          = form.text_field(:sixth_overlay_large_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :seventh_collage_image, 'Seventh Collage Image', :class => "input"
+          = form.file_field(:seventh_collage_image, :class => "file_field")
+      .row
+        .col-12
+          = form.label :seventh_overlay_small_texts, 'Seventh Small Overlay Texts', :class => "input"
+          = form.text_field(:seventh_overlay_small_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :seventh_overlay_large_texts, 'Seventh Large Overlay Texts', :class => "input"
+          = form.text_field(:seventh_overlay_large_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :eighth_collage_image, 'Eighth Collage Image', :class => "input"
+          = form.file_field(:eighth_collage_image, :class => "file_field")
+      .row
+        .col-12
+          = form.label :eighth_overlay_small_texts, 'Eighth Small Overlay Texts', :class => "input"
+          = form.text_field(:eighth_overlay_small_texts, :class => "text_field")
+      .row
+        .col-12
+          = form.label :eighth_overlay_large_texts, 'Eighth Large Overlay Texts', :class => "input"
+          = form.text_field(:eighth_overlay_large_texts, :class => "text_field")
+    %h3
+      Action Section Image and Texts      
+      .row
+        .col-12
+          = form.label :action_sec_image, 'Half Page Image', :class => "input"
+          = form.file_field(:action_sec_image, :class => "file_field")
+      .row
+        .col-12
+          = form.label :action_sec_heading, 'Heading Texts', :class => "input"
+          = form.text_field(:action_sec_heading, :class => "text_field")
+      .row
+        .col-12
+          = form.label :action_sec_para, 'Paragraph Text', :class => "input"
+          = form.text_field(:action_sec_para, :class => "text_field")
+    .col-12
+      = form.button t("admin.communities.edit_details.update_information"), :id => "edit_community_button", :class => "send_button"
+      
