@@ -14,6 +14,9 @@
           <a class="navbar-brand" href="#"><img class="logo-main" src="landing_page_new/mls_logo.png" alt=""></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
+      
+                 
+                 
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <%= render partial: 'layouts/home_header', locals: header_props()%>
@@ -213,14 +216,14 @@
           <%else%>
             <a href="" style="background-image: url('http://www.zeutch.com/wp-content/uploads/2010/07/Sly2VitryParis2.jpg')">
           <%end%>
-            <p class="sm-text"> <%if homepage.second_overlay_large_texts.present?%>
+            <p class="sm-text"> <%if homepage.second_overlay_small_texts.present?%>
             <%=homepage.second_overlay_large_texts%>
           <%else%>
             Small Text
           <%end%>
           </p>
              <p class="bg-sub-text">
-               <%if homepage.second_overlay_small_texts.present?%>
+               <%if homepage.second_overlay_large_texts.present?%>
             <%=homepage.second_overlay_small_texts%>
           <%else%>
             Large2
@@ -424,7 +427,7 @@
 </h2>
 <p class="action-para">
     <%if homepage.action_sec_para.present?%>
-            <%=homepage.action_sec_para%>
+            <%=homepage.action_sec_para.html_safe%>
           <%else%>
            Place your paragraph texts here
           <%end%>
