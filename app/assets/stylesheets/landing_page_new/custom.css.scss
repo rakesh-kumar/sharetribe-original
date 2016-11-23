@@ -96,6 +96,10 @@ a.dropdown-toggle.nav-links.user-menu-dp {
     margin-top: -4px;
 }
 
+img.hp-slice {
+    background: #ececec;
+}
+
 img.header-user-avatar {
     width: 30px;
     height: 30px;
@@ -307,6 +311,18 @@ img {
     height: 182px;
 }
 
+.navbar-collapse, .is-sticky li a {
+    color: #2c9fa5 !important;
+}
+
+
+.is-sticky li a.new-listing-link {
+    color: #fff !important;
+}
+
+.navbar-collapse li a.new-listing-link {
+    color: #fff !important;
+}
 
 #search-explore .img:after {
     right: 0;
@@ -484,5 +500,13 @@ button.btn.btn-lg.btn-primary.home-search {
 li.dropdown.big-screen {
     display: none;
 }
+
+.navbar-collapse li a {
+    color: #2c9fa5 !important;
 }
 
+.video-section .pattern-overlay {
+    background-color: transparent;
+}
+
+}

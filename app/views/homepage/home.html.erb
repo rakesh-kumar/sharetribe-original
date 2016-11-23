@@ -11,7 +11,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><img class="logo-main" src="landing_page_new/mls_logo.png" alt=""></a>
+          <a class="navbar-brand" href="/"><img class="logo-main" src="landing_page_new/mls_logo.png" alt=""></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
       
@@ -31,6 +31,7 @@
     <!-- /.container -->
   </div>
 </header>
+<div class="image-bg-sm-screen" style="background-image: url(landing_page_new/image-bg-mls.png);">
 <section class="content-section video-section">
   <div class="pattern-overlay">
    <%if homepage.video_url.present?%>
@@ -62,12 +63,13 @@
     </div>
   </div>
 </section>
+  </div>
 <section class='text-center spaced show-for-large-up'>
   <div class='row'>
     <div class='col-md-12'>
      <!--  <img class="img-responsive brand-logo-images" src="landing_page_new/brand-logo.png"> -->
        <%if homepage.brand_image.present?%>
-                  <%=image_tag homepage.brand_image.url(:thumb)%>
+                  <%=image_tag homepage.brand_image.url(:thumb), :class => "hp-slice"%>
                 <%else%>
                   <img class="img-responsive" src="landing_page_new/brand-logo.png">
                 <%end%>
@@ -193,7 +195,7 @@
          <%if homepage.first_collage_image.present?%>
             <a href="" style="background-image: url('<%=homepage.first_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/600x400_kastra.jpg')">
+            <a href="" style="background-image: url('landing_page_new/collage1.jpg')">
           <%end%>
             <p class="sm-text"> <%if homepage.first_overlay_small_texts.present?%>
             <%=homepage.first_overlay_small_texts%>
@@ -214,17 +216,17 @@
         <%if homepage.second_collage_image.present?%>
             <a href="" style="background-image: url('<%=homepage.second_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="" style="background-image: url('http://www.zeutch.com/wp-content/uploads/2010/07/Sly2VitryParis2.jpg')">
+            <a href="" style="background-image: url('landing_page_new/collage2.jpg')">
           <%end%>
             <p class="sm-text"> <%if homepage.second_overlay_small_texts.present?%>
-            <%=homepage.second_overlay_large_texts%>
+            <%=homepage.second_overlay_small_texts%>
           <%else%>
             Small Text
           <%end%>
           </p>
              <p class="bg-sub-text">
                <%if homepage.second_overlay_large_texts.present?%>
-            <%=homepage.second_overlay_small_texts%>
+            <%=homepage.second_overlay_large_texts%>
           <%else%>
             Large2
           <%end%>
@@ -235,7 +237,7 @@
          <%if homepage.third_collage_image.present?%>
             <a href="" style="background-image: url('<%=homepage.third_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/69/600x400_kastra.jpg')">
+            <a href="" style="background-image: url('landing_page_new/collage3.jpg')">
           <%end%>
              <p class="sm-text"> <%if homepage.third_overlay_small_texts.present?%>
             <%=homepage.third_overlay_small_texts%>
@@ -256,7 +258,7 @@
            <%if homepage.fourth_collage_image.present?%>
             <a href="" style="background-image: url('<%=homepage.fourth_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="" style="background-image: url('http://cdn.pinthiscars.com/images/dodge-challenger-white-stripes-wallpaper-6.jpg')">
+            <a href="" style="background-image: url('landing_page_new/collage4.jpg')">
           <%end%>
              <p class="sm-text"> <%if homepage.fourth_overlay_small_texts.present?%>
             <%=homepage.fourth_overlay_small_texts%>
@@ -277,7 +279,7 @@
          <%if homepage.fifth_collage_image.present?%>
             <a href="" style="background-image: url('<%=homepage.fifth_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="" style="background-image: url('http://www.ilikewallpaper.net/ipad-wallpapers/download/16122/Bicycle-On-The-City-Street-ipad-wallpaper-ilikewallpaper_com.jpg')">
+            <a href="" style="background-image: url('landing_page_new/collage5.jpg')">
           <%end%>
              <p class="sm-text"> <%if homepage.fifth_overlay_small_texts.present?%>
             <%=homepage.fifth_overlay_small_texts%>
@@ -298,7 +300,7 @@
          <%if homepage.sixth_collage_image.present?%>
             <a href="" style="background-image: url('<%=homepage.sixth_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="" style="background-image: url('http://cdn.wallpapersafari.com/59/41/vnp2fz.jpg')">
+            <a href="" style="background-image: url('landing_page_new/collage6.jpg')">
           <%end%>
              <p class="sm-text"> <%if homepage.sixth_overlay_small_texts.present?%>
             <%=homepage.sixth_overlay_small_texts%>
@@ -319,7 +321,7 @@
             <%if homepage.seventh_collage_image.present?%>
             <a href="" style="background-image: url('<%=homepage.seventh_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="" style="background-image: url('http://images.huffingtonpost.com/2015-09-18-1442587557-684306-AliC_Alice_Pasquini_Mural_Streetart_Berlin_9086.jpg')">
+            <a href="" style="background-image: url('landing_page_new/collage7.jpg')">
           <%end%>
             <p class="sm-text"> <%if homepage.seventh_overlay_small_texts.present?%>
             <%=homepage.seventh_overlay_small_texts%>
@@ -340,7 +342,7 @@
            <%if homepage.eighth_collage_image.present?%>
             <a href="" style="background-image: url('<%=homepage.eighth_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="" style="background-image: url('http://www.moinid.com/ideas/2012/11/zebrating-street-art-1.jpg')">
+            <a href="" style="background-image: url('landing_page_new/collage8.jpg')">
           <%end%>
             <p class="sm-text"> <%if homepage.eighth_overlay_small_texts.present?%>
             <%=homepage.eighth_overlay_small_texts%>
@@ -368,32 +370,32 @@
       <div class="item  active">
         <div class="row">
           <div class="col-md-3">
-            <a class="thumbnail" href="#"><img class="slider-img" height="400" width="287" alt="" src="https://appearhere.imgix.net/https%3A%2F%2Fa3.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fapple.jpg?ixlib=rb-0.3.5&q=70&w=1&s=74740a489ba44e1b3407093bec1b816a"></a>
+            <a class="thumbnail" href="#"><img class="slider-img" height="400" width="287" alt="" src="landing_page_new/slider1.jpg"></a>
           </div>
           <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa0.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fcoke.jpg?ixlib=rb-0.3.5&q=70&w=1&s=dd6fa0c3081117bb0db0bd6bca204d5f"></a>
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider2.jpg"></a>
           </div>
           <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa0.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fbenefit.jpg?ixlib=rb-0.3.5&q=70&w=1&s=d4677f035baad61ae50be7ed58158c2b"></a>
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider3.jpg"></a>
           </div>
           <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa2.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fsourced.jpg?ixlib=rb-0.3.5&q=70&w=1&s=0322a62f6023045adb2222ac78dcfa9a"></a>
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider4.jpg"></a>
           </div>
         </div>
       </div>
       <div class="item">
         <div class="row">
           <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa0.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fmoleskine.jpg?ixlib=rb-0.3.5&q=70&w=1&s=aec9d34ad5645bc61607235ba75a4889"></a>
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider5.jpg"></a>
           </div>
           <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa2.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Ffinery.jpg?ixlib=rb-0.3.5&q=70&w=1&s=c200a03e54dbd6a36c3d2ec3930ee6f1"></a>
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider6.jpg"></a>
           </div>
           <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa1.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fgrains.jpg?ixlib=rb-0.3.5&q=70&w=1&s=aac74e608ab076c01346e9ed035f2414"></a>
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider7.jpg"></a>
           </div>
           <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="https://appearhere.imgix.net/https%3A%2F%2Fa2.ah-assets.net%2Fuploads%2Fhomepage%2Finspiration%2Fjaime-oliver.jpg?ixlib=rb-0.3.5&q=70&w=1&s=1741e23d2587dda25e20df57d7b20668"></a>
+            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/sliders8.jpg"></a>
           </div>
         </div>
       </div>
@@ -413,7 +415,7 @@
       <%=image_tag homepage.action_sec_image.url(:thumb), class: "img-responsive"%>
 
           <%else%>
-            <img width="647" height="300" class="img-responsive" src="https://www.tes.com/sites/default/files/styles/news_article_hero/public/open_your_shop.png?itok=cfujHVSO">
+            <img width="647" height="300" class="img-responsive" src="landing_page_new/halfpage-image.jpg">
           <%end%>
 <!-- </div> -->
 </div>
