@@ -69,7 +69,7 @@
     <div class='col-md-12'>
      <!--  <img class="img-responsive brand-logo-images" src="landing_page_new/brand-logo.png"> -->
        <%if homepage.brand_image.present?%>
-                  <%=image_tag homepage.brand_image.url(:thumb), :class => "hp-slice"%>
+                  <%=image_tag homepage.brand_image.url(:thumb), :class => "img-responsive hp-slice"%>
                 <%else%>
                   <img class="img-responsive" src="landing_page_new/brand-logo.png">
                 <%end%>
