@@ -737,11 +737,14 @@ CREATE TABLE `homepages` (
   `action_sec_heading` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `action_sec_para` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `video_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `first_category_id` int(11) DEFAULT NULL,
-  `second_category_id` int(11) DEFAULT NULL,
-  `third_category_id` int(11) DEFAULT NULL,
-  `fourth_category_id` int(11) DEFAULT NULL,
-  `fifth_category_id` int(11) DEFAULT NULL,
+  `first_collage_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `second_collage_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `third_collage_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fourth_collage_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fifth_collage_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sixth_collage_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seventh_collage_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `eighth_collage_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -953,7 +956,6 @@ CREATE TABLE `listings` (
   `shipping_price_cents` int(11) DEFAULT NULL,
   `shipping_price_additional_cents` int(11) DEFAULT NULL,
   `availability` varchar(32) DEFAULT 'none',
-  `featured` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_listings_on_uuid` (`uuid`),
   KEY `index_listings_on_new_category_id` (`category_id`) USING BTREE,
@@ -1755,7 +1757,7 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-27 15:23:29
+-- Dump completed on 2016-11-27 16:32:20
 INSERT INTO schema_migrations (version) VALUES ('20080806070738');
 
 INSERT INTO schema_migrations (version) VALUES ('20080807071903');
@@ -3427,6 +3429,4 @@ INSERT INTO schema_migrations (version) VALUES ('20161120074848');
 INSERT INTO schema_migrations (version) VALUES ('20161120080226');
 
 INSERT INTO schema_migrations (version) VALUES ('20161127092110');
-
-INSERT INTO schema_migrations (version) VALUES ('20161127095236');
 

@@ -1,5 +1,4 @@
 <%homepage = Homepage.last%>
-<%featured_listings = Listing.where(featured: true).order(:updated_at).limit(3)%>
 <header class=" header_area">
   <div class="main_header_area" id="sticky">
     <div class="container-fluid nav-collapse-sc">
@@ -15,6 +14,9 @@
           <a class="navbar-brand" href="/"><img class="logo-main" src="landing_page_new/mls_logo.png" alt=""></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
+      
+                 
+                 
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <%= render partial: 'layouts/home_header', locals: header_props()%>
@@ -190,17 +192,10 @@
       </h3>
       <ul class="list-unstyled">
         <li class="col-xs-6 col-sm-4">
-         <%first_category = Category.find(homepage.first_category_id) rescue nil%>
-         <%first_url = if first_category.present?
-            first_category.url
-          else
-            nil
-          end
-         %>
          <%if homepage.first_collage_image.present?%>
-            <a href="/lists?category=<%=first_url%>" style="background-image: url('<%=homepage.first_collage_image.url(:thumb)%>')">
+            <a href="<%=homepage.first_collage_url%>" style="background-image: url('<%=homepage.first_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="/lists?category=<%=first_url%>" style="background-image: url('landing_page_new/collage1.jpg')">
+            <a href="<%=homepage.first_collage_url%>" style="background-image: url('landing_page_new/collage1.jpg')">
           <%end%>
             <p class="sm-text"> <%if homepage.first_overlay_small_texts.present?%>
             <%=homepage.first_overlay_small_texts%>
@@ -218,17 +213,11 @@
           </a>
         </li>
         <li class="col-xs-6 col-sm-4">
-        <%second_category = Category.find(homepage.second_category_id) rescue nil%>
-         <%second_url = if second_category.present?
-            second_category.url
-          else
-            nil
-          end
-         %>
+        
         <%if homepage.second_collage_image.present?%>
-            <a href="/lists?category=<%=second_url%>" style="background-image: url('<%=homepage.second_collage_image.url(:thumb)%>')">
+            <a href="<%=homepage.second_collage_url%>" style="background-image: url('<%=homepage.second_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="/lists?category=<%=second_url%>" style="background-image: url('landing_page_new/collage2.jpg')">
+            <a href="<%=homepage.second_collage_url%>" style="background-image: url('landing_page_new/collage2.jpg')">
           <%end%>
             <p class="sm-text"> <%if homepage.second_overlay_small_texts.present?%>
             <%=homepage.second_overlay_small_texts%>
@@ -246,16 +235,10 @@
           </a>
         </li>
         <li class="col-xs-6 col-sm-4">
-         <%first_featured_url = if featured_listings.present? && featured_listings.first.present?
-            listing_path(featured_listings.first)
-          else
-            ''
-          end
-          %>
          <%if homepage.third_collage_image.present?%>
-            <a href="<%=first_featured_url%>" style="background-image: url('<%=homepage.third_collage_image.url(:thumb)%>')">
+            <a href="<%=homepage.third_collage_url%>" style="background-image: url('<%=homepage.third_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="<%=first_featured_url%>" style="background-image: url('landing_page_new/collage3.jpg')">
+            <a href="<%=homepage.third_collage_url%>" style="background-image: url('landing_page_new/collage3.jpg')">
           <%end%>
              <p class="sm-text"> <%if homepage.third_overlay_small_texts.present?%>
             <%=homepage.third_overlay_small_texts%>
@@ -273,17 +256,10 @@
           </a>
         </li>
         <li class="col-xs-6">
-          <%third_category = Category.find(homepage.third_category_id) rescue nil%>
-           <%third_url = if third_category.present?
-              third_category.url
-            else
-              nil
-            end
-           %>
            <%if homepage.fourth_collage_image.present?%>
-            <a href="/lists?category=<%=third_url%>" style="background-image: url('<%=homepage.fourth_collage_image.url(:thumb)%>')">
+            <a href="<%=homepage.fourth_collage_url%>" style="background-image: url('<%=homepage.fourth_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="/lists?category=<%=third_url%>" style="background-image: url('landing_page_new/collage4.jpg')">
+            <a href="<%=homepage.fourth_collage_url%>" style="background-image: url('landing_page_new/collage4.jpg')">
           <%end%>
              <p class="sm-text"> <%if homepage.fourth_overlay_small_texts.present?%>
             <%=homepage.fourth_overlay_small_texts%>
@@ -301,16 +277,10 @@
           </a>
         </li>
         <li class="col-xs-6">
-         <%second_featured_url = if featured_listings.present? && featured_listings.second.present?
-            listing_path(featured_listings.second)
-          else
-            ''
-          end
-          %>
-         <%if homepage.fourth_collage_image.present?%>
-            <a href="<%=second_featured_url%>" style="background-image: url('<%=homepage.fourth_collage_image.url(:thumb)%>')">
+         <%if homepage.fifth_collage_image.present?%>
+            <a href="<%=homepage.fifth_collage_url%>" style="background-image: url('<%=homepage.fifth_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="<%=second_featured_url%>" style="background-image: url('landing_page_new/collage5.jpg')">
+            <a href="<%=homepage.fifth_collage_url%>" style="background-image: url('landing_page_new/collage5.jpg')">
           <%end%>
              <p class="sm-text"> <%if homepage.fifth_overlay_small_texts.present?%>
             <%=homepage.fifth_overlay_small_texts%>
@@ -327,47 +297,32 @@
            </p>
           </a>
         </li>
-        
         <li class="col-xs-6 col-sm-4">
-          <%third_featured_url = if featured_listings.present? && featured_listings.third.present?
-            listing_path(featured_listings.third)
-          else
-            ''
-          end
-          %>
          <%if homepage.sixth_collage_image.present?%>
-            <a href="<%=third_featured_url%>" style="background-image: url('<%=homepage.sixth_collage_image.url(:thumb)%>')">
+            <a href="<%=homepage.sixth_collage_url%>" style="background-image: url('<%=homepage.sixth_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="<%=third_featured_url%>" style="background-image: url('landing_page_new/collage6.jpg')">
+            <a href="<%=homepage.sixth_collage_url%>" style="background-image: url('landing_page_new/collage6.jpg')">
           <%end%>
-          <p class="sm-text"> 
-            <%if homepage.sixth_overlay_small_texts.present?%>
-              <%=homepage.sixth_overlay_small_texts%>
-            <%else%>
-              Small Text
-            <%end%>
+             <p class="sm-text"> <%if homepage.sixth_overlay_small_texts.present?%>
+            <%=homepage.sixth_overlay_small_texts%>
+          <%else%>
+            Small Text
+          <%end%>
           </p>
-          <p class="bg-sub-text">
-            <%if homepage.sixth_overlay_large_texts.present?%>
-              <%=homepage.sixth_overlay_large_texts%>
-            <%else%>
-              Large6
-            <%end%>
-          </p>
+             <p class="bg-sub-text">
+               <%if homepage.sixth_overlay_large_texts.present?%>
+            <%=homepage.sixth_overlay_large_texts%>
+          <%else%>
+            Large6
+          <%end%>
+           </p>
           </a>
         </li>
         <li class="col-xs-6 col-sm-4">
-          <%fourth_category = Category.find(homepage.fourth_category_id) rescue nil%>
-           <%fourth_url = if fourth_category.present?
-              fourth_category.url
-            else
-              nil
-            end
-           %>
-          <%if homepage.seventh_collage_image.present?%>
-            <a href="/lists?category=<%=fourth_url%>" style="background-image: url('<%=homepage.seventh_collage_image.url(:thumb)%>')">
+            <%if homepage.seventh_collage_image.present?%>
+            <a href="<%=homepage.seventh_collage_url%>" style="background-image: url('<%=homepage.seventh_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="/lists?category=<%=fourth_url%>" style="background-image: url('landing_page_new/collage7.jpg')">
+            <a href="<%=homepage.seventh_collage_url%>" style="background-image: url('landing_page_new/collage7.jpg')">
           <%end%>
             <p class="sm-text"> <%if homepage.seventh_overlay_small_texts.present?%>
             <%=homepage.seventh_overlay_small_texts%>
@@ -385,17 +340,10 @@
           </a>
         </li>
         <li class="col-xs-6 col-sm-4">
-          <%fifth_category = Category.find(homepage.fifth_category_id) rescue nil%>
-           <%fifth_url = if fifth_category.present?
-              fifth_category.url
-            else
-              nil
-            end
-           %>
            <%if homepage.eighth_collage_image.present?%>
-            <a href="/lists?category=<%=fifth_url%>" style="background-image: url('<%=homepage.eighth_collage_image.url(:thumb)%>')">
+            <a href="<%=homepage.eighth_collage_url%>" style="background-image: url('<%=homepage.eighth_collage_image.url(:thumb)%>')">
           <%else%>
-            <a href="/lists?category=<%=fifth_url%>" style="background-image: url('landing_page_new/collage8.jpg')">
+            <a href="<%=homepage.eighth_collage_url%>" style="background-image: url('landing_page_new/collage8.jpg')">
           <%end%>
             <p class="sm-text"> <%if homepage.eighth_overlay_small_texts.present?%>
             <%=homepage.eighth_overlay_small_texts%>

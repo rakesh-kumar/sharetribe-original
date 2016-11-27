@@ -75,11 +75,14 @@
 #  action_sec_heading                 :string(255)
 #  action_sec_para                    :string(255)
 #  video_url                          :string(255)
-#  first_category_id                  :integer
-#  second_category_id                 :integer
-#  third_category_id                  :integer
-#  fourth_category_id                 :integer
-#  fifth_category_id                  :integer
+#  first_collage_url                  :string(255)
+#  second_collage_url                 :string(255)
+#  third_collage_url                  :string(255)
+#  fourth_collage_url                 :string(255)
+#  fifth_collage_url                  :string(255)
+#  sixth_collage_url                  :string(255)
+#  seventh_collage_url                :string(255)
+#  eighth_collage_url                 :string(255)
 #
 
 require 'rails_helper'

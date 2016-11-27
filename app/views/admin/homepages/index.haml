@@ -74,8 +74,8 @@
           = form.file_field(:first_collage_image, :class => "file_field")
           %i.icon-info-sign  Recommend size 360x275
         .col-12
-          = form.label :first_category_id, 'Select first category', :class => "input"
-          = form.select :first_category_id, Category.all.map{|c| [c.display_name(I18n.locale), c.id]}, {}, {:class => "select_field"}
+          = form.label :first_collage_url, 'first collage url', :class => "input"
+          = form.text_field :first_collage_url, class: 'text_field'
       .row
         .col-12
           = form.label :first_overlay_small_texts, 'First Small Overlay Texts', :class => "input"
@@ -90,8 +90,8 @@
           = form.file_field(:second_collage_image, :class => "file_field")
           %i.icon-info-sign  Recommend size 360x275
         .col-12
-          = form.label :second_category_id, 'Select second category', :class => "input"
-          = form.select :second_category_id, Category.all.map{|c| [c.display_name(I18n.locale), c.id]}, {}, {:class => "select_field"}
+          = form.label :second_collage_url, 'second collage url', :class => "input"
+          = form.text_field :second_collage_url, class: 'text_field'
       .row
         .col-12
           = form.label :second_overlay_small_texts, 'Second Small Overlay Texts', :class => "input"
@@ -106,8 +106,8 @@
           = form.file_field(:third_collage_image, :class => "file_field")
           %i.icon-info-sign  Recommend size 360x275
         .col-12
-          = form.label :third_category_id, 'Select third category', :class => "input"
-          = form.select :third_category_id, Category.all.map{|c| [c.display_name(I18n.locale), c.id]}, {}, {:class => "select_field"}
+          = form.label :third_collage_url, 'third collage url', :class => "input"
+          = form.text_field :third_collage_url, class: 'text_field'
       .row
         .col-12
           = form.label :third_overlay_small_texts, 'Third Small Overlay Texts', :class => "input"
@@ -122,8 +122,8 @@
           = form.file_field(:fourth_collage_image, :class => "file_field")
           %i.icon-info-sign  Recommend size 550x275
         .col-12
-          = form.label :fourth_category_id, 'Select fourth category', :class => "input"
-          = form.select :fourth_category_id, Category.all.map{|c| [c.display_name(I18n.locale), c.id]}, {}, {:class => "select_field"}
+          = form.label :fourth_collage_url, 'fourth collage url', :class => "input"
+          = form.text_field :fourth_collage_url, class: 'text_field'
       .row
         .col-12
           = form.label :fourth_overlay_small_texts, 'Fourth Small Overlay Texts', :class => "input"
@@ -138,8 +138,8 @@
           = form.file_field(:fifth_collage_image, :class => "file_field")
           %i.icon-info-sign  Recommend size 550x275
         .col-12
-          = form.label :fifth_category_id, 'Select fifth category', :class => "input"
-          = form.select :fifth_category_id, Category.all.map{|c| [c.display_name(I18n.locale), c.id]}, {}, {:class => "select_field"}
+          = form.label :fifth_collage_url, 'fifth collage url', :class => "input"
+          = form.text_field :fifth_collage_url, class: 'text_field'
       .row
         .col-12
           = form.label :fifth_overlay_small_texts, 'Fifth Small Overlay Texts', :class => "input"
@@ -153,6 +153,9 @@
           = form.label :sixth_collage_image, 'Sixth Collage Image', :class => "input"
           = form.file_field(:sixth_collage_image, :class => "file_field")
           %i.icon-info-sign  Recommend size 360x275
+        .col-12
+          = form.label :sixth_collage_url, 'sixth collage url', :class => "input"
+          = form.text_field :sixth_collage_url, class: 'text_field'
       .row
         .col-12
           = form.label :sixth_overlay_small_texts, 'Sixth Small Overlay Texts', :class => "input"
@@ -166,6 +169,9 @@
           = form.label :seventh_collage_image, 'Seventh Collage Image', :class => "input"
           = form.file_field(:seventh_collage_image, :class => "file_field")
           %i.icon-info-sign  Recommend size 360x275
+        .col-12
+          = form.label :seventh_collage_url, 'seventh collage url', :class => "input"
+          = form.text_field :seventh_collage_url, class: 'text_field'
       .row
         .col-12
           = form.label :seventh_overlay_small_texts, 'Seventh Small Overlay Texts', :class => "input"
@@ -179,6 +185,9 @@
           = form.label :eighth_collage_image, 'Eighth Collage Image', :class => "input"
           = form.file_field(:eighth_collage_image, :class => "file_field")
           %i.icon-info-sign  Recommend size 360x275
+        .col-12
+          = form.label :eighth_collage_url, 'Eighth collage url', :class => "input"
+          = form.text_field :eighth_collage_url, class: 'text_field'
       .row
         .col-12
           = form.label :eighth_overlay_small_texts, 'Eighth Small Overlay Texts', :class => "input"
