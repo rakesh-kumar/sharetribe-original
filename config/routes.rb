@@ -407,6 +407,7 @@ Kassi::Application.routes.draw do
           member do
             put :close
             put :move_to_top
+            put :mark_featured
             put :show_in_updates_email
           end
         end

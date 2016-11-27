@@ -75,6 +75,11 @@
 #  action_sec_heading                 :string(255)
 #  action_sec_para                    :string(255)
 #  video_url                          :string(255)
+#  first_category_id                  :integer
+#  second_category_id                 :integer
+#  third_category_id                  :integer
+#  fourth_category_id                 :integer
+#  fifth_category_id                  :integer
 #
 
 class Homepage < ActiveRecord::Base

@@ -183,6 +183,17 @@
               .text-part= t("listings.edit_links.move_to_top")
 
         .listing-view-admin-link
+          - already_featured = @listing.featured?
+          = link_to mark_featured_person_listing_path(@current_user, @listing, mark: !already_featured), data: { method: "put" } do
+            .icon-with-text-container
+              = icon_tag("star", ["icon-part"])
+              .text-part
+                - if already_featured
+                  Remove from featured
+                - else
+                  Mark as featured
+
+        .listing-view-admin-link
           = link_to show_in_updates_email_person_listing_path(@current_user, @listing), data: { method: "put", remote: "true" }, :id => "add-to-updates-email"  do
             .icon-with-text-container
               = icon_tag("mail", ["icon-part"])

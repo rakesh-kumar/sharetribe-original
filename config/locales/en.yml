@@ -1556,10 +1556,10 @@ en:
       unable_load_availability: "Could not load availability information. Please try again later."
     new:
       listing: listing
-      selected_category: "Category: %{category}"
+      selected_category: "Location: %{category}"
       selected_subcategory: "Subcategory: %{subcategory}"
       selected_transaction_type: "Listing type: %{transaction_type}"
-      select_category: "Select category"
+      select_category: "Selection Location"
       select_subcategory: "Select subcategory"
       select_transaction_type: "Select listing type"
       you_need_to_fill_payout_details_before_accepting: "You need to fill in payout details before you can post a listing. Go to %{payment_settings_link} to fill in the details."

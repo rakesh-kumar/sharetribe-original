@@ -24,7 +24,7 @@ class ListingsController < ApplicationController
     controller.ensure_current_user_is_listing_author t("layouts.notifications.only_listing_author_can_edit_a_listing")
   end
 
-  before_filter :ensure_is_admin, :only => [ :move_to_top, :show_in_updates_email ]
+  before_filter :ensure_is_admin, :only => [ :move_to_top, :show_in_updates_email, :mark_featured ]
 
   before_filter :is_authorized_to_post, :only => [ :new, :create ]
 
@@ -501,6 +501,18 @@ class ListingsController < ApplicationController
 
     # Listings are sorted by `sort_date`, so change it to now.
     if @listing.update_attribute(:sort_date, Time.now)
+      redirect_to homepage_index_path
+    else
+      flash[:warning] = "An error occured while trying to move the listing to the top of the homepage"
+      logger.error("An error occured while trying to move the listing (id=#{Maybe(@listing).id.or_else('No id available')}) to the top of the homepage")
+      redirect_to @listing
+    end
+  end
+
+  def mark_featured
+    @listing = @current_community.listings.find(params[:id])
+
+    if @listing.update_attribute(:featured, params[:mark])
       redirect_to homepage_index_path
     else
       flash[:warning] = "An error occured while trying to move the listing to the top of the homepage"
