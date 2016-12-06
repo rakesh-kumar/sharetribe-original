@@ -178,8 +178,8 @@ class AcceptPreauthorizedConversationsController < ApplicationController
       orderer: @listing_conversation.starter,
       sum: transaction[:item_total],
       fee: commission_total, #transaction[:commission_total],
-      shipping_price: nil,
-      shipping_address: nil,
+      shipping_price: transaction[:shipping_price],
+      shipping_address: transaction[:shipping_address],
       seller_gets: transaction[:checkout_total] - commission_total, #transaction[:commission_total],
       form: @listing_conversation,
       form_action: acceptance_preauthorized_person_message_path(

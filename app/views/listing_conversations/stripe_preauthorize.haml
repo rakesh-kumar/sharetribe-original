@@ -56,11 +56,50 @@
     = link_to(listing[:title], listing_path(listing[:id]))
 
 #new_message_form.centered-section
-  - author_link = link_to(author[:display_name], person_path(author[:username]))
+  = form_tag form_action, method: :post, id: "transaction-form", multipart: true do
+    - author_link = link_to(author[:display_name], person_path(author[:username]))
 
-  .preauthorize-section
-    %h2.preauthorize-details-title
-      = t("listing_conversations.preauthorize.details")
+    .preauthorize-section
+      %h2.preauthorize-details-title
+        Booking Details
+
+    .row
+      .col-12
+        %label
+          Product Name
+          %input{name: 'transaction_detail[product_name]' ,:placeholder => "Product Name", :type => "text", required: true}
+
+    .row
+      .col-12
+        %label
+          Product Description
+          %textarea{name: 'transaction_detail[description]', :placeholder => "Description"}
+    .row
+      .col-12
+        %label
+          Product Images
+          .row
+            = file_field_tag 'transaction_detail[image_one]'
+          .row
+            = file_field_tag 'transaction_detail[image_two]'
+          .row
+            = file_field_tag 'transaction_detail[image_three]'
+          .row
+            = file_field_tag 'transaction_detail[image_four]'
+          .row
+            = file_field_tag 'transaction_detail[image_five]'
+  
+    .row
+      .col-12
+        %label
+          Recommended Reatil Price
+          %input{name: 'transaction_detail[recommended_retail_price]', :pattern => "\\d*", :placeholder => "Recommended Reatil Price", :type => "number", required: true}
+
+    .row
+      .col-12
+        %label
+          Wholesale Price
+          %input{name: 'transaction_detail[wholesale_price]', :pattern => "\\d*", :placeholder => "Wholesale Price", :type => "number", required: true}
 
     %ul.no-bullets
       %li
@@ -70,7 +109,6 @@
       %li
         = render partial: "transactions/price_break_down", locals: price_break_down_locals
 
-  = form_tag form_action, method: :post, id: "transaction-form" do
     = hidden_field_tag(:start_on, start_on&.iso8601 )
     = hidden_field_tag(:end_on, end_on&.iso8601 )
     .preauthorize-section
@@ -80,12 +118,12 @@
       = render partial: "payments/stripe/credit_card_info"
 
     .preauthorize-section
-      %h2
-        = t("conversations.new.optional_message_to", author_name: link_to(author[:display_name], person_path(author[:username]))).html_safe
+      / %h2
+      /   = t("conversations.new.optional_message_to", author_name: link_to(author[:display_name], person_path(author[:username]))).html_safe
 
-      .row
-        .col-12
-          = text_area_tag :message, nil, :class => "text_area"
+      / .row
+      /   .col-12
+      /     = text_area_tag :message, nil, :class => "text_area"
 
       - if @current_community.transaction_agreement_in_use
         = render :partial => "listing_conversations/transaction_agreement_checkbox"

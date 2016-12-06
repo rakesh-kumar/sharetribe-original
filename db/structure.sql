@@ -1631,6 +1631,46 @@ CREATE TABLE `testimonials` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `transaction_details`
+--
+
+DROP TABLE IF EXISTS `transaction_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `transaction_details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `recommended_retail_price` decimal(10,0) DEFAULT NULL,
+  `wholesale_price` decimal(10,0) DEFAULT NULL,
+  `image_one_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_one_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_one_file_size` int(11) DEFAULT NULL,
+  `image_one_updated_at` datetime DEFAULT NULL,
+  `image_two_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_two_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_two_file_size` int(11) DEFAULT NULL,
+  `image_two_updated_at` datetime DEFAULT NULL,
+  `image_three_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_three_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_three_file_size` int(11) DEFAULT NULL,
+  `image_three_updated_at` datetime DEFAULT NULL,
+  `image_four_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_four_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_four_file_size` int(11) DEFAULT NULL,
+  `image_four_updated_at` datetime DEFAULT NULL,
+  `image_five_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_five_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_five_file_size` int(11) DEFAULT NULL,
+  `image_five_updated_at` datetime DEFAULT NULL,
+  `transaction_id` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `transaction_process_tokens`
 --
 
@@ -1757,7 +1797,7 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-27 16:32:20
+-- Dump completed on 2016-12-06 13:42:13
 INSERT INTO schema_migrations (version) VALUES ('20080806070738');
 
 INSERT INTO schema_migrations (version) VALUES ('20080807071903');
@@ -3429,4 +3469,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161120074848');
 INSERT INTO schema_migrations (version) VALUES ('20161120080226');
 
 INSERT INTO schema_migrations (version) VALUES ('20161127092110');
+
+INSERT INTO schema_migrations (version) VALUES ('20161206073957');
 

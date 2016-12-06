@@ -143,6 +143,7 @@ class TransactionsController < ApplicationController
     tx_model = Transaction.where(id: tx[:id]).first
     conversation = transaction_conversation[:conversation]
     listing = Listing.where(id: tx[:listing_id]).first
+    transaction_detail = tx_model.transaction_detail
 
     messages_and_actions = TransactionViewUtils.merge_messages_and_transitions(
       TransactionViewUtils.conversation_messages(conversation[:messages], @current_community.name_display_type),
@@ -167,7 +168,8 @@ class TransactionsController < ApplicationController
       role: role,
       message_form: MessageForm.new({sender_id: @current_user.id, conversation_id: conversation[:id]}),
       message_form_action: person_message_messages_path(@current_user, :message_id => conversation[:id]),
-      price_break_down_locals: price_break_down_locals(tx)
+      price_break_down_locals: price_break_down_locals(tx),
+      transaction_detail: transaction_detail
     }
   end
 

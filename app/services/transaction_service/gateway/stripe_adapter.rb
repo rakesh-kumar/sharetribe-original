@@ -45,10 +45,11 @@ module TransactionService::Gateway
 
     def get_payment_details(tx:)
       shipping_price = if tx[:shipping_price].present?
-        shipping_price
+        tx[:shipping_price]
       else
         Money.new(0, tx[:unit_price_currency])
       end
+      
       total_price = (tx[:unit_price] + shipping_price) * tx[:listing_quantity]
       { payment_total: total_price,
         total_price: total_price,
