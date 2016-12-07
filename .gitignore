@@ -25,6 +25,7 @@ public/system/cover_photos/
 public/system/logos/
 public/system/small_cover_photos/
 public/system/wide_logos/
+public/system/brand_images/
 public/system/*
 .loadpath
 .project
