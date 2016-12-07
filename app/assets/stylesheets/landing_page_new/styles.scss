@@ -645,7 +645,7 @@ form {
     font-weight: normal;
 }
 
-.form-wrapper #submit {
+.form-wrapper #search-button {
     border: 1px solid #c71e6b;
     height: 49px;
     float: right;
@@ -658,21 +658,21 @@ form {
     color: #fff;
 }
 
-.form-wrapper #submit:hover,
-.form-wrapper #submit:focus {
+.form-wrapper #search-button:hover,
+.form-wrapper #search-button:focus {
     color: #f5f5f5;
     font-size: 13.5px;
     border:none;
 }
 
-.form-wrapper #submit:active {
+.form-wrapper #search-button:active {
     -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
     outline: 0;
 }
 
-.form-wrapper #submit::-moz-focus-inner {
+.form-wrapper #search-button::-moz-focus-inner {
     border: 0;
 }
 
@@ -763,7 +763,7 @@ input#search {
     height: 42px !important;
 }
 
-.form-wrapper #submit {
+.form-wrapper #search-button {
     background-color: #C71E6B;
     border: 1px solid #C71E6B;
     height: 42px;
@@ -864,7 +864,7 @@ span#typed {
     margin-top: 10px;
 }
 
-.form-wrapper #submit {
+.form-wrapper #search-button {
     background-color: #C71E6B;
     border: 1px solid #C71E6B;
     height: 42px;
@@ -931,7 +931,7 @@ input#search {
     padding-top: 11px !important;
 }
 
-.form-wrapper #submit {
+.form-wrapper #search-button {
     background-color: #C71E6B;
     border: 1px solid #C71E6B;
     height: 36px;
@@ -968,7 +968,7 @@ input#search {
     height: 35px;
 }
 
-.form-wrapper #submit {
+.form-wrapper #search-button {
     background-color: #C71E6B;
     border: 1px solid #C71E6B;
     height: 36px;

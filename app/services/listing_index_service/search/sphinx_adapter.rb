@@ -21,7 +21,7 @@ module ListingIndexService::Search
       if DatabaseSearchHelper.needs_db_query?(search) && DatabaseSearchHelper.needs_search?(search)
         return Result::Error.new(ArgumentError.new("Both DB query and search engine would be needed to fulfill the search"))
       end
-
+      
       if DatabaseSearchHelper.needs_search?(search)
         if search_out_of_bounds?(search[:per_page], search[:page])
           DatabaseSearchHelper.success_result(0, [], includes)
@@ -60,6 +60,15 @@ module ListingIndexService::Search
         # Do a short circuit and return emtpy paginated collection of listings wrapped into a success result
         DatabaseSearchHelper.success_result(0, [], nil)
       else
+        with_geo = HashUtils.compact(
+          {
+            geodist: 0.0..2_000_000.0,
+            community_id: community_id,
+            category_id: search[:categories], # array of accepted ids
+            listing_shape_id: search[:listing_shape_id],
+            price_cents: search[:price_cents],
+            listing_id: numeric_search_match_listing_ids,
+          })
 
         with = HashUtils.compact(
           {
@@ -78,19 +87,51 @@ module ListingIndexService::Search
           custom_checkbox_field_options: (grouped_by_operator[:and] || []).flat_map { |v| v[:value] },
         }
 
-        models = Listing.search(
-          Riddle::Query.escape(search[:keywords] || ""),
-          sql: {
-            include: included_models
-          },
-          page: search[:page],
-          per_page: search[:per_page],
-          star: true,
-          with: with,
-          with_all: with_all,
-          order: 'sort_date DESC',
-          max_query_time: 1000 # Timeout and fail after 1s
-        )
+        @coordinates = [search[:latitude], search[:longitude]]
+
+        if @coordinates.present?
+          models = Listing.search(
+            geo: @coordinates,
+            sql: {
+              include: included_models
+            },
+            page: search[:page],
+            per_page: search[:per_page],
+            star: true,
+            with: with_geo,
+            with_all: with_all,
+            order: 'geodist ASC',
+            max_query_time: 1000
+          )
+        else
+          models = Listing.search(
+            Riddle::Query.escape(search[:keywords] || ""),
+            sql: {
+              include: included_models
+            },
+            page: search[:page],
+            per_page: search[:per_page],
+            star: true,
+            with: with,
+            with_all: with_all,
+            order: 'sort_date DESC',
+            max_query_time: 1000 # Timeout and fail after 1s
+          )
+        end
+
+        # models = Listing.search(
+        #   Riddle::Query.escape(search[:keywords] || ""),
+        #   sql: {
+        #     include: included_models
+        #   },
+        #   page: search[:page],
+        #   per_page: search[:per_page],
+        #   star: true,
+        #   with: with,
+        #   with_all: with_all,
+        #   order: 'sort_date DESC',
+        #   max_query_time: 1000 # Timeout and fail after 1s
+        # )
 
         begin
           DatabaseSearchHelper.success_result(models.total_entries, models, includes)

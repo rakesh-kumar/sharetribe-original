@@ -21,9 +21,12 @@
     <% end %>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <% maps_key = MarketplaceHelper.google_maps_key(@current_community.id) %>
+    <% key_param = maps_key ? "&key=#{maps_key}" : "" %>
 
-     <%= javascript_include_tag 'landing_page_new/base'%>
+    <%= javascript_include_tag 'landing_page_new/base'%>
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places#{key_param}" %>
     <%= stylesheet_link_tag "landing_page_new/base" %>
     
     <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" %>
