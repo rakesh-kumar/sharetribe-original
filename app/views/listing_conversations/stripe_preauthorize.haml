@@ -67,7 +67,7 @@
       .col-12
         %label
           Product Name
-          %input{name: 'transaction_detail[product_name]' ,:placeholder => "Product Name", :type => "text", required: true}
+          %input{name: 'transaction_detail[product_name]' ,:placeholder => "Product Name", :type => "text", required: true, autofocus: true}
 
     .row
       .col-12
@@ -77,7 +77,7 @@
     .row
       .col-12
         %label
-          Product Images
+          Product Images (Max size 1 MB)
           .row
             = file_field_tag 'transaction_detail[image_one]'
           .row
