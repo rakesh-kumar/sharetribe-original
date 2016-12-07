@@ -3,16 +3,75 @@
 <head>
 
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta property="og:type" content="website">
-    <meta http-equiv="content-language" content="fi">
-    <meta name="twitter:card" content="summary">
-    <meta name="robots" content="index,follow">
-    <!-- Additional meta tags for SEO, etc. -->
 
-    <title>My Local Shelf</title>
-    <meta name="description" content="Vint on varastotilojen markkinapaikka. Ansaitse tyhjällä tilallasi tai vuokraa varasto, autotalli tai muuta varastotilaa helposti.">
+    <% title_service_name = "#{@current_community.full_name(I18n.locale)}" %>
+    <% if content_for?(:title) %>
+      <% title = "#{content_for(:title)} - #{title_service_name}" %>
+    <% else %>
+      <% title = "#{title_service_name} - #{community_slogan}" %>
+    <% end %>
+
+    <% if content_for?(:keywords) %>
+      <% keywords = content_for(:keywords) %>
+    <% else %>
+      <% keywords = StringUtils.keywords(community_slogan) %>
+    <% end %>
+
+    <% if content_for?(:meta_author) %>
+      <% meta_author = content_for(:meta_author) %>
+    <% else %>
+      <% meta_author = @current_community.name(I18n.locale) %>
+    <% end %>
+
+    <% full_url = "#{@current_community.full_url}#{request.fullpath}" %>
+
+    <% if content_for?(:meta_description) %>
+      <% meta_description = "#{content_for(:meta_description)}" %>
+    <% else %>
+      <% meta_description = "#{community_description(false)} - #{community_slogan}" %>
+    <% end %>
+
+    <% if content_for?(:meta_image) %>
+      <% meta_image = content_for(:meta_image) %>
+      <% meta_image_width = content_for(:meta_image_width) %>
+      <% meta_image_height = content_for(:meta_image_height) %>
+    <% else %>
+      <% if @current_community.logo? %>
+        <% meta_image = @current_community.logo.url(:original) %>
+      <% else %>
+        <% meta_image = image_path("sharetribe_icon.png") %>
+      <% end %>
+    <% end %>
+    <meta content="<%= title %>" property="og:title"/>
+    <meta content="<%= title %>" name="twitter:title"/>
+    <meta content="<%= meta_author %>" name="author"/>
+    <meta content="<%= keywords %>" name="keywords"/>
+    <meta content="<%= full_url %>" property="og:url"/>
+    <meta content="<%= @current_community.full_domain(with_protocol: true) %>" name="identifier-url"/>
+    <meta content="<%= @current_community.name(I18n.locale) %>" name="copyright"/>
+    <meta content="<%= full_url %>" name="twitter:url"/>
+    <meta content="<%= @current_community.full_name(locale) %>" property="og:site_name"/>
+    <meta content="<%= strip_tags(meta_description).html_safe %>" name="description"/>
+    <meta content="<%= strip_tags(meta_description).html_safe %>" property="og:description"/>
+    <meta content="<%= strip_tags(meta_description).html_safe %>" name="twitter:description"/>
+    <meta content="<%= meta_image %>" property="og:image"/>
+    <% if meta_image_width && meta_image_height %>
+      <meta content="<%= meta_image_width %>" property="og:image:width"/>
+      <meta content="<%= meta_image_height %>" property="og:image:height"/>
+    <% end %>
+
+    <meta content="<%= meta_image %>" name="twitter:image"/>
+    <link href="<%= full_url %>" rel="canonical"></link>
+    <% if @facebook_locale_code %>
+      <meta content="<%= @facebook_locale_code %>" property="og:locale"/>
+    <% end %>
+    <% if @current_community.twitter_handle.present? %>
+      <meta content="@<%= @current_community.twitter_handle %>" name="twitter:site"/>
+    <% end %>
+    <% if @current_community.facebook_connect_id %>
+      <meta content="<%= @current_community.facebook_connect_id %>" property="fb:app_id"/>
+    <% end %>
 
     <!-- CSS -->
    
@@ -99,12 +158,6 @@
     function foo(){ console.log("Callback"); }
 
     </script>
-    <meta content="authenticity_token" name="csrf-param">
-    <meta content="CF9vIoYbwbWcfSevjlAlcLIsw+eh5OZhx6oBeHgnlBMNGsdrZdBwZuqX5CJ5u9BQKZKvx5XaAs+DWxA8qBbmgg==" name="csrf-token">
-
-    <!-- Favicon -->
-   
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -112,9 +165,6 @@
     <!-- Web Fonts  -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css">
     
-  
-
-
 </head>
 <body>
   <%=yield%>
