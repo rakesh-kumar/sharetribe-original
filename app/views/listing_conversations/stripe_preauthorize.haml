@@ -92,14 +92,14 @@
     .row
       .col-12
         %label
-          Recommended Reatil Price
-          %input{name: 'transaction_detail[recommended_retail_price]', :pattern => "\\d*", :placeholder => "Recommended Reatil Price", :type => "number", required: true}
+          Recommended Retail Price
+          %input{name: 'transaction_detail[recommended_retail_price]', :pattern => "\\d*", :placeholder => "Recommended Reatil Price", :type => "number", min: 0, required: true}
 
     .row
       .col-12
         %label
           Wholesale Price
-          %input{name: 'transaction_detail[wholesale_price]', :pattern => "\\d*", :placeholder => "Wholesale Price", :type => "number", required: true}
+          %input{name: 'transaction_detail[wholesale_price]', :pattern => "\\d*", :placeholder => "Wholesale Price", :type => "number", min: 0, required: true}
 
     %ul.no-bullets
       %li
