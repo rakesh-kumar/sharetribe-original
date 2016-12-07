@@ -2,9 +2,9 @@ worker_processes 2
 timeout 3500
 preload_app true
 
-root_dir = "/home/dev921/apps/vint"
+root_dir = '/home/ubuntu/apps/mylocalshelf'
 
-listen "/tmp/vint.sock", :backlog => 64
+listen "/tmp/unicorn.sock", :backlog => 64
 pid "#{root_dir}/tmp/pids/unicorn.pid"
 stderr_path "#{root_dir}/log/unicorn.stderr.log"
 stdout_path "#{root_dir}/log/unicorn.stdout.log"
