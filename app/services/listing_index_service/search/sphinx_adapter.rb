@@ -88,8 +88,7 @@ module ListingIndexService::Search
         }
 
         @coordinates = [search[:latitude], search[:longitude]]
-
-        if @coordinates.present?
+        if @coordinates.compact.present?
           models = Listing.search(
             geo: @coordinates,
             sql: {
@@ -119,19 +118,6 @@ module ListingIndexService::Search
           )
         end
 
-        # models = Listing.search(
-        #   Riddle::Query.escape(search[:keywords] || ""),
-        #   sql: {
-        #     include: included_models
-        #   },
-        #   page: search[:page],
-        #   per_page: search[:per_page],
-        #   star: true,
-        #   with: with,
-        #   with_all: with_all,
-        #   order: 'sort_date DESC',
-        #   max_query_time: 1000 # Timeout and fail after 1s
-        # )
 
         begin
           DatabaseSearchHelper.success_result(models.total_entries, models, includes)
