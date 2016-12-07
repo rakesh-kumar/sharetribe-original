@@ -368,9 +368,11 @@ class PreauthorizeTransactionsController < ApplicationController
         })
 
       handle_tx_response(tx_response)
-      params[:transaction_detail][:transaction_id] = tx_response.data[:transaction][:id]
-      transaction_detail = TransactionDetail.new(params.require(:transaction_detail).permit!)
-      transaction_detail.save
+      if tx_response.data[:transaction].present?
+        params[:transaction_detail][:transaction_id] = tx_response.data[:transaction][:id]
+        transaction_detail = TransactionDetail.new(params.require(:transaction_detail).permit!)
+        transaction_detail.save
+      end
     }
 
 
