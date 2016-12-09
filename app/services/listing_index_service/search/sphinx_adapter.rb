@@ -62,7 +62,7 @@ module ListingIndexService::Search
       else
         with_geo = HashUtils.compact(
           {
-            geodist: 0.0..2_000_000.0,
+            geodist: 0.0..1_000_000.0,
             community_id: community_id,
             category_id: search[:categories], # array of accepted ids
             listing_shape_id: search[:listing_shape_id],

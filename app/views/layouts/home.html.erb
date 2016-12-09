@@ -72,6 +72,10 @@
     <% if @current_community.facebook_connect_id %>
       <meta content="<%= @current_community.facebook_connect_id %>" property="fb:app_id"/>
     <% end %>
+    <link href="<%= meta_image %>" rel="image_src"></link>
+    <link href="<%= @current_community.favicon %>" rel="shortcut icon"></link>
+    <link href="<%= @current_community.logo.url(:apple_touch) %>" rel="apple-touch-icon-precomposed"></link>
+
 
     <!-- CSS -->
    
