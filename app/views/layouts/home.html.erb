@@ -12,6 +12,8 @@
       <% title = "#{title_service_name} - #{community_slogan}" %>
     <% end %>
 
+    <title><%=title%></title>
+
     <% if content_for?(:keywords) %>
       <% keywords = content_for(:keywords) %>
     <% else %>
