@@ -87,8 +87,8 @@ module ListingIndexService::Search
           custom_checkbox_field_options: (grouped_by_operator[:and] || []).flat_map { |v| v[:value] },
         }
 
-        @coordinates = [search[:latitude], search[:longitude]]
-        # @coordinates = Geocoder::Calculations.to_radians([search[:latitude], search[:longitude]])
+        # @coordinates = [search[:latitude], search[:longitude]]
+        @coordinates = Geocoder::Calculations.to_radians([search[:latitude], search[:longitude]])
         
         if @coordinates.compact.present? && search[:categories].blank?
           models = Listing.search(
