@@ -39,5 +39,7 @@ if APP_CONFIG.use_thinking_sphinx_indexing.to_s.casecmp("true") == 0
       :description => 3
     }
 
+    group_by "latitude", "longitude"
+
   end
 end
