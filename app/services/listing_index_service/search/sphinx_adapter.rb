@@ -87,8 +87,10 @@ module ListingIndexService::Search
           custom_checkbox_field_options: (grouped_by_operator[:and] || []).flat_map { |v| v[:value] },
         }
 
-        @coordinates = [search[:latitude], search[:longitude]]
-        if @coordinates.compact.present?
+        # @coordinates = [search[:latitude], search[:longitude]]
+        @coordinates = Geocoder::Calculations.to_radians([search[:latitude], search[:longitude]])
+        
+        if @coordinates.compact.present? && search[:categories].blank?
           models = Listing.search(
             geo: @coordinates,
             sql: {
@@ -97,7 +99,7 @@ module ListingIndexService::Search
             page: search[:page],
             per_page: search[:per_page],
             star: true,
-            with: with_geo,
+            with: {:geodist => 0.0..50_000.0},
             with_all: with_all,
             order: 'geodist ASC',
             max_query_time: 1000
