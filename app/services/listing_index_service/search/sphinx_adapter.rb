@@ -88,9 +88,10 @@ module ListingIndexService::Search
         }
 
         # @coordinates = [search[:latitude], search[:longitude]]
-        @coordinates = Geocoder::Calculations.to_radians([search[:latitude], search[:longitude]])
-        
-        if @coordinates.compact.present? && search[:categories].blank?
+        if search[:latitude].present? && search[:longitude].present?
+          @coordinates = Geocoder::Calculations.to_radians([search[:latitude], search[:longitude]])
+        end
+        if @coordinates && @coordinates.compact.present? && search[:categories].blank?
           models = Listing.search(
             geo: @coordinates,
             sql: {
