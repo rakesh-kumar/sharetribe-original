@@ -54,6 +54,13 @@ input.center-block.form-control.input-lg.home-search {
     height: 2.5em;
 }
 
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-left: 5px;
+}
+
 .header-text-link {
     height: 3.75em;
     line-height: 3.5625em;
@@ -258,7 +265,6 @@ a#new-listing-link.btn-below {
     margin: 0 auto;
     width: 175px;
     text-align: center;
-    margin-bottom: 50px;
 }
 
 a#new-listing-link {
@@ -390,7 +396,15 @@ p.parag {
 @media (min-width: 640px) {
 #destinations a {
     height: 180px;
-} }
+} 
+}
+
+@media (max-width: 640px) {
+
+section.slick-slider-grid {
+     display:none;
+}
+ }
 
 @media (min-width: 480px) {
 #destinations a {
@@ -414,7 +428,9 @@ input.center-block.form-control.input-lg.home-search {
     font-size: 15px;
     margin-left: -96px;
     width: 350px;
+
 }
+
 }
 @media (min-width: 992px) {
 input.center-block.form-control.input-lg.home-search {
@@ -506,4 +522,12 @@ li.dropdown.big-screen {
     color: #2c9fa5 !important;
 }
 
+}
+
+@media (min-width: 768px) and (max-width: 991px) { 
+      h2.action-heading {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 25px;
+}
 }

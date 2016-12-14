@@ -371,33 +371,33 @@
     <div class="carousel-inner">
       <div class="item  active">
         <div class="row">
-          <div class="col-md-3">
-            <a class="thumbnail" href="#"><img class="slider-img" height="400" width="287" alt="" src="landing_page_new/slider1.png"></a>
+          <div class="col-md-3 col-sm-4 col-xs-4">
+            <a class="jjkk" href="#"><img class="slider-img" height="400" width="287" alt="" src="landing_page_new/slider1.png"></a>
           </div>
-          <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider2.png"></a>
+          <div class="col-md-3 col-sm-4 col-xs-4">
+            <a class="jjkk" href="#"><img alt="" class="slider-img" src="landing_page_new/slider2.png"></a>
           </div>
-          <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider3.png"></a>
+          <div class="col-md-3 col-sm-4 col-xs-4">
+            <a class="jjkk" href="#"><img alt="" class="slider-img" src="landing_page_new/slider3.png"></a>
           </div>
-          <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider4.png"></a>
+          <div class="col-md-3 col-sm-4 col-xs-4">
+            <a class="jjkk" href="#"><img alt="" class="slider-img last" src="landing_page_new/slider4.png"></a>
           </div>
         </div>
       </div>
       <div class="item">
         <div class="row">
-          <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider5.png"></a>
+          <div class="col-md-3 col-sm-4 col-xs-4">
+            <a class="jjkk" href="#"><img alt="" class="slider-img" src="landing_page_new/slider5.png"></a>
           </div>
-          <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider6.png"></a>
+          <div class="col-md-3 col-sm-4 col-xs-4">
+            <a class="jjkk" href="#"><img alt="" class="slider-img" src="landing_page_new/slider6.png"></a>
           </div>
-          <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider7.png"></a>
+          <div class="col-md-3 col-sm-4 col-xs-4">
+            <a class="jjkk" href="#"><img alt="" class="slider-img" src="landing_page_new/slider7.png"></a>
           </div>
-          <div class="col-md-3">
-            <a class="thumbnail" href="#"><img alt="" class="slider-img" src="landing_page_new/slider8.png"></a>
+          <div class="col-md-3 col-sm-4 col-xs-4">
+            <a class="jjkk" href="#"><img alt="" class="slider-img last" src="landing_page_new/slider8.png"></a>
           </div>
         </div>
       </div>
@@ -407,21 +407,22 @@
     </a>
     <a data-slide="next" href="#media" class="right carousel-control" style=" margin-top: 182px;
       margin-right: 14px;"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+    </div>
 </section>
 <section class="action-buttons">
 <div class="container-fluid action-container">
 <div class="row">
-<div class="col-lg-6">
+<div class="col-lg-6 col-sm-6">
 <!--   <div class="image-case"> -->
      <%if homepage.action_sec_image.present?%>
       <%=image_tag homepage.action_sec_image.url(:thumb), class: "img-responsive"%>
 
           <%else%>
-            <img width="647" height="300" class="img-responsive" src="landing_page_new/halfpage-image.jpg">
+            <img width="647" height="300" class="img-responsive half-page-img" src="landing_page_new/halfpage-image.jpg">
           <%end%>
 <!-- </div> -->
 </div>
-<div class="col-lg-6">
+<div class="col-lg-6 col-sm-6">
 <h2 class="action-heading">
 <%if homepage.action_sec_heading.present?%>
             <%=homepage.action_sec_heading%>
