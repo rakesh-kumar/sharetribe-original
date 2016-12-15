@@ -149,8 +149,9 @@ class SessionsController < ApplicationController
     request.env["omniauth.strategy"].options[:iframe] = true
     request.env["omniauth.strategy"].options[:scope] = "public_profile,email"
     request.env["omniauth.strategy"].options[:info_fields] = "name,email,last_name,first_name"
-
-    render :plain => "Setup complete.", :status => 404 #This notifies the ominauth to continue
+    
+    redirect_to "https://www.facebook.com/v2.8/dialog/oauth?client_id=#{@current_community.facebook_connect_id || APP_CONFIG.fb_connect_id}&redirect_uri=http://lvh.me:3000/people/auth/facebook/callback&response_type=code&scope=public_profile%2Cemail"
+    # render :plain => "Setup complete.", :status => 404 #This notifies the ominauth to continue
   end
 
   # Callback from Omniauth failures
