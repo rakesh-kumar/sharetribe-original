@@ -503,6 +503,8 @@ CREATE TABLE `custom_field_values` (
   `text_value` text,
   `numeric_value` float DEFAULT NULL,
   `date_value` datetime DEFAULT NULL,
+  `buyer_value` text,
+  `seller_value` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `type` varchar(255) DEFAULT NULL,

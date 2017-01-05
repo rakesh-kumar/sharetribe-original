@@ -704,7 +704,6 @@ class ListingsController < ApplicationController
 
   def custom_field_value_factory(listing_id, custom_field_id, answer_value)
     question = CustomField.find(custom_field_id)
-
     answer = question.with_type do |question_type|
       case question_type
       when :dropdown
@@ -734,14 +733,14 @@ class ListingsController < ApplicationController
                                      answer_value["(2i)"].to_i,
                                      answer_value["(3i)"].to_i)
         answer
-      # when :seller
-      #   answer = BuyerFieldValue.new
-      #   answer.text_value = answer_value
-      #   answer
-      # when :buyer
-      #   answer = BuyerFieldValue.new
-      #   answer.text_value = answer_value
-      #   answer
+      when :seller
+        answer = SellerFieldValue.new
+        answer.seller_value = answer_value
+        answer
+      when :buyer
+        answer = BuyerFieldValue.new
+        answer.buyer_value = answer_value
+        answer
       else
         raise ArgumentError.new("Unimplemented custom field answer for question #{question_type}")
       end
