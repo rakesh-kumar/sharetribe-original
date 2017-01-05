@@ -30,11 +30,11 @@ class CustomField < ActiveRecord::Base
 
   has_many :answers, class_name: "CustomFieldValue", dependent: :destroy
 
-  has_many :options, class_name: "CustomFieldOption"
+    has_many :options, class_name: "CustomFieldOption"
 
   belongs_to :community
 
-  VALID_TYPES = ["TextField", "NumericField", "DropdownField", "CheckboxField","DateField"]
+  VALID_TYPES = ["TextField", "NumericField", "DropdownField", "CheckboxField","DateField", "SellerField","BuyerField"]
 
   validates_length_of :names, minimum: 1
   validates_length_of :category_custom_fields, minimum: 1

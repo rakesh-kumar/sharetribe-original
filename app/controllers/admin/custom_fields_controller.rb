@@ -68,11 +68,22 @@ class Admin::CustomFieldsController < ApplicationController
     [:search_filter, :bool, const_value: false]
   ] + CUSTOM_FIELD_SPEC
 
+  SellerFieldSpec = [
+    [:search_filter, :bool, const_value: false]
+  ] + CUSTOM_FIELD_SPEC
+
+  BuyerFieldSpec = [
+    [:search_filter, :bool, const_value: false]
+  ] + CUSTOM_FIELD_SPEC
+
+
   TextFieldEntity     = EntityUtils.define_builder(*TextFieldSpec)
   NumericFieldEntity  = EntityUtils.define_builder(*NumericFieldSpec)
   DropdownFieldEntity = EntityUtils.define_builder(*DropdownFieldSpec)
   CheckboxFieldEntity = EntityUtils.define_builder(*CheckboxFieldSpec)
   DateFieldEntity     = EntityUtils.define_builder(*DateFieldSpec)
+  SellerFieldEntity   = EntityUtils.define_builder(*SellerFieldSpec)
+  BuyerFieldEntity    = EntityUtils.define_builder(*BuyerFieldSpec)
 
   def index
     @selected_left_navi_link = "listing_fields"
@@ -154,6 +165,10 @@ class Admin::CustomFieldsController < ApplicationController
       CheckboxFieldEntity.call(params)
     when "DateField"
       DateFieldEntity.call(params)
+     when "SellerField"
+      SellerFieldEntity.call(params)
+     when "BuyerField"
+      BuyerFieldEntity.call(params)
     end
   end
 

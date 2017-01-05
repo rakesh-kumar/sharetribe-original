@@ -734,6 +734,14 @@ class ListingsController < ApplicationController
                                      answer_value["(2i)"].to_i,
                                      answer_value["(3i)"].to_i)
         answer
+      # when :seller
+      #   answer = BuyerFieldValue.new
+      #   answer.text_value = answer_value
+      #   answer
+      # when :buyer
+      #   answer = BuyerFieldValue.new
+      #   answer.text_value = answer_value
+      #   answer
       else
         raise ArgumentError.new("Unimplemented custom field answer for question #{question_type}")
       end
