@@ -2,7 +2,5 @@
   .new_listing_form_field_container
     - custom_fields.each do |custom_field|
       - custom_field.with_type do |field_type|
-        -if (params[:category].present? && field_type == :buyer)
-        -else
-          = label "custom_fields", "#{custom_field.id}".to_sym, "#{custom_field.name(I18n.locale)}#{custom_field.required ? '*' : ''}"
-        = render :partial => "listings/form/custom_field_partials/#{field_type}", :locals => { :custom_field => custom_field, :custom_field_value => listing.answer_for(custom_field) }
+        = label "custom_fields", "#{custom_field.id}".to_sym, "#{custom_field.name(I18n.locale)}#{custom_field.required ? '*' : ''}"
+        = render :partial => "listings/form/custom_field_partials/#{field_type}", :locals => { :custom_field => custom_field, :custom_field_value => listing.answer_for(custom_field) ,:field_type => field_type}
