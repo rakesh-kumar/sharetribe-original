@@ -1901,6 +1901,7 @@ en:
       location_description: "You can provide either your street address or only a city or zip/postal code. It’s good to also add your country when adding your location. Examples: \"10117 Berlin, Germany\" or \"2000 Sand Hill Road, CA, USA\"."
       phone_number: "Phone number"
       profile_picture: "Profile picture"
+      image_attachments: "Images"
       postal_code: "Postal code"
       profile_page: "in your profile page"
       profilemap: Mapview

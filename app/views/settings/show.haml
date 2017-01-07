@@ -50,11 +50,23 @@
         = t('settings.profile.invisible')
     = form.text_field :phone_number, :class => "text_field", :maxlength => "25"
 
+    -# Profile picture
+    = form.label :image, t("settings.profile.profile_picture")
+    = form.file_field :image, :size => 30, :id => "avatar_file"
+
+    -# Image attachments
+    = form.label :image_attachments, t("settings.profile.image_attachments")
+    - target_user_pictures = target_user.pictures
+    %output#result{:height => "74", :width => "77"}
+    %input#fileDragName{:name => "file_name", :type => "hidden", :value => ""}/
+    %input#fileDragSize{:name => "size", :type => "hidden", :value => ""}/
+    %input#fileDragType{:name => "type", :type => "hidden", :value => ""}/
+    %input#fileDragData{:name => "image_base64", :type => "hidden", :value => ""}/
+    %input#files{:multiple => "true", :name => "img", :style => "display:none", :type => "file"}/
     #image-uploader-container.listing-images
       - if target_user.pictures
         - target_user.pictures.each_with_index do |target_user_picture|
-          #fileupload.fileinput-button.upload-image-placeholder{:onclick => "$('#files').click();"}
-            .fileupload-text-container{:style => ""}
+          #fileupload.fileinput-button.upload-image-placeholder
             = image_tag target_user_picture.image
       - else
         #fileupload.fileinput-button.upload-image-placeholder{:onclick => "$('#files').click();"}
@@ -67,7 +79,8 @@
           .fileupload-preview-remove-image
             %i.icon-remove.icon-fix
           %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
-      #fileupload.fileinput-button.upload-image-placeholder{:onclick => "$('#files').click();"} 
+      
+      #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptLast{:onclick => "$('#files').click();"} 
         .fileupload-text-container{:style => ""}
           .fileupload-centered-text
             .fileupload-text + Add more
@@ -78,15 +91,6 @@
           %i.icon-remove.icon-fix
         %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
 
-    -# Profile picture
-    = form.label :image, t("settings.profile.profile_picture")
-    - target_user_pictures = target_user.pictures
-    %output#result{:height => "74", :width => "77"}
-    %input#fileDragName{:name => "file_name", :type => "hidden", :value => ""}/
-    %input#fileDragSize{:name => "size", :type => "hidden", :value => ""}/
-    %input#fileDragType{:name => "type", :type => "hidden", :value => ""}/
-    %input#fileDragData{:name => "image_base64", :type => "hidden", :value => ""}/
-    = form.file_field :image, :size => 30, :id => "avatar_file", :id=>"files", multiple: true
 
     -# About text
     = form.label :description, t("settings.profile.about_you"), :class => "input"
@@ -112,7 +116,7 @@
           filesInput.addEventListener("change", function(event){
              
               var files = event.target.files; //FileList object
-              var output = document.getElementById("result");
+              var output = document.getElementById("image-uploader-container");
              
               for(var i = 0; i< files.length; i++)
               {
@@ -139,10 +143,10 @@
                      
                       var div = document.createElement("div");
                      
-                      div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
-                              "title='" + picFile.name + "'/>";
+                      div.innerHTML = "<div class='fileinput-button upload-image-placeholder' id='fileupload'><img class='thumbnail' src='" + picFile.result + "'" +
+                              "title='" + picFile.name + "'/></div>";
                      
-                      output.insertBefore(div,null);           
+                      output.insertBefore(div ,null);           
                     
                   });
                  
@@ -157,13 +161,3 @@
           console.log("Your browser does not support File API");
       }
   }
-:css
-  .thumbnail{
-         margin: 10px;
-      /* margin-top: -95px; */
-      margin-left: 4px;
-      float: left;
-      height: 74px;
-      width: 77px;
-  }
-  .upload{right: -9px !important; top: -42px !important;}
