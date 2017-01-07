@@ -146,12 +146,18 @@
                       div.innerHTML = "<div class='fileinput-button upload-image-placeholder' id='fileupload'><img class='thumbnail' src='" + picFile.result + "'" +
                               "title='" + picFile.name + "'/></div>";
                      
-                      output.insertBefore(div ,null);           
-                    
+                      output.insertBefore(div ,null);
+                      var add_image_link = $('.childToBeKeptLast');
+                      var temp_add_image_link = add_image_link;
+                      add_image_link.remove();
+                      $('#image-uploader-container').append(temp_add_image_link);
+
                   });
-                 
+                  
                    //Read the image
                   picReader.readAsDataURL(file);
+                  
+
               }                              
             
           });
