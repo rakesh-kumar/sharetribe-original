@@ -185,3 +185,5 @@ gem 'color', '~> 1.8'
 
 gem 'uuidtools', '~> 2.1'
 gem 'transit-ruby', '~> 0.8'
+gem 'carrierwave'
+gem 'carrierwave-base64'
