@@ -178,6 +178,9 @@
                         $('.childToBeKeptFirst').remove();
                       } else if (exist_image_count == 1) {
                         $('.childToBeKeptFirst').remove();
+                        var temp = $('.childToBeKeptSecond');
+                        $('.childToBeKeptSecond').remove();
+                        $(temp).insertBefore( ".childToBeKeptLast" );
                       }
                   });
                   
