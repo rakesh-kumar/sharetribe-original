@@ -1345,6 +1345,7 @@ CREATE TABLE `people` (
   `family_name` varchar(255) DEFAULT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
   `description` text,
+  `about_us` text,
   `image_file_name` varchar(255) DEFAULT NULL,
   `image_content_type` varchar(255) DEFAULT NULL,
   `image_file_size` int(11) DEFAULT NULL,

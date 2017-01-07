@@ -57,6 +57,9 @@
     -# About text
     = form.label :description, t("settings.profile.about_you"), :class => "input"
     = form.text_area :description, :class => "update_profile_description_text_area"
+
+    = form.label :about_us, t("settings.profile.about_us"), :class => "input"
+    = form.text_area :about_us, :class => "update_profile_description_text_area"
     = form.fields_for :location do |loc|
       = loc.hidden_field :address, :value => target_user.location.address
       = loc.hidden_field :google_address, :value => target_user.location.google_address

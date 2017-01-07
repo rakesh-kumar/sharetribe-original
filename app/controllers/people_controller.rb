@@ -225,6 +225,7 @@ class PeopleController < Devise::RegistrationsController
         :phone_number,
         :image,
         :description,
+        :about_us,
         { location: [:address, :google_address, :latitude, :longitude] },
         :password,
         :password2,
