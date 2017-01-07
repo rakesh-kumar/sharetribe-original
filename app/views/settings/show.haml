@@ -64,12 +64,33 @@
     %input#fileDragData{:name => "image_base64", :type => "hidden", :value => ""}/
     %input#files{:multiple => "true", :name => "img", :style => "display:none", :type => "file"}/
     #image-uploader-container.listing-images
-      - if target_user.pictures
+      - if target_user.pictures.present?
         - target_user.pictures.each_with_index do |target_user_picture|
           #fileupload.fileinput-button.upload-image-placeholder
             = image_tag target_user_picture.image
+        - if target_user.pictures.count == 1
+          #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptFirst{:onclick => "$('#files').click();"}
+            .fileupload-text-container{:style => ""}
+              .fileupload-centered-text
+                .fileupload-text Select file
+                .fileupload-small-text
+                .fileupload-error-text
+            %img.fileupload-preview-image{:style => "display: none;"}/
+            .fileupload-preview-remove-image
+              %i.icon-remove.icon-fix
+            %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
       - else
-        #fileupload.fileinput-button.upload-image-placeholder{:onclick => "$('#files').click();"}
+        #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptFirst{:onclick => "$('#files').click();"}
+          .fileupload-text-container{:style => ""}
+            .fileupload-centered-text
+              .fileupload-text Select file
+              .fileupload-small-text
+              .fileupload-error-text
+          %img.fileupload-preview-image{:style => "display: none;"}/
+          .fileupload-preview-remove-image
+            %i.icon-remove.icon-fix
+          %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
+        #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptSecond{:onclick => "$('#files').click();"}
           .fileupload-text-container{:style => ""}
             .fileupload-centered-text
               .fileupload-text Select file
@@ -151,7 +172,13 @@
                       var temp_add_image_link = add_image_link;
                       add_image_link.remove();
                       $('#image-uploader-container').append(temp_add_image_link);
-
+                      var exist_image_count = $('#fileupload .thumbnail').length;
+                      if (exist_image_count == 2) {
+                        $('.childToBeKeptSecond').remove();
+                        $('.childToBeKeptFirst').remove();
+                      } else if (exist_image_count == 1) {
+                        $('.childToBeKeptFirst').remove();
+                      }
                   });
                   
                    //Read the image
