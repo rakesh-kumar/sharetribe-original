@@ -18,6 +18,12 @@
       - if @person.description && !@person.description.blank?
         - text_with_line_breaks do
           = @person.description
+          = @person.about_us
+          #image-uploader-container.listing-images
+          - if @person.pictures.present?
+            - @person.pictures.each_with_index do |person_picture|
+              #fileupload.fileinput-button.upload-image-placeholder
+                = image_tag person_picture.image
       - elsif current_user?(@person)
         %a{href: person_settings_path(@person)}
           .icon-with-text-container
