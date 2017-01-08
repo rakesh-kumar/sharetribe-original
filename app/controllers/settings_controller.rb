@@ -47,6 +47,14 @@ class SettingsController < ApplicationController
     end
   end
 
+  def destroy_picture
+    if params[:picture_destroy]
+      @picture = Picture.where(id: params[:id]).first
+      if  @picture.destroy
+      end
+      return render "destroy_picture.js.erb" 
+    end
+  end
   private
 
   def add_location_to_person!(person)

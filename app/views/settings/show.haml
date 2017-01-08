@@ -70,13 +70,14 @@
     %input#fileDragType{:name => "type", :type => "hidden", :value => ""}/
     %input#fileDragData{:name => "image_base64", :type => "hidden", :value => ""}/
     %input#files{:multiple => "true", :name => "img", :style => "display:none", :type => "file"}/
+    %input#idsContainer{:name => "ids_container", :type => "hidden", :value => ""}/
     #image-uploader-container.listing-images
       - if target_user.pictures.present?
         - target_user.pictures.each_with_index do |target_user_picture,index|
-          #fileupload.fileinput-button.upload-image-placeholder
-            
+          #fileupload.fileinput-button.upload-image-placeholder{:class => "old-#{index}"}
+            %input.checkbox{:type => "checkbox"}/
+            %span{id: "#{target_user_picture.id}"}
             = image_tag target_user_picture.image, class: "thumbnail"
-            %input#check1.checkbox{:onclick => "alert('checkbox click');", :type => "checkbox"}/
         - if target_user.pictures.count == 1
           #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptFirst{:onclick => "$('#files').click();"}
             .fileupload-text-container{:style => ""}
@@ -170,7 +171,7 @@
             picReader.addEventListener("load",function(event){
               var picFile = event.target;
               var div = document.createElement("div");
-              div.innerHTML = "<div class='fileinput-button upload-image-placeholder' id='fileupload'><img class='thumbnail' src='" + picFile.result + "'" +
+              div.innerHTML = "<div class='fileinput-button upload-image-placeholder new-#{SecureRandom.hex(2)}' id='fileupload'><input type='checkbox' class='checkbox'><img class='thumbnail' src='" + picFile.result + "'" +
                       "title='" + picFile.name + "'/></div>";
               output.insertBefore(div ,null);
               add_image_link.remove();
@@ -193,6 +194,34 @@
     {
       console.log("Your browser does not support File API");
     }
+    delete_image();
+  }
+  
+  function delete_image(){
+    $('input:checkbox').on('change',function(){
+      class_obj = $(this).parent().attr("class").split(' ')[1];
+      if (class_obj.match('new-') || class_obj.match('old-')){
+        if (this.checked){
+          if (confirm("Are you sure you want to do this?")) {
+            $('.'+class_obj).remove();
+            picture_id = $(this).next()[0].id
+            $.ajax({
+              type:'Post', 
+              url: '/settings/destroy_picture', 
+              data: $.param({ id: picture_id, picture_destroy: true})
+            });
+          }
+          else{
+            this.checked = false;
+          }
+        }
+        else{
+        }
+      }
+    });
   }
 
 
+:css
+  .checkbox { position: absolute; top: 10px !important; right: 10px !important; }
+  .fileinput-button input { opacity: 1 !Important }
