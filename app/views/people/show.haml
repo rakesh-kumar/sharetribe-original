@@ -5,6 +5,17 @@
   %h1
     %span.profile-title= @person.name(@current_community) + (@community_customization && @community_customization.storefront_label ? @community_customization.storefront_label : "")
 
+%script{type: "text/template", class: "template", id: "image-frame-template"}
+  .listing-image-frame
+    #listing-image-link.listing-image-frame-content
+      .listing-image-vertical-centering{:class => "${aspectRatioClass}" }
+        %img{:src => "${url}", :alt => @person.id, :class => "listing-image ${aspectRatioClass}"}
+
+%script{type: "text/template", class: "template", id: "image-thumbnail-template"}
+  .listing-image-thumbnail-container
+    %img.listing-image-thumbnail{src: "${url}"}
+    .fade
+
 .row
   .col-8
 
@@ -24,13 +35,17 @@
           /   - @person.pictures.each_with_index do |person_picture|
           /     #fileupload.fileinput-button.upload-image-placeholder
           /       = image_tag person_picture.image
-
-      .col-8.listing-details-container
+      - elsif current_user?(@person)
+        %a{href: person_settings_path(@person)}
+          .icon-with-text-container
+            .ss-chat.icon-part
+            .ss.text-part= t(".add_description")
+      .col-12.listing-details-container
         .row
           .col-12
             - if @person.pictures.present?
-              - @person.pictures.each_with_index do |person_picture|
-                .listing-image-carousel
+              .listing-image-carousel
+                - @person.pictures.each do |person_picture|
                   #listing-image-frame
                   - if @prev_image_id && @next_image_id
                     = link_to params.merge(image: @prev_image_id), class: "listing-image-navi listing-image-navi-left", id: "listing-image-navi-left" do
@@ -41,17 +56,13 @@
                       .listing-image-navi-arrow-container
                         .listing-image-arrow-icon-container.right
                           = icon_tag("directright", ["navigate-icon-fix", "listing-image-navi-arrow"])
-                          / #thumbnail-stripe.listing-image-thumbnail-stripe
-                / - content_for :extra_javascript do
-                /   :javascript
-                /     var peopleImages = #{@person.pictures.map { |image| ListingImageJSAdapter.new(image) }.to_json }
-                /     var currentImage = #{params[:image].present? ? params[:image].to_i : @person.pictures.first.id};
-                /     ST.peopleImages(peopleImages, currentImage);
-      / - elsif current_user?(@person)
-      /   %a{href: person_settings_path(@person)}
-      /     .icon-with-text-container
-      /       .ss-chat.icon-part
-      /       .ss.text-part= t(".add_description")
+              #thumbnail-stripe.listing-image-thumbnail-stripe
+                - content_for :extra_javascript do
+                  :javascript
+                    var listingImages = #{@person.pictures.map { |image| PeopleImageJSAdapter.new(image) }.to_json }
+                    var currentImage = #{params[:image].present? ? params[:image].to_i : @person.pictures.first.id};
+                    ST.listingImages(listingImages, currentImage);
+      
 
     .row
       %h2.people-header

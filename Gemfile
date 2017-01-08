@@ -187,3 +187,4 @@ gem 'uuidtools', '~> 2.1'
 gem 'transit-ruby', '~> 0.8'
 gem 'carrierwave'
 gem 'carrierwave-base64'
+gem "mini_magick"
