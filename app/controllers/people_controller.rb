@@ -29,6 +29,20 @@ class PeopleController < Devise::RegistrationsController
     @community_membership = CommunityMembership.find_by_person_id_and_community_id_and_status(@person.id, @current_community.id, "accepted")
 
     include_closed = @current_user == @person && params[:show_closed]
+    
+    @current_image = if params[:image]
+      @person.image_by_id_img(params[:image])
+    else
+      @person.pictures.first
+    end
+
+    @prev_image_id, @next_image_id = if @current_image
+      @person.prev_and_next_image_ids_by_id(@current_image.id)
+    else
+      [nil, nil]
+    end
+
+
     search = {
       author_id: @person.id,
       include_closed: include_closed,

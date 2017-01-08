@@ -177,6 +177,17 @@ class Person < ActiveRecord::Base
     set_default_preferences unless self.preferences
   end
 
+
+  def image_by_id_img(id)
+    pictures.find_by_id(id)
+  end
+
+  def prev_and_next_image_ids_by_id(id)
+    person_image_ids = pictures.collect(&:id)
+    ArrayUtils.next_and_prev(person_image_ids, id);
+  end
+
+
   def uuid
     UUIDTools::UUID.parse_raw(Base64.urlsafe_decode64(self.id))
   end
