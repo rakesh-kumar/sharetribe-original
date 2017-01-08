@@ -26,27 +26,14 @@
         = render :partial => "profile_action_buttons"
 
     .row
-      - if @person.description && !@person.description.blank?
-        - text_with_line_breaks do
-          = @person.description
-          = @person.about_us
-          / #image-uploader-container.listing-images
-          / - if @person.pictures.present?
-          /   - @person.pictures.each_with_index do |person_picture|
-          /     #fileupload.fileinput-button.upload-image-placeholder
-          /       = image_tag person_picture.image
-      - elsif current_user?(@person)
-        %a{href: person_settings_path(@person)}
-          .icon-with-text-container
-            .ss-chat.icon-part
-            .ss.text-part= t(".add_description")
       .col-12.listing-details-container
         .row
           .col-12
-            - if @person.pictures.present?
-              .listing-image-carousel
-                - @person.pictures.each do |person_picture|
+            - with_image_frame_pic(@person) do |reason, pictures|
+              - if reason == :images_ok
+                .listing-image-carousel
                   #listing-image-frame
+
                   - if @prev_image_id && @next_image_id
                     = link_to params.merge(image: @prev_image_id), class: "listing-image-navi listing-image-navi-left", id: "listing-image-navi-left" do
                       .listing-image-navi-arrow-container
@@ -56,14 +43,31 @@
                       .listing-image-navi-arrow-container
                         .listing-image-arrow-icon-container.right
                           = icon_tag("directright", ["navigate-icon-fix", "listing-image-navi-arrow"])
-              #thumbnail-stripe.listing-image-thumbnail-stripe
+                #thumbnail-stripe.listing-image-thumbnail-stripe
                 - content_for :extra_javascript do
                   :javascript
-                    var listingImages = #{@person.pictures.map { |image| PeopleImageJSAdapter.new(image) }.to_json }
-                    var currentImage = #{params[:image].present? ? params[:image].to_i : @person.pictures.first.id};
+                    var listingImages = #{pictures.map { |image| PeopleImageJSAdapter.new(image) }.to_json }
+                    var currentImage = #{params[:image].present? ? params[:image].to_i : pictures.first.id};
                     ST.listingImages(listingImages, currentImage);
+              
+              - else
+                .listing-image-text-container
+                  .listing-image-frame
+                    .listing-image-frame-content
+                      .listing-image-vertical-centering
+                        .listing-no-image
+                          = t(".no_description")
       
-
+      - if @person.description && !@person.description.blank?
+        - text_with_line_breaks do
+          = @person.description
+          = @person.about_us
+      - elsif current_user?(@person)
+        %a{href: person_settings_path(@person)}
+          .icon-with-text-container
+            .ss-chat.icon-part
+            .ss.text-part= t(".add_description")
+    
     .row
       %h2.people-header
         - if listings.total_entries > 0

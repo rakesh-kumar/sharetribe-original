@@ -89,6 +89,16 @@ module ListingsHelper
     end
   end
 
+  def with_image_frame_pic(people, &block)
+    images = people.pictures
+    if images.length > 0
+      block.call(:images_ok, images)
+    else
+      block.call(:no_description, nil)
+    end
+  end
+
+
   def with_quantity_text(community, listing, &block)
     buffer = []
     buffer.push(price_quantity_per_unit(listing))

@@ -179,7 +179,7 @@ class Person < ActiveRecord::Base
 
 
   def image_by_id_img(id)
-    pictures.find_by_id(id)
+    self.pictures.find_by_id(id)
   end
 
   def prev_and_next_image_ids_by_id(id)
