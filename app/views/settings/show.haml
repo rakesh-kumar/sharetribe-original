@@ -75,9 +75,12 @@
       - if target_user.pictures.present?
         - target_user.pictures.each_with_index do |target_user_picture,index|
           #fileupload.fileinput-button.upload-image-placeholder{:class => "old-#{index}"}
-            %input.checkbox{:type => "checkbox"}/
+            %input.checkbox.hidden{:type => "checkbox", :class => "checkbox_click"}/
             %span{id: "#{target_user_picture.id}"}
             = image_tag target_user_picture.image, class: "thumbnail"
+            .fileupload-preview-remove-image{:onclick => "$(this).parent().find('.checkbox_click').click();" }
+              %i.icon-remove.icon-fix
+            
         - if target_user.pictures.count == 1
           #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptFirst{:onclick => "$('#files').click();"}
             .fileupload-text-container{:style => ""}
@@ -131,6 +134,16 @@
 
 :javascript
   window.onload = function(){
+    setTimeout(function(){
+      $(".upload-image-placeholder").hover(function(){
+        if ($(this).find('.thumbnail').attr('src')!=undefined){
+          $(this).find('.fileupload-preview-remove-image').show();
+        }
+      });
+      $(".upload-image-placeholder").mouseleave(function(){
+        $('.fileupload-preview-remove-image').hide();
+      });
+    },200);
     //Check File API support
     if(window.File && window.FileList && window.FileReader){
       var filesInput = document.getElementById("files");
@@ -149,7 +162,7 @@
             return false
           }
           else{
-          }
+          } 
             var sep = '&&&=>'
             document.getElementById('fileDragName').value = document.getElementById('fileDragName').value + sep + files[i].name
             document.getElementById('fileDragSize').value =  document.getElementById('fileDragSize').value + sep + files[i].size
@@ -171,8 +184,11 @@
             picReader.addEventListener("load",function(event){
               var picFile = event.target;
               var div = document.createElement("div");
-              div.innerHTML = "<div class='fileinput-button upload-image-placeholder new-" + Math.random().toString(36).substring(7)+ "' id='fileupload'><input type='checkbox' class='checkbox' onclick='delete_new_image(this);'><img class='thumbnail' src='" + picFile.result + "'" +
-                      "title='" + picFile.name + "'/></div>";
+              div.innerHTML = "<div class='fileinput-button upload-image-placeholder new-" + Math.random().toString(36).substring(7)+ "' params_id='"+Math.random().toString(36).substring(7)+"' id='fileupload'><input type='checkbox' class='checkbox hidden' ><img class='thumbnail' src='" + picFile.result + "'" +
+                      "title='" + picFile.name + "'/><div class='fileupload-preview-remove-image' onclick='delete_new_image(this);'><i class='icon-remove icon-fix'></i></div></div>";
+              
+              $(div).find('img.thumbnail').attr("onmouseover","$(this).parent().find('.fileupload-preview-remove-image').show();")
+              $(div).find('img.thumbnail').attr("onmouseout","$(this).parent().find('.fileupload-preview-remove-image').hide();")
               output.insertBefore(div ,null);
               add_image_link.remove();
               $('#image-uploader-container').append(temp_add_image_link);
@@ -241,34 +257,35 @@
    function delete_new_image(e){
     class_obj = $(e).parent().attr("class").split(' ')[2];
     if (class_obj.match('new-') || class_obj.match('old-')){
-      if (e.checked){
-        if (confirm("Are you sure you want to do this?")) {
-          $('.'+class_obj).remove();
-           var all_exist_image_count = $('.listing-images img.thumbnail').length;
-           if (all_exist_image_count == 1) {
-              $('.childToBeKeptSecond').remove();
-              $('.childToBeKeptFirst').remove();
-            } else if (all_exist_image_count == 0) {
-              $('.childToBeKeptFirst').remove();
-              $('.childToBeKeptSecond').remove();
-              $(temp).insertBefore( ".childToBeKeptLast" );
-            }
-          var image_length = $('#fileupload .thumbnail').length;
-            if (image_length > 5) {
-              $('.childToBeKeptLast').hide();
-            }
-            else {
-              $('.childToBeKeptLast').show();
-            }
-        }
-        else{
-          e.checked = false;
-        }
+      
+      if (confirm("Are you sure you want to do this?")) {
+        $('.'+class_obj).remove();
+         var all_exist_image_count = $('.listing-images img.thumbnail').length;
+         if (all_exist_image_count == 1) {
+            $('.childToBeKeptSecond').remove();
+            $('.childToBeKeptFirst').remove();
+          } else if (all_exist_image_count == 0) {
+            $('.childToBeKeptFirst').remove();
+            $('.childToBeKeptSecond').remove();
+            $(temp).insertBefore( ".childToBeKeptLast" );
+          }
+        var image_length = $('#fileupload .thumbnail').length;
+          if (image_length > 5) {
+            $('.childToBeKeptLast').hide();
+          }
+          else {
+            $('.childToBeKeptLast').show();
+          }
       }
       else{
+        e.checked = false;
       }
+      
     }
+
+   
   }
+
 
 :css
   .checkbox { position: absolute; top: 10px !important; right: 10px !important; }
