@@ -69,6 +69,7 @@
     %input#fileDragSize{:name => "size", :type => "hidden", :value => ""}/
     %input#fileDragType{:name => "type", :type => "hidden", :value => ""}/
     %input#fileDragData{:name => "image_base64", :type => "hidden", :value => ""}/
+    %input#fileDragDataArray{:name => "image_array", :type => "hidden", :value => ""}/
     %input#files{:multiple => "true", :name => "img", :style => "display:none", :type => "file"}/
     %input#idsContainer{:name => "ids_container", :type => "hidden", :value => ""}/
     #image-uploader-container.listing-images
@@ -133,6 +134,7 @@
     = form.button t("settings.save_information"), :class => "send_button"
 
 :javascript
+  var fileDragDataArrayType = [];
   window.onload = function(){
     setTimeout(function(){
       $(".upload-image-placeholder").hover(function(){
@@ -145,6 +147,7 @@
       });
     },200);
     //Check File API support
+    
     if(window.File && window.FileList && window.FileReader){
       var filesInput = document.getElementById("files");
       filesInput.addEventListener("change", function(event){
@@ -183,17 +186,21 @@
             var picReader = new FileReader();
             picReader.addEventListener("load",function(event){
               var picFile = event.target;
+
+              fileDragDataArrayType.push(picFile.result);
+              document.getElementById('fileDragDataArray').value = fileDragDataArrayType;
+              console.log(fileDragDataArrayType, '*******************');
               var div = document.createElement("div");
               div.innerHTML = "<div class='fileinput-button upload-image-placeholder new-" + Math.random().toString(36).substring(7)+ "' params_id='"+Math.random().toString(36).substring(7)+"' id='fileupload'><input type='checkbox' class='checkbox hidden' ><img class='thumbnail' src='" + picFile.result + "'" +
-                      "title='" + picFile.name + "'/><div class='fileupload-preview-remove-image' onclick='delete_new_image(this);'><i class='icon-remove icon-fix'></i></div></div>";
+                      "title='" + picFile.name + "'/><div class='fileupload-preview-remove-image' onclick='delete_new_image(this, $(this).parent());'><i class='icon-remove icon-fix'></i></div></div>";
               
               $(div).find('img.thumbnail').attr("onmouseover","$(this).parent().find('.fileupload-preview-remove-image').show();")
-              $(div).find('img.thumbnail').attr("onmouseout","$(this).parent().find('.fileupload-preview-remove-image').hide();")
+              / $(div).find('img.thumbnail').attr("onmouseout","$(this).parent().find('.fileupload-preview-remove-image').hide();")
               output.insertBefore(div ,null);
               add_image_link.remove();
               $('#image-uploader-container').append(temp_add_image_link);
-              var image_length = $('.listing-images img.thumbnail').length;
-              if (image_length > 4) {
+              var image_length_in = $('.listing-images img.thumbnail').length;
+              if (image_length_in > 4) {
                 $('.childToBeKeptLast').hide();
               }
               else {
@@ -254,10 +261,23 @@
       }
     });
   }
-   function delete_new_image(e){
+   function delete_new_image(e, parent_obj){
+    console.log(fileDragDataArrayType, '*****');
+    var all_image_src = fileDragDataArrayType;
+    var image_src = parent_obj.find('img').attr('src');
+    var append_images =  document.getElementById('fileDragData').value.split('&&&=>').filter(Boolean)
+
+    var count = append_images.length
+    var array =  []
+    append_images.forEach(function(element) {
+      if (element != image_src){
+        array.push('&&&=>'+ element)
+      } 
+    });
+    document.getElementById('fileDragData').value = array;
+
     class_obj = $(e).parent().attr("class").split(' ')[2];
     if (class_obj.match('new-') || class_obj.match('old-')){
-      
       if (confirm("Are you sure you want to do this?")) {
         $('.'+class_obj).remove();
          var all_exist_image_count = $('.listing-images img.thumbnail').length;
