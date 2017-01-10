@@ -231,10 +231,10 @@
       console.log("Your browser does not support File API");
     }
     
-    delete_image();
+    delete_image(child1,child2,childlast);
   }
   
-  function delete_image(){
+  function delete_image(child1,child2,childlast){
     $('input:checkbox').on('change',function(){
       class_obj = $(this).parent().attr("class").split(' ')[1];
       if (class_obj.match('new-') || class_obj.match('old-')){
