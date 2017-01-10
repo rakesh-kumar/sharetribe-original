@@ -123,8 +123,13 @@
 :javascript
   var fileDragDataArrayType = [];
   window.onload = function(){
+    
     var all_exist_image_count = $('.listing-images img.thumbnail').length;
-    if (all_exist_image_count == 1) {
+    if (all_exist_image_count == 0) {
+      $('.childToBeKeptFirst').show();
+      $('.childToBeKeptSecond').show();
+    }
+    else if (all_exist_image_count == 1) {
       $('.childToBeKeptFirst').hide();
     } else if (all_exist_image_count == 2) {
       $('.childToBeKeptSecond').hide();
