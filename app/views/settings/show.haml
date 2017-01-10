@@ -254,6 +254,7 @@
                 url: '/#{target_user.id}/settings/destroy_picture', 
                 data: $.param({ id: picture_id, picture_destroy: true})
               });
+              var all_exist_image_count = $('.listing-images img.thumbnail').length;
               if (all_exist_image_count == 1) {
                 $(child2).insertBefore( childlast );
               } else if (all_exist_image_count == 0) {
