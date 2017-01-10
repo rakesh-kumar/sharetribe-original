@@ -135,9 +135,6 @@
 
 :javascript
   var fileDragDataArrayType = [];
-  var child1 = document.getElementsByClassName('childToBeKeptFirst')[0];
-  var child2 = document.getElementsByClassName('childToBeKeptSecond')[0];
-  var childlast = document.getElementsByClassName('childToBeKeptLast')[0];
   window.onload = function(){
     setTimeout(function(){
       $(".upload-image-placeholder").hover(function(){
@@ -152,6 +149,18 @@
     //Check File API support
     
     if(window.File && window.FileList && window.FileReader){
+      function show_hide_box(){
+          var all_exist_image_count = $('.listing-images img.thumbnail').length;
+          if (all_exist_image_count == 1) {
+            $('.childToBeKeptFirst').hide();
+            var temp = $('.childToBeKeptSecond')
+            $('.childToBeKeptSecond').remove();
+            $(temp).insertBefore( ".childToBeKeptLast" );
+          } else if (all_exist_image_count == 2) {
+            $('.childToBeKeptFirst').hide();
+            $('.childToBeKeptSecond').hide();
+          }
+        }
       var filesInput = document.getElementById("files");
       filesInput.addEventListener("change", function(event){
         var add_image_link = $('.childToBeKeptLast');
@@ -209,14 +218,8 @@
               else {
                 $('.childToBeKeptLast').show();
               }
-              if (all_exist_image_count == 1) {
-                $('.childToBeKeptSecond').remove();
-                $('.childToBeKeptFirst').remove();
-              } else if (all_exist_image_count == 0) {
-                $('.childToBeKeptFirst').remove();
-                $('.childToBeKeptSecond').remove();
-                $(temp).insertBefore( ".childToBeKeptLast" );
-              }
+              show_hide_box();
+              
 
             });
              //Read the image
@@ -231,10 +234,6 @@
       console.log("Your browser does not support File API");
     }
     
-    delete_image(child1,child2,childlast);
-  }
-  
-  function delete_image(child1,child2,childlast){
     $('input:checkbox').on('change',function(){
       class_obj = $(this).parent().attr("class").split(' ')[1];
       if (class_obj.match('new-') || class_obj.match('old-')){
@@ -242,6 +241,7 @@
           if (confirm("Are you sure you want to do this?")) {
             $('.'+class_obj).remove();
             var image_length = $('#fileupload .thumbnail').length;
+              delete_show_hide_box();
               if (image_length > 5) {
                 $('.childToBeKeptLast').hide();
               }
@@ -254,13 +254,6 @@
                 url: '/#{target_user.id}/settings/destroy_picture', 
                 data: $.param({ id: picture_id, picture_destroy: true})
               });
-              var all_exist_image_count = $('.listing-images img.thumbnail').length;
-              if (all_exist_image_count == 1) {
-                $(child2).insertBefore( childlast );
-              } else if (all_exist_image_count == 0) {
-                var new_add = $(child2).insertBefore( childlast );
-                $(child1).insertBefore( new_add );
-              }
           }
           else{
             this.checked = false;
@@ -271,6 +264,18 @@
       }
     });
   }
+  
+  function delete_show_hide_box(){
+    var all_exist_image_count = $('.listing-images img.thumbnail').length;
+    
+    if (all_exist_image_count == 1) {
+      $('.childToBeKeptSecond').show();
+    } else if (all_exist_image_count == 0) {
+      $('.childToBeKeptFirst').show();
+      $('.childToBeKeptSecond').show();
+    }
+  }
+
    function delete_new_image(e, parent_obj){
     console.log(fileDragDataArrayType, '*****');
     var all_image_src = fileDragDataArrayType;
@@ -290,13 +295,7 @@
     if (class_obj.match('new-') || class_obj.match('old-')){
       if (confirm("Are you sure you want to do this?")) {
         $('.'+class_obj).remove();
-         var all_exist_image_count = $('.listing-images img.thumbnail').length;
-         if (all_exist_image_count == 1) {
-            $(child2).insertBefore( childlast );
-          } else if (all_exist_image_count == 0) {
-            var new_add = $(child2).insertBefore( childlast );
-            $(child1).insertBefore( new_add );
-          }
+        delete_show_hide_box();
         var image_length = $('#fileupload .thumbnail').length;
           if (image_length > 5) {
             $('.childToBeKeptLast').hide();
@@ -310,6 +309,7 @@
       }
       
     }
+
 
    
   }
