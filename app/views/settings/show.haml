@@ -81,39 +81,26 @@
             = image_tag target_user_picture.image, class: "thumbnail"
             .fileupload-preview-remove-image{:onclick => "$(this).parent().find('.checkbox_click').click();" }
               %i.icon-remove.icon-fix
-            
-        - if target_user.pictures.count == 1
-          #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptFirst{:onclick => "$('#files').click();"}
-            .fileupload-text-container{:style => ""}
-              .fileupload-centered-text
-                .fileupload-text Select file
-                .fileupload-small-text
-                .fileupload-error-text
-            %img.fileupload-preview-image{:style => "display: none;"}/
-            .fileupload-preview-remove-image
-              %i.icon-remove.icon-fix
-            %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
-      - else
-        #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptFirst{:onclick => "$('#files').click();"}
-          .fileupload-text-container{:style => ""}
-            .fileupload-centered-text
-              .fileupload-text Select file
-              .fileupload-small-text
-              .fileupload-error-text
-          %img.fileupload-preview-image{:style => "display: none;"}/
-          .fileupload-preview-remove-image
-            %i.icon-remove.icon-fix
-          %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
-        #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptSecond{:onclick => "$('#files').click();"}
-          .fileupload-text-container{:style => ""}
-            .fileupload-centered-text
-              .fileupload-text Select file
-              .fileupload-small-text
-              .fileupload-error-text
-          %img.fileupload-preview-image{:style => "display: none;"}/
-          .fileupload-preview-remove-image
-            %i.icon-remove.icon-fix
-          %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
+      #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptFirst{:onclick => "$('#files').click();"}
+        .fileupload-text-container{:style => ""}
+          .fileupload-centered-text
+            .fileupload-text Select file
+            .fileupload-small-text
+            .fileupload-error-text
+        %img.fileupload-preview-image{:style => "display: none;"}/
+        .fileupload-preview-remove-image
+          %i.icon-remove.icon-fix
+        %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
+      #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptSecond{:onclick => "$('#files').click();"}
+        .fileupload-text-container{:style => ""}
+          .fileupload-centered-text
+            .fileupload-text Select file
+            .fileupload-small-text
+            .fileupload-error-text
+        %img.fileupload-preview-image{:style => "display: none;"}/
+        .fileupload-preview-remove-image
+          %i.icon-remove.icon-fix
+        %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
       
       #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptLast{:onclick => "$('#files').click();"} 
         .fileupload-text-container{:style => ""}
@@ -136,6 +123,17 @@
 :javascript
   var fileDragDataArrayType = [];
   window.onload = function(){
+    var all_exist_image_count = $('.listing-images img.thumbnail').length;
+    if (all_exist_image_count == 1) {
+      $('.childToBeKeptFirst').hide();
+    } else if (all_exist_image_count == 2) {
+      $('.childToBeKeptSecond').hide();
+    } else {
+      $('.childToBeKeptFirst').hide();
+      $('.childToBeKeptSecond').hide();
+
+    }
+
     setTimeout(function(){
       $(".upload-image-placeholder").hover(function(){
         if ($(this).find('.thumbnail').attr('src')!=undefined){
