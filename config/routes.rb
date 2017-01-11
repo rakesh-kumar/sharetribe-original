@@ -452,7 +452,9 @@ Kassi::Application.routes.draw do
     get "/:person_id/messages/:conversation_type/:id" => "conversations#show", :as => :single_conversation
 
     get '/:person_id/settings/profile', to: redirect("/%{person_id}/settings") #needed to keep old links working
-    post '/:person_id/settings/destroy_picture', to: "settings#destroy_picture"  
+    post '/:person_id/settings/create_picture', to: "settings#create_picture" 
+    post '/:person_id/settings/destroy_picture', to: "settings#destroy_picture" 
+     
   end # scope locale
 
   id_to_username = Proc.new do |params, req|

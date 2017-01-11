@@ -1,0 +1,138 @@
+#image-uploader-container.listing-images
+  - if target_user.pictures.present?
+    - target_user.pictures.each_with_index do |target_user_picture,index|
+      #fileupload.fileinput-button.upload-image-placeholder{:class => "old-#{index}", style: "width: 130px !important; height: 130px !important;"}
+        = image_tag target_user_picture.image, class: "thumbnail", style: "width: 130px !important; height: 130px !important;"
+        .fileupload-preview-remove-image
+          %i.icon-remove.icon-fix
+          %span{id: "#{target_user_picture.id}"}
+  #fileupload.fileinput-button.upload-image-placeholder.fileupload-uploading.childToBeKeptUpload{style: 'display:none;'}
+    .fileupload-text-container
+      .fileupload-centered-text
+        .fileupload-text Processing...
+        .fileupload-small-text this only takes a second
+        .fileupload-error-text
+    %img.fileupload-preview-image{:style => "display: none;"}/
+    .fileupload-preview-remove-image
+      %i.icon-remove.icon-fix
+    %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden", :value => "36"}/
+  - if target_user.pictures.count < 1
+    #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptFirst{:onclick => "$('#files').click();"}
+      .fileupload-text-container
+        .fileupload-centered-text
+          .fileupload-text Select file
+          .fileupload-small-text
+          .fileupload-error-text
+      %img.fileupload-preview-image{:style => "display: none;"}/
+      .fileupload-preview-remove-image
+        %i.icon-remove.icon-fix
+      %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
+  - if target_user.pictures.count < 2
+    #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptSecond{:onclick => "$('#files').click();"}
+      .fileupload-text-container
+        .fileupload-centered-text
+          .fileupload-text Select file
+          .fileupload-small-text
+          .fileupload-error-text
+      %img.fileupload-preview-image{:style => "display: none;"}/
+      .fileupload-preview-remove-image
+        %i.icon-remove.icon-fix
+      %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
+  - if target_user.pictures.count < 5
+    #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptLast{:onclick => "$('#files').click();"} 
+      .fileupload-text-container
+        .fileupload-centered-text
+          .fileupload-text + Add more
+          .fileupload-small-text
+          .fileupload-error-text
+      %img.fileupload-preview-image{:style => "display: none;"}/
+      .fileupload-preview-remove-image
+        %i.icon-remove.icon-fix
+      %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
+
+:javascript
+
+  window.onload = function(){
+ 
+    setTimeout(function(){
+      $(".upload-image-placeholder").hover(function(){
+        if ($(this).find('.thumbnail').attr('src')!=undefined){
+          $(this).find('.fileupload-preview-remove-image').show();
+        }
+      });
+      $(".upload-image-placeholder").mouseleave(function(){
+        $('.fileupload-preview-remove-image').hide();
+      });
+    },200);
+    
+    //Check File API support
+    if(window.File && window.FileList && window.FileReader){
+      var filesInput = document.getElementById("files");
+      filesInput.addEventListener("change", function(event){
+        var files = event.target.files; //FileList object
+        for(var i = 0; i< files.length; i++){
+            var sep = '&&&=>'
+            reader = new FileReader();
+            reader.onload = function(event) {
+              document.getElementById('fileDragData').value =  document.getElementById('fileDragData').value+sep+ event.target.result;}
+            reader.readAsDataURL(files[i]);
+            var file = files[i];
+            //Only pics
+            if (file.type.match('jpeg') || file.type.match('jpg') || file.type.match('png')){
+            }else{
+              alert('you get an error message saying that the image attachment should be JPEG, PNG, JPG.');
+              return false; 
+            }
+            if(!file.type.match('image'))
+              continue;
+            var picReader = new FileReader();
+            picReader.addEventListener("load",function(event){
+              var picFile = event.target;
+            });
+            if ($('.listing-images img.thumbnail').length == 0)
+            {
+              $('.childToBeKeptFirst').hide();
+            }
+            if ($('.listing-images img.thumbnail').length == 1) 
+            {
+              $('.childToBeKeptSecond').hide();  
+            }
+            $('#flash-notifications').removeClass('hidden');
+            if ($('.listing-images img.thumbnail').length == 0)
+            {
+              $('.childToBeKeptUpload').show();
+            }
+            else {
+              $('.childToBeKeptUpload').insertBefore( ".childToBeKeptLast" );
+              $( ".childToBeKeptLast" ).prev().show();
+            }
+            
+             //Read the image
+            picReader.readAsDataURL(file);
+          }  
+          setTimeout(function(){
+            $.ajax({
+              type:'Post', 
+              url: '/#{target_user.id}/settings/create_picture', 
+              data: $.param({ fileDragData: $('#fileDragData')[0].value })
+              
+            });
+          },1000);
+      });
+
+    }
+    else
+    {
+      console.log("Your browser does not support File API");
+    }
+    
+    $('.fileupload-preview-remove-image').on('click',function(){
+      picture_id = $(this).find('span')[0].id
+      $.ajax({
+        type:'Post', 
+        url: '/#{target_user.id}/settings/destroy_picture', 
+        data: $.param({ id: picture_id, picture_destroy: true})
+      });
+    });
+  }
+

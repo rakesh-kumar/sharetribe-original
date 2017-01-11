@@ -54,7 +54,6 @@
     = form.label :image, t("settings.profile.profile_picture")
     = form.file_field :image, :size => 30, :id => "avatar_file"
 
-
     -# About text
     = form.label :description, t("settings.profile.about_you"), :class => "input"
     = form.text_area :description, :class => "update_profile_description_text_area"
@@ -64,260 +63,25 @@
 
     -# Image attachments
     = form.label :image_attachments, t("settings.profile.image_attachments")
-    - target_user_pictures = target_user.pictures
-    %input#fileDragName{:name => "file_name", :type => "hidden", :value => ""}/
-    %input#fileDragSize{:name => "size", :type => "hidden", :value => ""}/
-    %input#fileDragType{:name => "type", :type => "hidden", :value => ""}/
-    %input#fileDragData{:name => "image_base64", :type => "hidden", :value => ""}/
-    %input#fileDragDataArray{:name => "image_array", :type => "hidden", :value => ""}/
     %input#files{:multiple => "true", :name => "img", :style => "display:none", :type => "file"}/
-    %input#idsContainer{:name => "ids_container", :type => "hidden", :value => ""}/
-    #image-uploader-container.listing-images
-      - if target_user.pictures.present?
-        - target_user.pictures.each_with_index do |target_user_picture,index|
-          #fileupload.fileinput-button.upload-image-placeholder{:class => "old-#{index}"}
-            %input.checkbox.hidden{:type => "checkbox", :class => "checkbox_click"}/
-            %span{id: "#{target_user_picture.id}"}
-            = image_tag target_user_picture.image, class: "thumbnail"
-            .fileupload-preview-remove-image{:onclick => "$(this).parent().find('.checkbox_click').click();" }
-              %i.icon-remove.icon-fix
-      #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptFirst{:onclick => "$('#files').click();"}
-        .fileupload-text-container{:style => ""}
-          .fileupload-centered-text
-            .fileupload-text Select file
-            .fileupload-small-text
-            .fileupload-error-text
-        %img.fileupload-preview-image{:style => "display: none;"}/
-        .fileupload-preview-remove-image
-          %i.icon-remove.icon-fix
-        %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
-      #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptSecond{:onclick => "$('#files').click();"}
-        .fileupload-text-container{:style => ""}
-          .fileupload-centered-text
-            .fileupload-text Select file
-            .fileupload-small-text
-            .fileupload-error-text
-        %img.fileupload-preview-image{:style => "display: none;"}/
-        .fileupload-preview-remove-image
-          %i.icon-remove.icon-fix
-        %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
-      
-      #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptLast{:onclick => "$('#files').click();"} 
-        .fileupload-text-container{:style => ""}
-          .fileupload-centered-text
-            .fileupload-text + Add more
-            .fileupload-small-text
-            .fileupload-error-text
-        %img.fileupload-preview-image{:style => "display: none;"}/
-        .fileupload-preview-remove-image
-          %i.icon-remove.icon-fix
-        %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
-        
+    .info-text-container
+      .info-text-icon
+        %i.icon-info-sign
+      .info-text-content
+        %p For best results, use JPG, GIF or PNG images that are 660 by 440 pixels
+      #flash-notifications.flash-notifications.js-listing-image-loading-done.hidden
+        .flash-notice.flash-notification
+          .flash-icon.icon-circle-blank
+          .flash-text
+            All images uploaded! Processing them will take a bit of time, but it's ok to save the listing and move on.  
+    #settings_images_upload    
+      = render :partial => "settings/images_upload", :locals => { :target_user => target_user}
+
     = form.fields_for :location do |loc|
       = loc.hidden_field :address, :value => target_user.location.address
       = loc.hidden_field :google_address, :value => target_user.location.google_address
       = loc.hidden_field :latitude, :value => target_user.location.latitude
       = loc.hidden_field :longitude, :value => target_user.location.longitude
     = form.button t("settings.save_information"), :class => "send_button"
-
-:javascript
-  var fileDragDataArrayType = [];
-  window.onload = function(){
-    
-    var all_exist_image_count = $('.listing-images img.thumbnail').length;
-    if (all_exist_image_count == 0) {
-      $('.childToBeKeptFirst').show();
-      $('.childToBeKeptSecond').show();
-    }
-    else if (all_exist_image_count == 1) {
-      $('.childToBeKeptFirst').hide();
-    } else if (all_exist_image_count == 2) {
-      $('.childToBeKeptSecond').hide();
-    } else {
-      $('.childToBeKeptFirst').hide();
-      $('.childToBeKeptSecond').hide();
-
-    }
-
-    setTimeout(function(){
-      $(".upload-image-placeholder").hover(function(){
-        if ($(this).find('.thumbnail').attr('src')!=undefined){
-          $(this).find('.fileupload-preview-remove-image').show();
-        }
-      });
-      $(".upload-image-placeholder").mouseleave(function(){
-        $('.fileupload-preview-remove-image').hide();
-      });
-    },200);
-    //Check File API support
-    
-    if(window.File && window.FileList && window.FileReader){
-      function show_hide_box(){
-          var all_exist_image_count = $('.listing-images img.thumbnail').length;
-          if (all_exist_image_count == 1) {
-            $('.childToBeKeptFirst').hide();
-            var temp = $('.childToBeKeptSecond')
-            $('.childToBeKeptSecond').remove();
-            $(temp).insertBefore( ".childToBeKeptLast" );
-          } else if (all_exist_image_count == 2) {
-            $('.childToBeKeptFirst').hide();
-            $('.childToBeKeptSecond').hide();
-          }
-        }
-      var filesInput = document.getElementById("files");
-      filesInput.addEventListener("change", function(event){
-        var add_image_link = $('.childToBeKeptLast');
-        var temp_add_image_link = add_image_link;
-        var exist_image_count = $('#fileupload .thumbnail').length;
-
-        var all_exist_image_count = $('.listing-images img.thumbnail').length;
-        var temp = $('.childToBeKeptSecond');
-        var files = event.target.files; //FileList object
-        var output = document.getElementById("image-uploader-container");
-        for(var i = 0; i< files.length; i++){
-          if (all_exist_image_count > 4){
-            alert('you get an error message saying that the image uploading limit has been exceeded.');
-            return false
-          }
-          else{
-          } 
-            var sep = '&&&=>'
-            document.getElementById('fileDragName').value = document.getElementById('fileDragName').value + sep + files[i].name
-            document.getElementById('fileDragSize').value =  document.getElementById('fileDragSize').value + sep + files[i].size
-            document.getElementById('fileDragType').value = document.getElementById('fileDragType').value + sep + files[i].type
-            reader = new FileReader();
-            reader.onload = function(event) {
-              document.getElementById('fileDragData').value =  document.getElementById('fileDragData').value+sep+ event.target.result;}
-            reader.readAsDataURL(files[i]);
-            var file = files[i];
-            //Only pics
-            if (file.type.match('jpeg') || file.type.match('jpg') || file.type.match('png')){
-            }else{
-              alert('you get an error message saying that the image attachment should be JPEG, PNG, JPG.');
-              return false; 
-            }
-            if(!file.type.match('image'))
-              continue;
-            var picReader = new FileReader();
-            picReader.addEventListener("load",function(event){
-              var picFile = event.target;
-
-              fileDragDataArrayType.push(picFile.result);
-              document.getElementById('fileDragDataArray').value = fileDragDataArrayType;
-              console.log(fileDragDataArrayType, '*******************');
-              var div = document.createElement("div");
-              div.innerHTML = "<div class='fileinput-button upload-image-placeholder new-" + Math.random().toString(36).substring(7)+ "' params_id='"+Math.random().toString(36).substring(7)+"' id='fileupload'><input type='checkbox' class='checkbox hidden' ><img class='thumbnail' src='" + picFile.result + "'" +
-                      "title='" + picFile.name + "'/><div class='fileupload-preview-remove-image' onclick='delete_new_image(this, $(this).parent());'><i class='icon-remove icon-fix'></i></div></div>";
-              
-              $(div).find('img.thumbnail').attr("onmouseover","$(this).parent().find('.fileupload-preview-remove-image').show();")
-              / $(div).find('img.thumbnail').attr("onmouseout","$(this).parent().find('.fileupload-preview-remove-image').hide();")
-              output.insertBefore(div ,null);
-              add_image_link.remove();
-              $('#image-uploader-container').append(temp_add_image_link);
-              var image_length_in = $('.listing-images img.thumbnail').length;
-              if (image_length_in > 4) {
-                $('.childToBeKeptLast').hide();
-              }
-              else {
-                $('.childToBeKeptLast').show();
-              }
-              show_hide_box();
-              
-
-            });
-             //Read the image
-            picReader.readAsDataURL(file);
-          }  
-
-      });
-
-    }
-    else
-    {
-      console.log("Your browser does not support File API");
-    }
-    
-    $('input:checkbox').on('change',function(){
-      class_obj = $(this).parent().attr("class").split(' ')[1];
-      if (class_obj.match('new-') || class_obj.match('old-')){
-        if (this.checked){
-          if (confirm("Are you sure you want to do this?")) {
-            $('.'+class_obj).remove();
-            var image_length = $('#fileupload .thumbnail').length;
-              delete_show_hide_box();
-              if (image_length > 5) {
-                $('.childToBeKeptLast').hide();
-              }
-              else {
-                $('.childToBeKeptLast').show();
-              }
-              picture_id = $(this).next()[0].id
-              $.ajax({
-                type:'Post', 
-                url: '/#{target_user.id}/settings/destroy_picture', 
-                data: $.param({ id: picture_id, picture_destroy: true})
-              });
-          }
-          else{
-            this.checked = false;
-          }
-        }
-        else{
-        }
-      }
-    });
-  }
-  
-  function delete_show_hide_box(){
-    var all_exist_image_count = $('.listing-images img.thumbnail').length;
-    
-    if (all_exist_image_count == 1) {
-      $('.childToBeKeptSecond').show();
-    } else if (all_exist_image_count == 0) {
-      $('.childToBeKeptFirst').show();
-      $('.childToBeKeptSecond').show();
-    }
-  }
-
-   function delete_new_image(e, parent_obj){
-    console.log(fileDragDataArrayType, '*****');
-    var all_image_src = fileDragDataArrayType;
-    var image_src = parent_obj.find('img').attr('src');
-    var append_images =  document.getElementById('fileDragData').value.split('&&&=>').filter(Boolean)
-
-    var count = append_images.length
-    var array =  []
-    append_images.forEach(function(element) {
-      if (element != image_src){
-        array.push('&&&=>'+ element)
-      } 
-    });
-    document.getElementById('fileDragData').value = array;
-
-    class_obj = $(e).parent().attr("class").split(' ')[2];
-    if (class_obj.match('new-') || class_obj.match('old-')){
-      if (confirm("Are you sure you want to do this?")) {
-        $('.'+class_obj).remove();
-        delete_show_hide_box();
-        var image_length = $('#fileupload .thumbnail').length;
-          if (image_length > 5) {
-            $('.childToBeKeptLast').hide();
-          }
-          else {
-            $('.childToBeKeptLast').show();
-          }
-      }
-      else{
-        e.checked = false;
-      }
-      
-    }
-
-
-   
-  }
-
-
-:css
-  .checkbox { position: absolute; top: 10px !important; right: 10px !important; }
-  .fileinput-button input { opacity: 1 !Important }
+  #settings_image_upload_form  
+    = render :partial => "settings/image_upload_form", :locals => { :target_user => target_user}

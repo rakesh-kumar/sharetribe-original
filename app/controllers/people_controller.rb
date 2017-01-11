@@ -214,21 +214,7 @@ class PeopleController < Devise::RegistrationsController
   end
 
   def update
-
     target_user = Person.find_by!(username: params[:id], community_id: @current_community.id)
-    if params[:file_name] && params[:size] && params[:type] && params[:image_base64]
-      file_names = params[:file_name].split("&&&=>")
-      file_names.shift
-      sizes = params[:size].split("&&&=>")
-      sizes.shift
-      types = params[:type].split("&&&=>")
-      types.shift
-      bases = params[:image_base64].split("&&&=>")
-      bases.shift
-      bases.each_with_index do |base|
-        target_user.pictures.create(image: base)
-      end
-    end
     # If setting new location, delete old one first
     if params[:person] && params[:person][:location] && (params[:person][:location][:address].empty? || params[:person][:street_address].blank?)
       params[:person].delete("location")
