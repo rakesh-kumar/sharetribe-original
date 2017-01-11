@@ -51,7 +51,7 @@ class SettingsController < ApplicationController
     if params[:fileDragData]
       fileDragData = params[:fileDragData].split("&&&=>")
       fileDragData.shift
-      fileDragData.uniq.each_with_index do |base|
+      fileDragData.each_with_index do |base|
         target_user.pictures.create(image: base)
       end
     end

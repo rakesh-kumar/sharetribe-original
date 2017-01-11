@@ -1,4 +1,4 @@
-$('#settings_images_upload').html('<%= j render partial: "settings/images_upload", :locals => { :target_user => target_user} %>');
+  $('#settings_images_upload').html('<%= j render partial: "settings/images_upload", :locals => { :target_user => target_user} %>');
 $('#settings_image_upload_form').html('<%= j render partial: "settings/image_upload_form", :locals => { :target_user => target_user} %>');
 $('#flash-notifications').addClass('hidden');
 $('#fileDragData')[0].value = '';
@@ -14,66 +14,6 @@ setTimeout(function(){
   });
 },200);
 
-//Check File API support
-if(window.File && window.FileList && window.FileReader){
-  var filesInput = document.getElementById("files");
-  filesInput.addEventListener("change", function(event){
-    var files = event.target.files; //FileList object
-    for(var i = 0; i< files.length; i++){
-        var sep = '&&&=>'
-        reader = new FileReader();
-        reader.onload = function(event) {
-          document.getElementById('fileDragData').value =  document.getElementById('fileDragData').value+sep+ event.target.result;}
-        reader.readAsDataURL(files[i]);
-        var file = files[i];
-        //Only pics
-        if (file.type.match('jpeg') || file.type.match('jpg') || file.type.match('png')){
-        }else{
-          alert('you get an error message saying that the image attachment should be JPEG, PNG, JPG.');
-          return false; 
-        }
-        if(!file.type.match('image'))
-          continue;
-        var picReader = new FileReader();
-        picReader.addEventListener("load",function(event){
-          var picFile = event.target;
-        });
-        if ($('.listing-images img.thumbnail').length == 0)
-        {
-          $('.childToBeKeptFirst').hide();
-        }
-        if ($('.listing-images img.thumbnail').length == 1) 
-        {
-          $('.childToBeKeptSecond').hide();  
-        }
-        $('#flash-notifications').removeClass('hidden');
-        if ($('.listing-images img.thumbnail').length == 0)
-        {
-          $('.childToBeKeptUpload').show();
-        }
-        else {
-          $('.childToBeKeptUpload').insertBefore( ".childToBeKeptLast" );
-          $( ".childToBeKeptLast" ).prev().show();
-        }
-        
-         //Read the image
-        picReader.readAsDataURL(file);
-      }  
-      setTimeout(function(){
-        $.ajax({
-          type:'Post', 
-          url: '/<%= target_user.id %>/settings/create_picture', 
-          data: $.param({ fileDragData: $('#fileDragData')[0].value })
-          
-        });
-      },1000);
-  });
-
-}
-else
-{
-  console.log("Your browser does not support File API");
-}
 
 $('.fileupload-preview-remove-image').on('click',function(){
   picture_id = $(this).find('span')[0].id
