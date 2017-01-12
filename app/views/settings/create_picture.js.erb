@@ -1,30 +1,32 @@
-$('#settings_images_upload').html('<%= j render partial: "settings/images_upload", :locals => { :target_user => target_user} %>');
-$('#settings_image_upload_form').html('<%= j render partial: "settings/image_upload_form", :locals => { :target_user => target_user} %>');
-$('#flash-notifications').addClass('hidden');
-$('#fileDragData')[0].value = '';
+setTimeout(function(){  
+  $('#settings_images_upload').html('<%= j render partial: "settings/images_upload", :locals => { :target_user => target_user} %>');
+  $('#settings_image_upload_form').html('<%= j render partial: "settings/image_upload_form", :locals => { :target_user => target_user} %>');
+  $('#flash-notifications').addClass('hidden');
+  $('#fileDragData')[0].value = '';
 
 
-setTimeout(function(){
-  $(".childToBeKeptFirst, .childToBeKeptSecond, .childToBeKeptLast").on('click',function(){
-    $('#validateClassName')[0].value = "";
-    $('#validateClassName')[0].value = $(this).attr('class');
-  });
-  $(".upload-image-placeholder").hover(function(){
-    if ($(this).find('.thumbnail').attr('src')!=undefined){
-      $(this).find('.fileupload-preview-remove-image').show();
-    }
-  });
-  $(".upload-image-placeholder").mouseleave(function(){
-    $('.fileupload-preview-remove-image').hide();
-  });
-},200);
+  setTimeout(function(){
+    $(".childToBeKeptFirst, .childToBeKeptSecond, .childToBeKeptLast").on('click',function(){
+      $('#validateClassName')[0].value = "";
+      $('#validateClassName')[0].value = $(this).attr('class');
+    });
+    $(".upload-image-placeholder").hover(function(){
+      if ($(this).find('.thumbnail').attr('src')!=undefined){
+        $(this).find('.fileupload-preview-remove-image').show();
+      }
+    });
+    $(".upload-image-placeholder").mouseleave(function(){
+      $('.fileupload-preview-remove-image').hide();
+    });
+  },200);
 
 
-$('.fileupload-preview-remove-image').on('click',function(){
-  picture_id = $(this).find('span')[0].id
-  $.ajax({
-    type:'Post', 
-    url: '/<%= target_user.id %>/settings/destroy_picture', 
-    data: $.param({ id: picture_id, picture_destroy: true})
+  $('.fileupload-preview-remove-image').on('click',function(){
+    picture_id = $(this).find('span')[0].id
+    $.ajax({
+      type:'Post', 
+      url: '/<%= target_user.id %>/settings/destroy_picture', 
+      data: $.param({ id: picture_id, picture_destroy: true})
+    });
   });
-});
+},4000);
