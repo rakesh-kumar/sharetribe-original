@@ -4,8 +4,8 @@
 #image-uploader-container.listing-images
   - if target_user.pictures.present?
     - target_user.pictures.each_with_index do |target_user_picture,index|
-      #fileupload.fileinput-button.upload-image-placeholder{:class => "old-#{index}", style: "width: 130px !important; height: 130px !important;"}
-        = image_tag target_user_picture.image, class: "thumbnail", style: "width: 130px !important; height: 130px !important;"
+      #fileupload.fileinput-button.upload-image-placeholder{:class => "old-#{index}", style: "width: 8.5em !important; height: 8.5em !important;"}
+        = image_tag target_user_picture.image, class: "thumbnail", style: "width: 8.5em !important; height: 8.5em !important;"
         .fileupload-preview-remove-image
           %i.icon-remove.icon-fix
           %span{id: "#{target_user_picture.id}"}
@@ -126,36 +126,36 @@
           }  
           setTimeout(function(){
            
-            $.ajax({
-              type:'Post', 
-              url: '/#{target_user.id}/settings/create_picture', 
-              data: $.param({ fileDragData: $('#fileDragData')[0].value }),
-              beforeSend: function(XMLHttpRequest)
-                {
-                  //Upload progress
-                  XMLHttpRequest.upload.addEventListener("progress", function(evt){
-                    if (evt.lengthComputable) {  
-                      var percentComplete = evt.loaded / evt.total;
-                      console.log(percentComplete, 'upload')
-                      //Do something with upload progress
-                    }
-                  }, false); 
-                  //Download progress
-                  XMLHttpRequest.addEventListener("progress", function(evt){
-                    if (evt.lengthComputable) {  
-                      var percentComplete = evt.loaded / evt.total;
-                      console.log(percentComplete, 'Download ')
-                      //Do something with download progress
-                    }
-                  }, false); 
-                },
-                success: function(data){
-                  //Do something success-ish
-                  console.log('success')
+           $.ajax({
+            xhr: function() {
+              var xhr = new window.XMLHttpRequest();
+
+              xhr.upload.addEventListener("progress", function(evt) {
+                if (evt.lengthComputable) {
+                  var percentComplete = evt.loaded / evt.total;
+                  percentComplete = parseInt(percentComplete * 100);
+                  console.log(percentComplete, "****");
+
+                  if (percentComplete === 100) {
+                    console.log('100 p')
+                  }
 
                 }
-              
-            });
+              }, true);
+
+              return xhr;
+            },
+            url: '/#{target_user.id}/settings/create_picture',
+            type: "POST",
+            data: $.param({ fileDragData: $('#fileDragData')[0].value }),
+            
+            success: function(result) {
+              console.log('result');
+              $('#fileDragData')[0].value = '';
+            }
+          });
+
+
           },1000);
       });
 

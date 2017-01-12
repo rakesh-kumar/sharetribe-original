@@ -1,7 +1,8 @@
-  $('#settings_images_upload').html('<%= j render partial: "settings/images_upload", :locals => { :target_user => target_user} %>');
+$('#settings_images_upload').html('<%= j render partial: "settings/images_upload", :locals => { :target_user => target_user} %>');
 $('#settings_image_upload_form').html('<%= j render partial: "settings/image_upload_form", :locals => { :target_user => target_user} %>');
 $('#flash-notifications').addClass('hidden');
 $('#fileDragData')[0].value = '';
+
 
 setTimeout(function(){
   $(".childToBeKeptFirst, .childToBeKeptSecond, .childToBeKeptLast").on('click',function(){
