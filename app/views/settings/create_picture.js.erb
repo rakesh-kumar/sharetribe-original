@@ -23,6 +23,7 @@ setTimeout(function(){
 
   $('.fileupload-preview-remove-image').on('click',function(){
     picture_id = $(this).find('span')[0].id
+    var remove = $(this).parent().html($('.remove-image-image').html());
     $.ajax({
       type:'Post', 
       url: '/<%= target_user.id %>/settings/destroy_picture', 

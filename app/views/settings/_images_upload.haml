@@ -19,6 +19,17 @@
     .fileupload-preview-remove-image
       %i.icon-remove.icon-fix
     %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden", :value => "36"}/
+  #fileupload.fileinput-button.upload-image-placeholder.remove-image-image{style: 'display:none;'}
+    .fileupload-text-container
+      .fileupload-centered-text
+        .fileupload-text Removing...
+        .fileupload-small-text
+        .fileupload-error-text
+    %img.fileupload-preview-image{:style => "display: none;"}/
+    .fileupload-preview-remove-image
+      %i.icon-remove.icon-fix
+    %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden", :value => "36"}/
+
   - if target_user.pictures.count < 1
     #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptFirst{:onclick => "$('#files').click();"}
       .fileupload-text-container
@@ -99,7 +110,8 @@
               {
                 $('.childToBeKeptSecond').hide();  
               }
-              $('#flash-notifications').removeClass('hidden');
+              $('#flash-notifications2').removeClass('hidden');
+              
              
               
                //Read the image
@@ -131,6 +143,8 @@
                     {
                       var elementObject = $('.childToBeKeptUpload');
                       elementObject.show();
+
+                      
                     }
                     else {
                       $('.childToBeKeptUpload').insertBefore( ".childToBeKeptLast" );
@@ -138,7 +152,9 @@
                       elementObject.show();
                     } 
                     elementObject.find('.fileupload-text-container .fileupload-centered-text .fileupload-text').html(percentComplete + "%");
-                  console.log(percentComplete, "****");
+                    console.log(percentComplete, "****");
+                    $('#flash-notifications2').addClass('hidden');
+                    $('#flash-notifications').removeClass('hidden');
 
                   if (percentComplete === 100) {
                     setTimeout(function(){  
@@ -176,6 +192,8 @@
     
     $('.fileupload-preview-remove-image').on('click',function(){
       picture_id = $(this).find('span')[0].id
+      var remove = $(this).parent().html($('.remove-image-image').html());
+      
       $.ajax({
         type:'Post', 
         url: '/#{target_user.id}/settings/destroy_picture', 

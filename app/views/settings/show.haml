@@ -69,11 +69,17 @@
         %i.icon-info-sign
       .info-text-content
         %p For best results, use JPG, GIF or PNG images that are 660 by 440 pixels
-      #flash-notifications.flash-notifications.js-listing-image-loading-done.hidden
-        .flash-notice.flash-notification
-          .flash-icon.icon-circle-blank
-          .flash-text
-            All images uploaded! Processing them will take a bit of time, but it's ok to save the listing and move on.  
+    #flash-notifications.flash-notifications.js-listing-image-loading-done.hidden
+      .flash-notice.flash-notification
+        .flash-icon.icon-circle-blank
+        .flash-text
+          All images uploaded! Processing them will take a bit of time, but it's ok to save the listing and move on.  
+
+    #flash-notifications2.flash-notifications.js-listing-image-loading-done.hidden
+      .flash-notice.flash-notification
+        .flash-icon.icon-circle-blank
+        .flash-text
+          Image upload in progress... 
     #settings_images_upload    
       = render :partial => "settings/images_upload", :locals => { :target_user => target_user}
 
