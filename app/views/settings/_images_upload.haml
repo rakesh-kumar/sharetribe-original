@@ -143,7 +143,6 @@
                     {
                       var elementObject = $('.childToBeKeptUpload');
                       elementObject.show();
-
                       
                     }
                     else {
@@ -153,11 +152,12 @@
                     } 
                     elementObject.find('.fileupload-text-container .fileupload-centered-text .fileupload-text').html(percentComplete + "%");
                     console.log(percentComplete, "****");
-                    $('#flash-notifications2').addClass('hidden');
-                    $('#flash-notifications').removeClass('hidden');
+                    
 
                   if (percentComplete === 100) {
                     setTimeout(function(){  
+                      $('#flash-notifications2').addClass('hidden');
+                      $('#flash-notifications').removeClass('hidden');
                       elementObject.find('.fileupload-text-container .fileupload-centered-text .fileupload-text').html("Processing...");
                       elementObject.find('.fileupload-text-container .fileupload-centered-text .fileupload-small-text').html("this only takes a second");
                       console.log('100 p')

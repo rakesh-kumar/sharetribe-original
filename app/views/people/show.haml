@@ -26,42 +26,11 @@
         = render :partial => "profile_action_buttons"
 
     .row
-      .col-12.listing-details-container
-        .row
-          .col-12
-            - with_image_frame_pic(@person) do |reason, pictures|
-              - if reason == :images_ok
-                .listing-image-carousel
-                  #listing-image-frame
-
-                  - if @prev_image_id && @next_image_id
-                    = link_to params.merge(image: @prev_image_id), class: "listing-image-navi listing-image-navi-left", id: "listing-image-navi-left" do
-                      .listing-image-navi-arrow-container
-                        .listing-image-arrow-icon-container.left
-                          = icon_tag("directleft", ["navigate-icon-fix", "listing-image-navi-arrow"])
-                    = link_to params.merge(image: @next_image_id), class: "listing-image-navi listing-image-navi-right", id: "listing-image-navi-right" do
-                      .listing-image-navi-arrow-container
-                        .listing-image-arrow-icon-container.right
-                          = icon_tag("directright", ["navigate-icon-fix", "listing-image-navi-arrow"])
-                #thumbnail-stripe.listing-image-thumbnail-stripe
-                - content_for :extra_javascript do
-                  :javascript
-                    var listingImages = #{pictures.map { |image| PeopleImageJSAdapter.new(image) }.to_json }
-                    var currentImage = #{params[:image].present? ? params[:image].to_i : pictures.first.id};
-                    ST.listingImages(listingImages, currentImage);
-              
-              - else
-                .listing-image-text-container
-                  .listing-image-frame
-                    .listing-image-frame-content
-                      .listing-image-vertical-centering
-                        .listing-no-image
-                          = t(".no_description")
-      
       - if @person.description && !@person.description.blank?
         - text_with_line_breaks do
           =# @person.description
-          =# @person.about_us
+          .div{style: 'font-size: 15px;'}
+            = @person.description
       - elsif current_user?(@person)
         %a{href: person_settings_path(@person)}
           .icon-with-text-container
@@ -109,14 +78,39 @@
           ="Product Information"
           .div{style: 'font-size: 15px;'}
             =@person.about_us
+    .row        
+      .col-12.listing-details-container
+        .row
+          .col-12
+            - with_image_frame_pic(@person) do |reason, pictures|
+              - if reason == :images_ok
+                .listing-image-carousel
+                  #listing-image-frame
 
-    - if @person.description && !@person.description.blank?
-      - text_with_line_breaks do
-        %h2.people-header
-          ="About You"
-          .div{style: 'font-size: 15px;'}
-            = @person.description
-        
+                  - if @prev_image_id && @next_image_id
+                    = link_to params.merge(image: @prev_image_id), class: "listing-image-navi listing-image-navi-left", id: "listing-image-navi-left" do
+                      .listing-image-navi-arrow-container
+                        .listing-image-arrow-icon-container.left
+                          = icon_tag("directleft", ["navigate-icon-fix", "listing-image-navi-arrow"])
+                    = link_to params.merge(image: @next_image_id), class: "listing-image-navi listing-image-navi-right", id: "listing-image-navi-right" do
+                      .listing-image-navi-arrow-container
+                        .listing-image-arrow-icon-container.right
+                          = icon_tag("directright", ["navigate-icon-fix", "listing-image-navi-arrow"])
+                #thumbnail-stripe.listing-image-thumbnail-stripe
+                - content_for :extra_javascript do
+                  :javascript
+                    var listingImages = #{pictures.map { |image| PeopleImageJSAdapter.new(image) }.to_json }
+                    var currentImage = #{params[:image].present? ? params[:image].to_i : pictures.first.id};
+                    ST.listingImages(listingImages, currentImage);
+              
+              - else
+                .listing-image-text-container
+                  .listing-image-frame
+                    .listing-image-frame-content
+                      .listing-image-vertical-centering
+                        .listing-no-image
+                          = t(".no_description")
+
          
         - if received_testimonials.size > 0
           #profile-testimonials-list
