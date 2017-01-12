@@ -75,14 +75,39 @@
       filesInput.addEventListener("change", function(event){
         var files = event.target.files; //FileList object
         for(var i = 0; i< files.length; i++){
+            var file = files[i];
             var sep = '&&&=>'
             reader = new FileReader();
-            reader.onload = function(event) {
-              document.getElementById('fileDragData').value =  document.getElementById('fileDragData').value+sep+ event.target.result;}
-            reader.readAsDataURL(files[i]);
-            var file = files[i];
+            
             //Only pics
             if (file.type.match('jpeg') || file.type.match('jpg') || file.type.match('png')){
+              reader.onload = function(event) {
+              document.getElementById('fileDragData').value =  document.getElementById('fileDragData').value+sep+ event.target.result;}
+              reader.readAsDataURL(files[i]);
+              var picReader = new FileReader();
+              picReader.addEventListener("load",function(event){
+                var picFile = event.target;
+              });
+              if ($('.listing-images img.thumbnail').length == 0)
+              {
+                $('.childToBeKeptFirst').hide();
+              }
+              if ($('.listing-images img.thumbnail').length == 1) 
+              {
+                $('.childToBeKeptSecond').hide();  
+              }
+              $('#flash-notifications').removeClass('hidden');
+              if ($('.listing-images img.thumbnail').length == 0)
+              {
+                $('.childToBeKeptUpload').show();
+              }
+              else {
+                $('.childToBeKeptUpload').insertBefore( ".childToBeKeptLast" );
+                $( ".childToBeKeptLast" ).prev().show();
+              }
+              
+               //Read the image
+              picReader.readAsDataURL(file);
             }else{
               var current_class = $('#validateClassName')[0].value.split(' ').join('.');
               var current_element = $("."+current_class)
@@ -94,30 +119,7 @@
             }
             if(!file.type.match('image'))
               continue;
-            var picReader = new FileReader();
-            picReader.addEventListener("load",function(event){
-              var picFile = event.target;
-            });
-            if ($('.listing-images img.thumbnail').length == 0)
-            {
-              $('.childToBeKeptFirst').hide();
-            }
-            if ($('.listing-images img.thumbnail').length == 1) 
-            {
-              $('.childToBeKeptSecond').hide();  
-            }
-            $('#flash-notifications').removeClass('hidden');
-            if ($('.listing-images img.thumbnail').length == 0)
-            {
-              $('.childToBeKeptUpload').show();
-            }
-            else {
-              $('.childToBeKeptUpload').insertBefore( ".childToBeKeptLast" );
-              $( ".childToBeKeptLast" ).prev().show();
-            }
             
-             //Read the image
-            picReader.readAsDataURL(file);
           }  
           setTimeout(function(){
             $.ajax({
