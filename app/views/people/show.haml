@@ -103,16 +103,19 @@
           - else
             = t(".no_reviews")
 
-    - if @person.description && !@person.description.blank?
+    - if @person.about_us && !@person.about_us.blank?
       - text_with_line_breaks do
         %h2.people-header
           ="Product Information"
           .div{style: 'font-size: 15px;'}
-            = @person.description
+            =@person.about_us
+
+    - if @person.description && !@person.description.blank?
+      - text_with_line_breaks do
         %h2.people-header
           ="About You"
           .div{style: 'font-size: 15px;'}
-            = @person.about_us
+            = @person.description
         
          
         - if received_testimonials.size > 0
