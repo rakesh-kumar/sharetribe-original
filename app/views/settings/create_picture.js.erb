@@ -4,6 +4,10 @@ $('#flash-notifications').addClass('hidden');
 $('#fileDragData')[0].value = '';
 
 setTimeout(function(){
+  $(".childToBeKeptFirst, .childToBeKeptSecond, .childToBeKeptLast").on('click',function(){
+    $('#validateClassName')[0].value = "";
+    $('#validateClassName')[0].value = $(this).attr('class');
+  });
   $(".upload-image-placeholder").hover(function(){
     if ($(this).find('.thumbnail').attr('src')!=undefined){
       $(this).find('.fileupload-preview-remove-image').show();
