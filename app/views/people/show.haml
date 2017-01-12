@@ -107,10 +107,12 @@
       - text_with_line_breaks do
         %h2.people-header
           ="Product Information"
-        = @person.description
+          .div{style: 'font-size: 15px;'}
+            = @person.description
         %h2.people-header
           ="About You"
-        = @person.about_us
+          .div{style: 'font-size: 15px;'}
+            = @person.about_us
         
          
         - if received_testimonials.size > 0
