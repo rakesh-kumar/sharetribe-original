@@ -12,8 +12,8 @@
   #fileupload.fileinput-button.upload-image-placeholder.fileupload-uploading.childToBeKeptUpload{style: 'display:none;'}
     .fileupload-text-container
       .fileupload-centered-text
-        .fileupload-text Processing...
-        .fileupload-small-text this only takes a second
+        .fileupload-text 0 %
+        .fileupload-small-text
         .fileupload-error-text
     %img.fileupload-preview-image{:style => "display: none;"}/
     .fileupload-preview-remove-image
@@ -100,14 +100,7 @@
                 $('.childToBeKeptSecond').hide();  
               }
               $('#flash-notifications').removeClass('hidden');
-              if ($('.listing-images img.thumbnail').length == 0)
-              {
-                $('.childToBeKeptUpload').show();
-              }
-              else {
-                $('.childToBeKeptUpload').insertBefore( ".childToBeKeptLast" );
-                $( ".childToBeKeptLast" ).prev().show();
-              }
+             
               
                //Read the image
               picReader.readAsDataURL(file);
@@ -134,10 +127,25 @@
                 if (evt.lengthComputable) {
                   var percentComplete = evt.loaded / evt.total;
                   percentComplete = parseInt(percentComplete * 100);
+                    if ($('.listing-images img.thumbnail').length == 0)
+                    {
+                      var elementObject = $('.childToBeKeptUpload');
+                      elementObject.show();
+                    }
+                    else {
+                      $('.childToBeKeptUpload').insertBefore( ".childToBeKeptLast" );
+                      var elementObject = $( ".childToBeKeptLast" ).prev();
+                      elementObject.show();
+                    } 
+                    elementObject.find('.fileupload-text-container .fileupload-centered-text .fileupload-text').html(percentComplete + "%");
                   console.log(percentComplete, "****");
 
                   if (percentComplete === 100) {
-                    console.log('100 p')
+                    setTimeout(function(){  
+                      elementObject.find('.fileupload-text-container .fileupload-centered-text .fileupload-text').html("Processing...");
+                      elementObject.find('.fileupload-text-container .fileupload-centered-text .fileupload-small-text').html("this only takes a second");
+                      console.log('100 p')
+                    },1000);
                   }
 
                 }
@@ -150,6 +158,7 @@
             data: $.param({ fileDragData: $('#fileDragData')[0].value }),
             
             success: function(result) {
+              
               console.log('result');
               $('#fileDragData')[0].value = '';
             }
