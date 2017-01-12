@@ -60,8 +60,8 @@
       
       - if @person.description && !@person.description.blank?
         - text_with_line_breaks do
-          = @person.description
-          = @person.about_us
+          =# @person.description
+          =# @person.about_us
       - elsif current_user?(@person)
         %a{href: person_settings_path(@person)}
           .icon-with-text-container
@@ -102,6 +102,17 @@
             = "(#{feedback_positive_percentage.to_s}% #{t("people.show.positive")}, #{received_positive_testimonials.size}/#{received_testimonials.size})"
           - else
             = t(".no_reviews")
+
+    - if @person.description && !@person.description.blank?
+      - text_with_line_breaks do
+        %h2.people-header
+          ="Product Information"
+        = @person.description
+        %h2.people-header
+          ="About You"
+        = @person.about_us
+        
+         
         - if received_testimonials.size > 0
           #profile-testimonials-list
             = render :partial => "testimonials", :locals => {:received_testimonials => received_testimonials, :limit => 3}
