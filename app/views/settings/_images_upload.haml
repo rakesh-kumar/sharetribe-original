@@ -53,8 +53,12 @@
 :javascript
 
   window.onload = function(){
- 
+  
     setTimeout(function(){
+      $(".childToBeKeptFirst, .childToBeKeptSecond, .childToBeKeptLast").on('click',function(){
+        $('#validateClassName')[0].value = "";
+        $('#validateClassName')[0].value = $(this).attr('class');
+      });
       $(".upload-image-placeholder").hover(function(){
         if ($(this).find('.thumbnail').attr('src')!=undefined){
           $(this).find('.fileupload-preview-remove-image').show();
@@ -80,7 +84,12 @@
             //Only pics
             if (file.type.match('jpeg') || file.type.match('jpg') || file.type.match('png')){
             }else{
-              alert('you get an error message saying that the image attachment should be JPEG, PNG, JPG.');
+              var current_class = $('#validateClassName')[0].value.split(' ').join('.');
+              var current_element = $("."+current_class)
+              if (current_element){
+                current_element.find('.fileupload-text-container .fileupload-centered-text .fileupload-text').html("");
+                current_element.find('.fileupload-text-container .fileupload-centered-text .fileupload-error-text').html("The image format must be either GIF, JPG or PNG.");
+              }
               return false; 
             }
             if(!file.type.match('image'))
