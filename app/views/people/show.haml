@@ -74,7 +74,7 @@
 
     - if @person.about_us && !@person.about_us.blank?
       - text_with_line_breaks do
-        %h2
+        %h2.people-header
           ="Product Information"
           .div{style: 'font-size: 15px;'}
             =@person.about_us
