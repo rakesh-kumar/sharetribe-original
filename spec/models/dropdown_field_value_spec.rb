@@ -8,6 +8,8 @@
 #  text_value      :text(65535)
 #  numeric_value   :float(24)
 #  date_value      :datetime
+#  buyer_value     :text(65535)
+#  seller_value    :text(65535)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  type            :string(255)
