@@ -770,6 +770,16 @@ CREATE TABLE `homepages` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `homepages`
+--
+
+LOCK TABLES `homepages` WRITE;
+/*!40000 ALTER TABLE `homepages` DISABLE KEYS */;
+INSERT INTO `homepages` VALUES (1,'','','TESTING','2016-11-20 09:38:43','2016-12-14 13:17:24','HPSlice_02.png','image/png',20694,'2016-11-23 15:34:50','SEARCH AND CONNECT','Discover and book shelf space with independent store owners in areas that match your target customers','DELIVER AND DISPLAY','SELL AND GROW','Get the products to the store and start driving exposure and selling to your customers','Get paid for product sales and build a relationship with retailers for future orders','SEE YOUR PRODUCTS ON STORE SHELVES ANYWHERE','Shelves In','Shelves In','Book A Shelf','Shelves In','Book A Shelf','Book A Shelf','Shelves In','Shelves In','North London','West London','The Common E2, Old Bethnal Green Rd, London','Central London','Rawligion, Tottenham St, Fitrovia','Truffles Cafe, Westmoreland Rd, Bromley','South London','East London','NorthLondon360x275.png','image/png',184551,'2016-11-21 22:33:34','WestLondon360x275.png','image/png',158465,'2016-11-21 22:33:34','thecommon360x275.png','image/png',143358,'2016-11-22 14:28:01','CentralLondon550x275adj.png','image/png',257590,'2016-11-21 22:24:29','rawligion-blog-featured-image-550x275adj','image/png',209204,'2016-11-21 22:07:46','truffles360x275.png','image/png',155175,'2016-11-21 22:33:34','SouthLondon360x275.png','image/png',164151,'2016-11-21 22:33:35','EastLondon360x275.png','image/png',203753,'2016-11-21 22:33:35','I93PW8NE0F.jpg','image/jpeg',415514,'2016-11-23 15:41:18','ARE YOU A SHOP OWNER?','Get access to the latest and greatest food products.<br>Total control over which products you choose to stock<br>and get paid for the ones that you do.','','http://mylocalshelf.co/lists?category=north-london','http://mylocalshelf.co/lists?category=west-london','','http://mylocalshelf.co/lists?category=central-london','','','http://mylocalshelf.co/lists?category=south-london','http://mylocalshelf.co/lists?category=east-london');
+/*!40000 ALTER TABLE `homepages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `invitations`
 --
 
