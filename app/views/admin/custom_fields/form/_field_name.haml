@@ -1,4 +1,25 @@
-= form.label :name_attributes, t("admin.custom_fields.index.field_title")
+-if  params[:action] == "edit" 
+  -if form.object.type == "BuyerField" 
+    -type = "BuyerField"
+  -elsif form.object.type == "SellerField" 
+    -type = "SellerField"
+  -else
+    -type  = "OtherField"
+-else 
+  -if params["field_type"] == "BuyerField" 
+    -type = "BuyerField"
+  -elsif  params["field_type"] == "SellerField" 
+    -type = "SellerField"
+  -else
+    -type  = "OtherField"
+
+-if type == "SellerField"
+  = form.label :name_attributes, t("admin.custom_fields.index.seller_title")
+-elsif type == "BuyerField"
+  = form.label :name_attributes, t("admin.custom_fields.index.buyer_title")
+-else
+  = form.label :name_attributes, t("admin.custom_fields.index.field_title")
+
 - available_locales.each do |locale_name, locale_value|
   .row
     - if available_locales.size > 1
@@ -6,3 +27,5 @@
         = label_tag "custom_field[name_attributes][#{locale_value}]", locale_name + ": ", :class => "new-field-name-locale-label"
     .col-8
       = text_field_tag "custom_field[name_attributes][#{locale_value}]", @custom_field.name(locale_value), :class => "new-field-name-locale-text-field required"
+     
+        

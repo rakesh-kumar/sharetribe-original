@@ -41,6 +41,7 @@
 #  min_days_between_community_updates :integer          default(1)
 #  deleted                            :boolean          default(FALSE)
 #  cloned_from                        :string(22)
+#  about_us                           :text(65535)
 #
 # Indexes
 #
@@ -111,6 +112,7 @@ class Person < ActiveRecord::Base
   has_many :inverse_follower_relationships, :class_name => "FollowerRelationship", :foreign_key => "follower_id"
   has_many :followed_people, :through => :inverse_follower_relationships, :source => "person"
   has_one :stripe_account, :dependent => :destroy
+  has_many :pictures, as: :pictureable, :dependent => :destroy
 
   has_and_belongs_to_many :followed_listings, :class_name => "Listing", :join_table => "listing_followers"
 
@@ -191,6 +193,20 @@ class Person < ActiveRecord::Base
       UUIDUtils.parse_raw(self[:uuid])
     end
   end
+  
+  def image_by_id_img(id)
+    self.pictures.find_by_id(id)
+  end
+
+  def prev_and_next_image_ids_by_id(id)
+    person_image_ids = pictures.collect(&:id)
+    ArrayUtils.next_and_prev(person_image_ids, id);
+  end
+
+
+  # def uuid
+  #   UUIDTools::UUID.parse_raw(Base64.urlsafe_decode64(self.id))
+  # end
 
   # Creates a new email
   def email_attributes=(attributes)

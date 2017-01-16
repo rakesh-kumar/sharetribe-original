@@ -1,10 +1,10 @@
 class SettingsController < ApplicationController
 
-  before_filter :except => :unsubscribe do |controller|
+  before_filter :except => [:unsubscribe, :create_picture, :destroy_picture,] do |controller|
     controller.ensure_logged_in t("layouts.notifications.you_must_log_in_to_view_your_settings")
   end
 
-  before_filter EnsureCanAccessPerson.new(:person_id, error_message_key: "layouts.notifications.you_are_not_authorized_to_view_this_content"), except: :unsubscribe
+  before_filter EnsureCanAccessPerson.new(:person_id, error_message_key: "layouts.notifications.you_are_not_authorized_to_view_this_content"), except: [:unsubscribe, :create_picture, :destroy_picture]
 
   def show
     target_user = Person.find_by!(username: params[:person_id], community_id: @current_community.id)
@@ -46,7 +46,30 @@ class SettingsController < ApplicationController
       render :unsubscribe, :status => :unauthorized, locals: {target_user: target_user, unsubscribe_successful: false}
     end
   end
-
+  def create_picture
+    target_user = Person.find_by!(id: params[:person_id], community_id: @current_community.id)
+    if params[:fileDragData]
+      fileDragData = params[:fileDragData].split("&&&=>")
+      fileDragData.shift
+      fileDragData.each_with_index do |base|
+        target_user.pictures.create(image: base)
+      end
+    end
+    respond_to do |format|
+      format.js { return render layout: false, template: 'settings/create_picture.js.erb', locals: {target_user: target_user}}
+    end
+  end
+  def destroy_picture
+    target_user = Person.find_by!(id: params[:person_id], community_id: @current_community.id)
+    if params[:picture_destroy]
+      @picture = Picture.where(id: params[:id]).first
+      if  @picture.destroy
+      end
+    end
+    respond_to do |format|
+      format.js {return render layout: false, template: 'settings/destroy_picture.js.erb', locals: {target_user: target_user}}
+    end
+  end
   private
 
   def add_location_to_person!(person)

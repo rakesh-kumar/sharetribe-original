@@ -58,6 +58,8 @@ gem 'devise', "~>3.5.0"
 gem 'devise-encryptable', '~> 0.2.0'
 gem "omniauth-facebook", "~> 4.0.0"
 
+gem 'daemons'
+
 # Dynamic form adds helpers that are needed, e.g. error_messages
 gem 'dynamic_form', "~>1.1.4"
 gem "truncate_html", "~>0.9.1"
@@ -189,3 +191,6 @@ gem 'transit-ruby', '~> 0.8'
 gem "font-awesome-rails"
 gem 'stripe'
 gem 'geocoder'
+gem 'carrierwave'
+gem 'carrierwave-base64'
+gem "mini_magick"

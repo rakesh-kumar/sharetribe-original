@@ -1,8 +1,10 @@
+
 -- MySQL dump 10.13  Distrib 5.7.11, for osx10.11 (x86_64)
 --
 -- Host: localhost    Database: mylocshelfapp_development
 -- ------------------------------------------------------
--- Server version	5.7.11
+-- Server version 5.7.11
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -396,6 +398,22 @@ CREATE TABLE `contact_requests` (
 -- Table structure for table `conversations`
 --
 
+
+DROP TABLE IF EXISTS `pictures`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pictures` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pictureable_id` varchar(255) DEFAULT NULL,
+  `pictureable_type` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 DROP TABLE IF EXISTS `conversations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -506,6 +524,8 @@ CREATE TABLE `custom_field_values` (
   `text_value` text,
   `numeric_value` float DEFAULT NULL,
   `date_value` datetime DEFAULT NULL,
+  `buyer_value` text,
+  `seller_value` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `type` varchar(255) DEFAULT NULL,
@@ -1441,6 +1461,7 @@ CREATE TABLE `people` (
   `family_name` varchar(255) DEFAULT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
   `description` text,
+  `about_us` text,
   `image_file_name` varchar(255) DEFAULT NULL,
   `image_content_type` varchar(255) DEFAULT NULL,
   `image_file_size` int(11) DEFAULT NULL,
@@ -1797,7 +1818,9 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+
 -- Dump completed on 2016-12-13 19:09:51
+
 INSERT INTO schema_migrations (version) VALUES ('20080806070738');
 
 INSERT INTO schema_migrations (version) VALUES ('20080807071903');

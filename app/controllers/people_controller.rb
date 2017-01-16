@@ -29,6 +29,20 @@ class PeopleController < Devise::RegistrationsController
     @community_membership = CommunityMembership.find_by_person_id_and_community_id_and_status(@person.id, @current_community.id, "accepted")
 
     include_closed = @current_user == @person && params[:show_closed]
+    
+    @current_image = if params[:image]
+      @person.image_by_id_img(params[:image])
+    else
+      @person.pictures.first
+    end
+
+    @prev_image_id, @next_image_id = if @current_image
+      @person.prev_and_next_image_ids_by_id(@current_image.id)
+    else
+      [nil, nil]
+    end
+
+
     search = {
       author_id: @person.id,
       include_closed: include_closed,
@@ -225,6 +239,7 @@ class PeopleController < Devise::RegistrationsController
         :phone_number,
         :image,
         :description,
+        :about_us,
         { location: [:address, :google_address, :latitude, :longitude] },
         :password,
         :password2,
@@ -243,7 +258,8 @@ class PeopleController < Devise::RegistrationsController
           :email_about_completed_transactions,
           :email_about_new_payments,
           :email_about_new_listings_by_followed_people,
-        ] }
+        ] },
+        pictures_attributes: [:id, :pictureable_id, :pictureable_type, :image]
       )
 
       Maybe(person_params)[:location].each { |loc|

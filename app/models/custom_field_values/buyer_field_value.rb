@@ -21,10 +21,10 @@
 #  index_custom_field_values_on_type        (type)
 #
 
-class TextFieldValue < CustomFieldValue
+class BuyerFieldValue < CustomFieldValue
 
-  attr_accessible :text_value
+  attr_accessible :buyer_value
 
-  validates_presence_of :text_value
+  # validates_presence_of :buyer_value
 
 end

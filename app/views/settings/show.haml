@@ -57,9 +57,37 @@
     -# About text
     = form.label :description, t("settings.profile.about_you"), :class => "input"
     = form.text_area :description, :class => "update_profile_description_text_area"
+
+    = form.label :about_us, t("settings.profile.about_us"), :class => "input"
+    = form.text_area :about_us, :class => "update_profile_description_text_area"
+
+    -# Image attachments
+    = form.label :image_attachments, t("settings.profile.image_attachments")
+    %input#files{:multiple => "true", :name => "img", :style => "display:none", :type => "file"}/
+    .info-text-container
+      .info-text-icon
+        %i.icon-info-sign
+      .info-text-content
+        %p For best results, use JPG, GIF or PNG images that are 660 by 440 pixels
+    #flash-notifications.flash-notifications.js-listing-image-loading-done.hidden
+      .flash-notice.flash-notification
+        .flash-icon.icon-circle-blank
+        .flash-text
+          All images uploaded! Processing them will take a bit of time, but it's ok to save the listing and move on.  
+
+    #flash-notifications2.flash-notifications.js-listing-image-loading-done.hidden
+      .flash-notice.flash-notification
+        .flash-icon.icon-circle-blank
+        .flash-text
+          Image upload in progress... 
+    #settings_images_upload    
+      = render :partial => "settings/images_upload", :locals => { :target_user => target_user}
+
     = form.fields_for :location do |loc|
       = loc.hidden_field :address, :value => target_user.location.address
       = loc.hidden_field :google_address, :value => target_user.location.google_address
       = loc.hidden_field :latitude, :value => target_user.location.latitude
       = loc.hidden_field :longitude, :value => target_user.location.longitude
     = form.button t("settings.save_information"), :class => "send_button"
+  #settings_image_upload_form  
+    = render :partial => "settings/image_upload_form", :locals => { :target_user => target_user}
