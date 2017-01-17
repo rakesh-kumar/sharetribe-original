@@ -7,7 +7,7 @@
       #fileupload.fileinput-button.upload-image-placeholder{:class => "old-#{index}", style: "width: 8.5em !important; height: 8.5em !important;"}
         = image_tag target_user_picture.image, class: "thumbnail", style: "width: 8.5em !important; height: 8.5em !important;"
         .fileupload-preview-remove-image
-          %i.icon-remove.icon-fix
+          %i.ss-delete.icon-fix
           %span{id: "#{target_user_picture.id}"}
   #fileupload.fileinput-button.upload-image-placeholder.fileupload-uploading.childToBeKeptUpload{style: 'display:none;'}
     .fileupload-text-container
@@ -17,7 +17,7 @@
         .fileupload-error-text
     %img.fileupload-preview-image{:style => "display: none;"}/
     .fileupload-preview-remove-image
-      %i.icon-remove.icon-fix
+      %i.ss-delete.icon-fix
     %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden", :value => "36"}/
   #fileupload.fileinput-button.upload-image-placeholder.remove-image-image{style: 'display:none;'}
     .fileupload-text-container
@@ -27,7 +27,7 @@
         .fileupload-error-text
     %img.fileupload-preview-image{:style => "display: none;"}/
     .fileupload-preview-remove-image
-      %i.icon-remove.icon-fix
+      %i.ss-delete.icon-fix
     %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden", :value => "36"}/
 
   - if target_user.pictures.count < 1
@@ -39,7 +39,7 @@
           .fileupload-error-text
       %img.fileupload-preview-image{:style => "display: none;"}/
       .fileupload-preview-remove-image
-        %i.icon-remove.icon-fix
+        %i.ss-delete.icon-fix
       %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
   - if target_user.pictures.count < 2
     #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptSecond{:onclick => "$('#files').click();"}
@@ -50,7 +50,7 @@
           .fileupload-error-text
       %img.fileupload-preview-image{:style => "display: none;"}/
       .fileupload-preview-remove-image
-        %i.icon-remove.icon-fix
+        %i.ss-delete.icon-fix
       %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
   - if target_user.pictures.count < 5
     #fileupload.fileinput-button.upload-image-placeholder.childToBeKeptLast{:onclick => "$('#files').click();"} 
@@ -61,7 +61,7 @@
           .fileupload-error-text
       %img.fileupload-preview-image{:style => "display: none;"}/
       .fileupload-preview-remove-image
-        %i.icon-remove.icon-fix
+        %i.ss-delete.icon-fix
       %input.listing-image-id{:name => "listing_images[][id]", :type => "hidden"}/
 
 :javascript

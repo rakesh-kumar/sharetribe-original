@@ -371,8 +371,8 @@ en:
         dropdown: Dropdown
         checkbox_group: "Checkbox group"
         date: Date
-        seller: Seller
-        buyer: Buyer
+        seller: Seller label
+        buyer: Buyer label
     emails:
       new:
         send_email_to_members: "Send email to users"
