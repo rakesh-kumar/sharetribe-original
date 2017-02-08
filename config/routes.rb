@@ -76,7 +76,7 @@ Kassi::Application.routes.draw do
     locale_matcher_anchored.match(request.params["locale"]) &&
       CustomLandingPage::LandingPageStore.enabled?(request.env[:current_marketplace]&.id)
   }
-  get '/' => 'homepage#home', as: :landing_page_without_locale, constraints: ->(request) {
+  get '/' => 'homepage#index', as: :landing_page_without_locale, constraints: ->(request) {
     CustomLandingPage::LandingPageStore.enabled?(request.env[:current_marketplace]&.id)
   }
 

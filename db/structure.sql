@@ -1,10 +1,8 @@
-
--- MySQL dump 10.13  Distrib 5.7.11, for osx10.11 (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.53, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: mylocshelfapp_development
+-- Host: localhost    Database: sharetribe_last_last
 -- ------------------------------------------------------
--- Server version 5.7.11
-
+-- Server version	5.5.53-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,9 +24,9 @@ DROP TABLE IF EXISTS `auth_tokens`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `auth_tokens` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `token` varchar(255) DEFAULT NULL,
-  `token_type` varchar(255) DEFAULT 'unsubscribe',
-  `person_id` varchar(255) DEFAULT NULL,
+  `token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `token_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'unsubscribe',
+  `person_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `expires_at` datetime DEFAULT NULL,
   `usages_left` int(11) DEFAULT NULL,
   `last_use_attempt` datetime DEFAULT NULL,
@@ -36,7 +34,7 @@ CREATE TABLE `auth_tokens` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_auth_tokens_on_token` (`token`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,14 +47,14 @@ DROP TABLE IF EXISTS `billing_agreements`;
 CREATE TABLE `billing_agreements` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `paypal_account_id` int(11) NOT NULL,
-  `billing_agreement_id` varchar(255) DEFAULT NULL,
+  `billing_agreement_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `paypal_username_to` varchar(255) NOT NULL,
-  `request_token` varchar(255) NOT NULL,
+  `paypal_username_to` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `request_token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_billing_agreements_on_paypal_account_id` (`paypal_account_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +73,7 @@ CREATE TABLE `bookings` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_bookings_on_transaction_id` (`transaction_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,17 +86,17 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
-  `icon` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `community_id` int(11) DEFAULT NULL,
   `sort_priority` int(11) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_categories_on_community_id` (`community_id`) USING BTREE,
   KEY `index_categories_on_parent_id` (`parent_id`) USING BTREE,
   KEY `index_categories_on_url` (`url`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +115,7 @@ CREATE TABLE `category_custom_fields` (
   PRIMARY KEY (`id`),
   KEY `index_category_custom_fields_on_category_id_and_custom_field_id` (`category_id`,`custom_field_id`) USING BTREE,
   KEY `index_category_custom_fields_on_custom_field_id` (`custom_field_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,7 +130,7 @@ CREATE TABLE `category_listing_shapes` (
   `listing_shape_id` int(11) NOT NULL,
   UNIQUE KEY `unique_listing_shape_category_joins` (`listing_shape_id`,`category_id`) USING BTREE,
   KEY `index_category_listing_shapes_on_category_id` (`category_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,15 +143,15 @@ DROP TABLE IF EXISTS `category_translations`;
 CREATE TABLE `category_translations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) DEFAULT NULL,
-  `locale` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `locale` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id_with_locale` (`category_id`,`locale`) USING BTREE,
   KEY `index_category_translations_on_category_id` (`category_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,14 +163,14 @@ DROP TABLE IF EXISTS `checkout_accounts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `checkout_accounts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_id_or_personal_id` varchar(255) DEFAULT NULL,
-  `merchant_id` varchar(255) NOT NULL,
-  `merchant_key` varchar(255) NOT NULL,
-  `person_id` varchar(255) NOT NULL,
+  `company_id_or_personal_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `merchant_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `merchant_key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `person_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,15 +182,15 @@ DROP TABLE IF EXISTS `comments`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author_id` varchar(255) DEFAULT NULL,
+  `author_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `listing_id` int(11) DEFAULT NULL,
-  `content` text,
+  `content` text COLLATE utf8_unicode_ci,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `community_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_comments_on_listing_id` (`listing_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,67 +202,67 @@ DROP TABLE IF EXISTS `communities`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `communities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uuid` binary(16) NOT NULL,
-  `ident` varchar(255) DEFAULT NULL,
-  `domain` varchar(255) DEFAULT NULL,
+  `uuid` varbinary(16) NOT NULL,
+  `ident` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `domain` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `use_domain` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `settings` text,
-  `consent` varchar(255) DEFAULT NULL,
+  `settings` text COLLATE utf8_unicode_ci,
+  `consent` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `transaction_agreement_in_use` tinyint(1) DEFAULT '0',
   `email_admins_about_new_members` tinyint(1) DEFAULT '0',
   `use_fb_like` tinyint(1) DEFAULT '0',
   `real_name_required` tinyint(1) DEFAULT '1',
   `automatic_newsletters` tinyint(1) DEFAULT '1',
   `join_with_invite_only` tinyint(1) DEFAULT '0',
-  `allowed_emails` mediumtext,
+  `allowed_emails` mediumtext COLLATE utf8_unicode_ci,
   `users_can_invite_new_users` tinyint(1) DEFAULT '1',
   `private` tinyint(1) DEFAULT '0',
-  `label` varchar(255) DEFAULT NULL,
+  `label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `show_date_in_listings_list` tinyint(1) DEFAULT '0',
   `all_users_can_add_news` tinyint(1) DEFAULT '1',
   `custom_frontpage_sidebar` tinyint(1) DEFAULT '0',
   `event_feed_enabled` tinyint(1) DEFAULT '1',
-  `slogan` varchar(255) DEFAULT NULL,
-  `description` text,
-  `country` varchar(255) DEFAULT NULL,
+  `slogan` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `members_count` int(11) DEFAULT '0',
   `user_limit` int(11) DEFAULT NULL,
   `monthly_price_in_euros` float DEFAULT NULL,
-  `logo_file_name` varchar(255) DEFAULT NULL,
-  `logo_content_type` varchar(255) DEFAULT NULL,
+  `logo_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `logo_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `logo_file_size` int(11) DEFAULT NULL,
   `logo_updated_at` datetime DEFAULT NULL,
-  `cover_photo_file_name` varchar(255) DEFAULT NULL,
-  `cover_photo_content_type` varchar(255) DEFAULT NULL,
+  `cover_photo_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cover_photo_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cover_photo_file_size` int(11) DEFAULT NULL,
   `cover_photo_updated_at` datetime DEFAULT NULL,
-  `small_cover_photo_file_name` varchar(255) DEFAULT NULL,
-  `small_cover_photo_content_type` varchar(255) DEFAULT NULL,
+  `small_cover_photo_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `small_cover_photo_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `small_cover_photo_file_size` int(11) DEFAULT NULL,
   `small_cover_photo_updated_at` datetime DEFAULT NULL,
-  `custom_color1` varchar(255) DEFAULT NULL,
-  `custom_color2` varchar(255) DEFAULT NULL,
-  `stylesheet_url` varchar(255) DEFAULT NULL,
+  `custom_color1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `custom_color2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `stylesheet_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `stylesheet_needs_recompile` tinyint(1) DEFAULT '0',
-  `service_logo_style` varchar(255) DEFAULT 'full-logo',
-  `available_currencies` text,
+  `service_logo_style` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'full-logo',
+  `available_currencies` text COLLATE utf8_unicode_ci,
   `facebook_connect_enabled` tinyint(1) DEFAULT '1',
   `minimum_price_cents` int(11) DEFAULT NULL,
   `hide_expiration_date` tinyint(1) DEFAULT '0',
-  `facebook_connect_id` varchar(255) DEFAULT NULL,
-  `facebook_connect_secret` varchar(255) DEFAULT NULL,
-  `google_analytics_key` varchar(255) DEFAULT NULL,
-  `google_maps_key` varchar(64) DEFAULT NULL,
-  `name_display_type` varchar(255) DEFAULT 'first_name_with_initial',
-  `twitter_handle` varchar(255) DEFAULT NULL,
+  `facebook_connect_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `facebook_connect_secret` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `google_analytics_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `google_maps_key` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name_display_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'first_name_with_initial',
+  `twitter_handle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `use_community_location_as_default` tinyint(1) DEFAULT '0',
-  `preproduction_stylesheet_url` varchar(255) DEFAULT NULL,
+  `preproduction_stylesheet_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `show_category_in_listing_list` tinyint(1) DEFAULT '0',
-  `default_browse_view` varchar(255) DEFAULT 'grid',
-  `wide_logo_file_name` varchar(255) DEFAULT NULL,
-  `wide_logo_content_type` varchar(255) DEFAULT NULL,
+  `default_browse_view` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'grid',
+  `wide_logo_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `wide_logo_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `wide_logo_file_size` int(11) DEFAULT NULL,
   `wide_logo_updated_at` datetime DEFAULT NULL,
   `listing_comments_in_use` tinyint(1) DEFAULT '0',
@@ -274,13 +272,13 @@ CREATE TABLE `communities` (
   `price_filter_min` int(11) DEFAULT '0',
   `price_filter_max` int(11) DEFAULT '100000',
   `automatic_confirmation_after_days` int(11) DEFAULT '14',
-  `favicon_file_name` varchar(255) DEFAULT NULL,
-  `favicon_content_type` varchar(255) DEFAULT NULL,
+  `favicon_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `favicon_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `favicon_file_size` int(11) DEFAULT NULL,
   `favicon_updated_at` datetime DEFAULT NULL,
   `default_min_days_between_community_updates` int(11) DEFAULT '7',
   `listing_location_required` tinyint(1) DEFAULT '0',
-  `custom_head_script` text,
+  `custom_head_script` text COLLATE utf8_unicode_ci,
   `follow_in_use` tinyint(1) NOT NULL DEFAULT '1',
   `logo_processing` tinyint(1) DEFAULT NULL,
   `wide_logo_processing` tinyint(1) DEFAULT NULL,
@@ -290,10 +288,10 @@ CREATE TABLE `communities` (
   `deleted` tinyint(1) DEFAULT NULL,
   `commission_from_seller` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_communities_on_uuid` (`uuid`),
+  UNIQUE KEY `index_communities_on_uuid` (`uuid`) USING BTREE,
   KEY `index_communities_on_domain` (`domain`) USING BTREE,
   KEY `index_communities_on_ident` (`ident`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -306,28 +304,28 @@ DROP TABLE IF EXISTS `community_customizations`;
 CREATE TABLE `community_customizations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `community_id` int(11) DEFAULT NULL,
-  `locale` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `slogan` varchar(255) DEFAULT NULL,
-  `description` text,
+  `locale` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slogan` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `blank_slate` text,
-  `welcome_email_content` text,
-  `how_to_use_page_content` mediumtext,
-  `about_page_content` mediumtext,
-  `terms_page_content` mediumtext,
-  `privacy_page_content` mediumtext,
-  `storefront_label` varchar(255) DEFAULT NULL,
-  `signup_info_content` text,
-  `private_community_homepage_content` mediumtext,
-  `verification_to_post_listings_info_content` mediumtext,
-  `search_placeholder` varchar(255) DEFAULT NULL,
-  `transaction_agreement_label` varchar(255) DEFAULT NULL,
-  `transaction_agreement_content` mediumtext,
+  `blank_slate` text COLLATE utf8_unicode_ci,
+  `welcome_email_content` text COLLATE utf8_unicode_ci,
+  `how_to_use_page_content` mediumtext COLLATE utf8_unicode_ci,
+  `about_page_content` mediumtext COLLATE utf8_unicode_ci,
+  `terms_page_content` mediumtext COLLATE utf8_unicode_ci,
+  `privacy_page_content` mediumtext COLLATE utf8_unicode_ci,
+  `storefront_label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `signup_info_content` text COLLATE utf8_unicode_ci,
+  `private_community_homepage_content` mediumtext COLLATE utf8_unicode_ci,
+  `verification_to_post_listings_info_content` mediumtext COLLATE utf8_unicode_ci,
+  `search_placeholder` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `transaction_agreement_label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `transaction_agreement_content` mediumtext COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `index_community_customizations_on_community_id` (`community_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -339,20 +337,20 @@ DROP TABLE IF EXISTS `community_memberships`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `community_memberships` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `person_id` varchar(255) NOT NULL,
+  `person_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `community_id` int(11) NOT NULL,
   `admin` tinyint(1) DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `consent` varchar(255) DEFAULT NULL,
+  `consent` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `invitation_id` int(11) DEFAULT NULL,
   `last_page_load_date` datetime DEFAULT NULL,
-  `status` varchar(255) NOT NULL DEFAULT 'accepted',
+  `status` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'accepted',
   `can_post_listings` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_community_memberships_on_person_id` (`person_id`) USING BTREE,
   KEY `index_community_memberships_on_community_id` (`community_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,14 +363,14 @@ DROP TABLE IF EXISTS `community_translations`;
 CREATE TABLE `community_translations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `community_id` int(11) NOT NULL,
-  `locale` varchar(16) NOT NULL,
-  `translation_key` varchar(255) NOT NULL,
-  `translation` text,
+  `locale` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `translation_key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `translation` text COLLATE utf8_unicode_ci,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_community_translations_on_community_id` (`community_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -384,42 +382,26 @@ DROP TABLE IF EXISTS `contact_requests`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contact_requests` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
-  `plan_type` varchar(255) DEFAULT NULL,
-  `marketplace_type` varchar(255) DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `plan_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `marketplace_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `conversations`
 --
 
-
-DROP TABLE IF EXISTS `pictures`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pictures` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pictureable_id` varchar(255) DEFAULT NULL,
-  `pictureable_type` varchar(255) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
 DROP TABLE IF EXISTS `conversations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `conversations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `listing_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -429,7 +411,7 @@ CREATE TABLE `conversations` (
   KEY `index_conversations_on_community_id` (`community_id`) USING BTREE,
   KEY `index_conversations_on_last_message_at` (`last_message_at`) USING BTREE,
   KEY `index_conversations_on_listing_id` (`listing_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,15 +423,15 @@ DROP TABLE IF EXISTS `custom_field_names`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `custom_field_names` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` varchar(255) DEFAULT NULL,
-  `locale` varchar(255) DEFAULT NULL,
-  `custom_field_id` varchar(255) DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `locale` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `custom_field_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `locale_index` (`custom_field_id`,`locale`) USING BTREE,
   KEY `index_custom_field_names_on_custom_field_id` (`custom_field_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -469,7 +451,7 @@ CREATE TABLE `custom_field_option_selections` (
   PRIMARY KEY (`id`),
   KEY `index_custom_field_option_selections_on_custom_field_option_id` (`custom_field_option_id`) USING BTREE,
   KEY `index_selected_options_on_custom_field_value_id` (`custom_field_value_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -481,15 +463,15 @@ DROP TABLE IF EXISTS `custom_field_option_titles`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `custom_field_option_titles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` varchar(255) DEFAULT NULL,
-  `locale` varchar(255) DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `locale` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `custom_field_option_id` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `locale_index` (`custom_field_option_id`,`locale`) USING BTREE,
   KEY `index_custom_field_option_titles_on_custom_field_option_id` (`custom_field_option_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -507,7 +489,7 @@ CREATE TABLE `custom_field_options` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_custom_field_options_on_custom_field_id` (`custom_field_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -521,19 +503,19 @@ CREATE TABLE `custom_field_values` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `custom_field_id` int(11) DEFAULT NULL,
   `listing_id` int(11) DEFAULT NULL,
-  `text_value` text,
+  `text_value` text COLLATE utf8_unicode_ci,
   `numeric_value` float DEFAULT NULL,
   `date_value` datetime DEFAULT NULL,
-  `buyer_value` text,
-  `seller_value` text,
+  `buyer_value` text COLLATE utf8_unicode_ci,
+  `seller_value` text COLLATE utf8_unicode_ci,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `type` varchar(255) DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `delta` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `index_custom_field_values_on_listing_id` (`listing_id`) USING BTREE,
   KEY `index_custom_field_values_on_type` (`type`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -545,7 +527,7 @@ DROP TABLE IF EXISTS `custom_fields`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `custom_fields` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(255) DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sort_priority` int(11) DEFAULT NULL,
   `search_filter` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` datetime NOT NULL,
@@ -558,7 +540,7 @@ CREATE TABLE `custom_fields` (
   PRIMARY KEY (`id`),
   KEY `index_custom_fields_on_community_id` (`community_id`) USING BTREE,
   KEY `index_custom_fields_on_search_filter` (`search_filter`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -572,20 +554,20 @@ CREATE TABLE `delayed_jobs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `priority` int(11) DEFAULT '0',
   `attempts` int(11) DEFAULT '0',
-  `handler` text,
-  `last_error` text,
+  `handler` text COLLATE utf8_unicode_ci,
+  `last_error` text COLLATE utf8_unicode_ci,
   `run_at` datetime DEFAULT NULL,
   `locked_at` datetime DEFAULT NULL,
   `failed_at` datetime DEFAULT NULL,
-  `locked_by` varchar(255) DEFAULT NULL,
+  `locked_by` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `queue` varchar(255) DEFAULT NULL,
+  `queue` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_delayed_jobs_on_attempts_and_run_at_and_priority` (`attempts`,`run_at`,`priority`) USING BTREE,
   KEY `index_delayed_jobs_on_locked_created` (`locked_at`,`created_at`) USING BTREE,
   KEY `delayed_jobs_priority` (`priority`,`run_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -597,22 +579,22 @@ DROP TABLE IF EXISTS `emails`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `emails` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `person_id` varchar(255) DEFAULT NULL,
+  `person_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `community_id` int(11) NOT NULL,
-  `address` varchar(255) NOT NULL,
+  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `confirmed_at` datetime DEFAULT NULL,
   `confirmation_sent_at` datetime DEFAULT NULL,
-  `confirmation_token` varchar(255) DEFAULT NULL,
+  `confirmation_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `send_notifications` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_emails_on_address_and_community_id` (`address`,`community_id`) USING BTREE,
-  KEY `index_emails_on_person_id` (`person_id`) USING BTREE,
   KEY `index_emails_on_address` (`address`) USING BTREE,
   KEY `index_emails_on_community_id` (`community_id`) USING BTREE,
-  KEY `index_emails_on_confirmation_token` (`confirmation_token`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `index_emails_on_confirmation_token` (`confirmation_token`) USING BTREE,
+  KEY `index_emails_on_person_id` (`person_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -625,14 +607,14 @@ DROP TABLE IF EXISTS `feature_flags`;
 CREATE TABLE `feature_flags` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `community_id` int(11) NOT NULL,
-  `person_id` varchar(255) DEFAULT NULL,
-  `feature` varchar(255) NOT NULL,
+  `person_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `feature` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_feature_flags_on_community_id_and_person_id` (`community_id`,`person_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -644,16 +626,16 @@ DROP TABLE IF EXISTS `feedbacks`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `feedbacks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` text,
-  `author_id` varchar(255) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
+  `content` text COLLATE utf8_unicode_ci,
+  `author_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `is_handled` int(11) DEFAULT '0',
-  `email` varchar(255) DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `community_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -665,15 +647,15 @@ DROP TABLE IF EXISTS `follower_relationships`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `follower_relationships` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `person_id` varchar(255) NOT NULL,
-  `follower_id` varchar(255) NOT NULL,
+  `person_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `follower_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_follower_relationships_on_person_id_and_follower_id` (`person_id`,`follower_id`) USING BTREE,
   KEY `index_follower_relationships_on_follower_id` (`follower_id`) USING BTREE,
   KEY `index_follower_relationships_on_person_id` (`person_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -694,7 +676,6 @@ CREATE TABLE `homepages` (
   `brand_image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `brand_image_file_size` int(11) DEFAULT NULL,
   `brand_image_updated_at` datetime DEFAULT NULL,
-  `heading` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `first_svg_heading` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `first_svg_paragraph` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `second_svg_heading` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -770,16 +751,6 @@ CREATE TABLE `homepages` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `homepages`
---
-
-LOCK TABLES `homepages` WRITE;
-/*!40000 ALTER TABLE `homepages` DISABLE KEYS */;
-INSERT INTO `homepages` VALUES (1,'','','TESTING','2016-11-20 09:38:43','2016-12-14 13:17:24','HPSlice_02.png','image/png',20694,'2016-11-23 15:34:50','SEARCH AND CONNECT','Discover and book shelf space with independent store owners in areas that match your target customers','DELIVER AND DISPLAY','SELL AND GROW','Get the products to the store and start driving exposure and selling to your customers','Get paid for product sales and build a relationship with retailers for future orders','SEE YOUR PRODUCTS ON STORE SHELVES ANYWHERE','Shelves In','Shelves In','Book A Shelf','Shelves In','Book A Shelf','Book A Shelf','Shelves In','Shelves In','North London','West London','The Common E2, Old Bethnal Green Rd, London','Central London','Rawligion, Tottenham St, Fitrovia','Truffles Cafe, Westmoreland Rd, Bromley','South London','East London','NorthLondon360x275.png','image/png',184551,'2016-11-21 22:33:34','WestLondon360x275.png','image/png',158465,'2016-11-21 22:33:34','thecommon360x275.png','image/png',143358,'2016-11-22 14:28:01','CentralLondon550x275adj.png','image/png',257590,'2016-11-21 22:24:29','rawligion-blog-featured-image-550x275adj','image/png',209204,'2016-11-21 22:07:46','truffles360x275.png','image/png',155175,'2016-11-21 22:33:34','SouthLondon360x275.png','image/png',164151,'2016-11-21 22:33:35','EastLondon360x275.png','image/png',203753,'2016-11-21 22:33:35','I93PW8NE0F.jpg','image/jpeg',415514,'2016-11-23 15:41:18','ARE YOU A SHOP OWNER?','Get access to the latest and greatest food products.<br>Total control over which products you choose to stock<br>and get paid for the ones that you do.','','http://mylocalshelf.co/lists?category=north-london','http://mylocalshelf.co/lists?category=west-london','','http://mylocalshelf.co/lists?category=central-london','','','http://mylocalshelf.co/lists?category=south-london','http://mylocalshelf.co/lists?category=east-london');
-/*!40000 ALTER TABLE `homepages` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `invitations`
 --
 
@@ -788,20 +759,20 @@ DROP TABLE IF EXISTS `invitations`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `invitations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `community_id` int(11) DEFAULT NULL,
   `usages_left` int(11) DEFAULT NULL,
   `valid_until` datetime DEFAULT NULL,
-  `information` varchar(255) DEFAULT NULL,
+  `information` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `inviter_id` varchar(255) DEFAULT NULL,
-  `message` text,
-  `email` varchar(255) DEFAULT NULL,
+  `inviter_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `message` text COLLATE utf8_unicode_ci,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_invitations_on_code` (`code`) USING BTREE,
   KEY `index_invitations_on_inviter_id` (`inviter_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -816,12 +787,12 @@ CREATE TABLE `landing_page_versions` (
   `community_id` int(11) NOT NULL,
   `version` int(11) NOT NULL,
   `released` datetime DEFAULT NULL,
-  `content` mediumtext NOT NULL,
+  `content` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_landing_page_versions_on_community_id_and_version` (`community_id`,`version`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -839,7 +810,7 @@ CREATE TABLE `landing_pages` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_landing_pages_on_community_id` (`community_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -850,11 +821,11 @@ DROP TABLE IF EXISTS `listing_followers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `listing_followers` (
-  `person_id` varchar(255) DEFAULT NULL,
+  `person_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `listing_id` int(11) DEFAULT NULL,
   KEY `index_listing_followers_on_listing_id` (`listing_id`) USING BTREE,
   KEY `index_listing_followers_on_person_id` (`person_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -869,19 +840,19 @@ CREATE TABLE `listing_images` (
   `listing_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `image_file_name` varchar(255) DEFAULT NULL,
-  `image_content_type` varchar(255) DEFAULT NULL,
+  `image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `image_file_size` int(11) DEFAULT NULL,
   `image_updated_at` datetime DEFAULT NULL,
   `image_processing` tinyint(1) DEFAULT NULL,
   `image_downloaded` tinyint(1) DEFAULT '0',
-  `error` varchar(255) DEFAULT NULL,
+  `error` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `width` int(11) DEFAULT NULL,
   `height` int(11) DEFAULT NULL,
-  `author_id` varchar(255) DEFAULT NULL,
+  `author_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_listing_images_on_listing_id` (`listing_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -897,10 +868,10 @@ CREATE TABLE `listing_shapes` (
   `transaction_process_id` int(11) NOT NULL,
   `price_enabled` tinyint(1) NOT NULL,
   `shipping_enabled` tinyint(1) NOT NULL,
-  `availability` varchar(32) DEFAULT 'none',
-  `name` varchar(255) NOT NULL,
-  `name_tr_key` varchar(255) NOT NULL,
-  `action_button_tr_key` varchar(255) NOT NULL,
+  `availability` varchar(32) COLLATE utf8_unicode_ci DEFAULT 'none',
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name_tr_key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `action_button_tr_key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `sort_priority` int(11) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
@@ -909,7 +880,7 @@ CREATE TABLE `listing_shapes` (
   KEY `multicol_index` (`community_id`,`deleted`,`sort_priority`) USING BTREE,
   KEY `index_listing_shapes_on_community_id` (`community_id`) USING BTREE,
   KEY `index_listing_shapes_on_name` (`name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -921,17 +892,17 @@ DROP TABLE IF EXISTS `listing_units`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `listing_units` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `unit_type` varchar(32) NOT NULL,
-  `quantity_selector` varchar(32) NOT NULL,
-  `kind` varchar(32) NOT NULL,
-  `name_tr_key` varchar(64) DEFAULT NULL,
-  `selector_tr_key` varchar(64) DEFAULT NULL,
+  `unit_type` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `quantity_selector` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `kind` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `name_tr_key` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `selector_tr_key` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `listing_shape_id` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_listing_units_on_listing_shape_id` (`listing_shape_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -943,51 +914,51 @@ DROP TABLE IF EXISTS `listings`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `listings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uuid` binary(16) NOT NULL,
+  `uuid` varbinary(16) NOT NULL,
   `community_id` int(11) NOT NULL,
-  `author_id` varchar(255) DEFAULT NULL,
-  `category_old` varchar(255) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
+  `author_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `category_old` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `times_viewed` int(11) DEFAULT '0',
-  `language` varchar(255) DEFAULT NULL,
+  `language` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updates_email_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `last_modified` datetime DEFAULT NULL,
   `sort_date` datetime DEFAULT NULL,
-  `listing_type_old` varchar(255) DEFAULT NULL,
-  `description` text,
-  `origin` varchar(255) DEFAULT NULL,
-  `destination` varchar(255) DEFAULT NULL,
+  `listing_type_old` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `origin` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `destination` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `valid_until` datetime DEFAULT NULL,
   `delta` tinyint(1) NOT NULL DEFAULT '1',
   `open` tinyint(1) DEFAULT '1',
-  `share_type_old` varchar(255) DEFAULT NULL,
-  `privacy` varchar(255) DEFAULT 'private',
+  `share_type_old` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `privacy` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'private',
   `comments_count` int(11) DEFAULT '0',
-  `subcategory_old` varchar(255) DEFAULT NULL,
+  `subcategory_old` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `old_category_id` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
   `share_type_id` int(11) DEFAULT NULL,
   `listing_shape_id` int(11) DEFAULT NULL,
   `transaction_process_id` int(11) DEFAULT NULL,
-  `shape_name_tr_key` varchar(255) DEFAULT NULL,
-  `action_button_tr_key` varchar(255) DEFAULT NULL,
+  `shape_name_tr_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `action_button_tr_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price_cents` int(11) DEFAULT NULL,
-  `currency` varchar(255) DEFAULT NULL,
-  `quantity` varchar(255) DEFAULT NULL,
-  `unit_type` varchar(32) DEFAULT NULL,
-  `quantity_selector` varchar(32) DEFAULT NULL,
-  `unit_tr_key` varchar(64) DEFAULT NULL,
-  `unit_selector_tr_key` varchar(64) DEFAULT NULL,
+  `currency` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `quantity` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unit_type` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `quantity_selector` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unit_tr_key` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unit_selector_tr_key` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `deleted` tinyint(1) DEFAULT '0',
   `require_shipping_address` tinyint(1) DEFAULT '0',
   `pickup_enabled` tinyint(1) DEFAULT '0',
   `shipping_price_cents` int(11) DEFAULT NULL,
   `shipping_price_additional_cents` int(11) DEFAULT NULL,
-  `availability` varchar(32) DEFAULT 'none',
+  `availability` varchar(32) COLLATE utf8_unicode_ci DEFAULT 'none',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_listings_on_uuid` (`uuid`),
+  UNIQUE KEY `index_listings_on_uuid` (`uuid`) USING BTREE,
   KEY `index_listings_on_new_category_id` (`category_id`) USING BTREE,
   KEY `person_listings` (`community_id`,`author_id`) USING BTREE,
   KEY `homepage_query` (`community_id`,`open`,`sort_date`,`deleted`) USING BTREE,
@@ -997,7 +968,7 @@ CREATE TABLE `listings` (
   KEY `index_listings_on_listing_shape_id` (`listing_shape_id`) USING BTREE,
   KEY `index_listings_on_category_id` (`old_category_id`) USING BTREE,
   KEY `index_listings_on_open` (`open`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1011,19 +982,19 @@ CREATE TABLE `locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `latitude` float DEFAULT NULL,
   `longitude` float DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `google_address` varchar(255) DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `google_address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `listing_id` int(11) DEFAULT NULL,
-  `person_id` varchar(255) DEFAULT NULL,
-  `location_type` varchar(255) DEFAULT NULL,
+  `person_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `location_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `community_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_locations_on_community_id` (`community_id`) USING BTREE,
   KEY `index_locations_on_listing_id` (`listing_id`) USING BTREE,
   KEY `index_locations_on_person_id` (`person_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1036,15 +1007,15 @@ DROP TABLE IF EXISTS `marketplace_configurations`;
 CREATE TABLE `marketplace_configurations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `community_id` int(11) NOT NULL,
-  `main_search` varchar(255) NOT NULL DEFAULT 'keyword',
-  `distance_unit` varchar(255) NOT NULL DEFAULT 'metric',
+  `main_search` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'keyword',
+  `distance_unit` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'metric',
   `limit_priority_links` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `limit_search_distance` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `index_marketplace_configurations_on_community_id` (`community_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1057,8 +1028,8 @@ DROP TABLE IF EXISTS `marketplace_plans`;
 CREATE TABLE `marketplace_plans` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `community_id` int(11) NOT NULL,
-  `status` varchar(22) DEFAULT NULL,
-  `features` text,
+  `status` varchar(22) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `features` text COLLATE utf8_unicode_ci,
   `member_limit` int(11) DEFAULT NULL,
   `expires_at` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL,
@@ -1066,7 +1037,7 @@ CREATE TABLE `marketplace_plans` (
   PRIMARY KEY (`id`),
   KEY `index_marketplace_plans_on_community_id` (`community_id`) USING BTREE,
   KEY `index_marketplace_plans_on_created_at` (`created_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1079,15 +1050,15 @@ DROP TABLE IF EXISTS `marketplace_sender_emails`;
 CREATE TABLE `marketplace_sender_emails` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `community_id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
-  `verification_status` varchar(32) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `verification_status` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `verification_requested_at` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_marketplace_sender_emails_on_community_id` (`community_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1108,7 +1079,7 @@ CREATE TABLE `marketplace_setup_steps` (
   `invitation` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_marketplace_setup_steps_on_community_id` (`community_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1127,7 +1098,7 @@ CREATE TABLE `marketplace_trials` (
   PRIMARY KEY (`id`),
   KEY `index_marketplace_trials_on_community_id` (`community_id`) USING BTREE,
   KEY `index_marketplace_trials_on_created_at` (`created_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1140,14 +1111,14 @@ DROP TABLE IF EXISTS `menu_link_translations`;
 CREATE TABLE `menu_link_translations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `menu_link_id` int(11) DEFAULT NULL,
-  `locale` varchar(255) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
+  `locale` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_menu_link_translations_on_menu_link_id` (`menu_link_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1165,7 +1136,7 @@ CREATE TABLE `menu_links` (
   `sort_priority` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `index_menu_links_on_community_and_sort` (`community_id`,`sort_priority`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1177,14 +1148,14 @@ DROP TABLE IF EXISTS `mercury_images`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `mercury_images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `image_file_name` varchar(255) DEFAULT NULL,
-  `image_content_type` varchar(255) DEFAULT NULL,
+  `image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `image_file_size` int(11) DEFAULT NULL,
   `image_updated_at` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1196,14 +1167,14 @@ DROP TABLE IF EXISTS `messages`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sender_id` varchar(255) DEFAULT NULL,
-  `content` text,
+  `sender_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `content` text COLLATE utf8_unicode_ci,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `conversation_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_messages_on_conversation_id` (`conversation_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1218,15 +1189,15 @@ CREATE TABLE `order_permissions` (
   `paypal_account_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `request_token` varchar(255) DEFAULT NULL,
-  `paypal_username_to` varchar(255) NOT NULL,
-  `scope` varchar(255) DEFAULT NULL,
-  `verification_code` varchar(255) DEFAULT NULL,
-  `onboarding_id` varchar(36) DEFAULT NULL,
+  `request_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `paypal_username_to` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `scope` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `verification_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `onboarding_id` varchar(36) COLLATE utf8_unicode_ci DEFAULT NULL,
   `permissions_granted` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_order_permissions_on_paypal_account_id` (`paypal_account_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1238,7 +1209,7 @@ DROP TABLE IF EXISTS `participations`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `participations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `person_id` varchar(255) DEFAULT NULL,
+  `person_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `conversation_id` int(11) DEFAULT NULL,
   `is_read` tinyint(1) DEFAULT '0',
   `is_starter` tinyint(1) DEFAULT '0',
@@ -1250,7 +1221,7 @@ CREATE TABLE `participations` (
   PRIMARY KEY (`id`),
   KEY `index_participations_on_conversation_id` (`conversation_id`) USING BTREE,
   KEY `index_participations_on_person_id` (`person_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1264,8 +1235,8 @@ CREATE TABLE `payment_settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `active` tinyint(1) NOT NULL,
   `community_id` int(11) NOT NULL,
-  `payment_gateway` varchar(64) DEFAULT NULL,
-  `payment_process` varchar(64) DEFAULT NULL,
+  `payment_gateway` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `payment_process` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `commission_from_seller` int(11) DEFAULT NULL,
   `minimum_price_cents` int(11) DEFAULT NULL,
   `minimum_transaction_fee_cents` int(11) DEFAULT NULL,
@@ -1274,7 +1245,7 @@ CREATE TABLE `payment_settings` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_payment_settings_on_community_id` (`community_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1286,10 +1257,10 @@ DROP TABLE IF EXISTS `paypal_accounts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `paypal_accounts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `person_id` varchar(255) DEFAULT NULL,
+  `person_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `community_id` int(11) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `payer_id` varchar(255) DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `payer_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `active` tinyint(1) DEFAULT '0',
@@ -1297,7 +1268,7 @@ CREATE TABLE `paypal_accounts` (
   KEY `index_paypal_accounts_on_community_id` (`community_id`) USING BTREE,
   KEY `index_paypal_accounts_on_payer_id` (`payer_id`) USING BTREE,
   KEY `index_paypal_accounts_on_person_id` (`person_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1309,12 +1280,12 @@ DROP TABLE IF EXISTS `paypal_ipn_messages`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `paypal_ipn_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `body` text,
-  `status` varchar(64) DEFAULT NULL,
+  `body` text COLLATE utf8_unicode_ci,
+  `status` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1328,29 +1299,29 @@ CREATE TABLE `paypal_payments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `community_id` int(11) NOT NULL,
   `transaction_id` int(11) NOT NULL,
-  `payer_id` varchar(64) NOT NULL,
-  `receiver_id` varchar(64) NOT NULL,
-  `merchant_id` varchar(255) NOT NULL,
-  `order_id` varchar(64) DEFAULT NULL,
+  `payer_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `receiver_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `merchant_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order_id` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `order_date` datetime DEFAULT NULL,
-  `currency` varchar(8) NOT NULL,
+  `currency` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
   `order_total_cents` int(11) DEFAULT NULL,
-  `authorization_id` varchar(64) DEFAULT NULL,
+  `authorization_id` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `authorization_date` datetime DEFAULT NULL,
   `authorization_expires_date` datetime DEFAULT NULL,
   `authorization_total_cents` int(11) DEFAULT NULL,
-  `payment_id` varchar(64) DEFAULT NULL,
+  `payment_id` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `payment_date` datetime DEFAULT NULL,
   `payment_total_cents` int(11) DEFAULT NULL,
   `fee_total_cents` int(11) DEFAULT NULL,
-  `payment_status` varchar(64) NOT NULL,
-  `pending_reason` varchar(64) DEFAULT NULL,
+  `payment_status` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `pending_reason` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `commission_payment_id` varchar(64) DEFAULT NULL,
+  `commission_payment_id` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `commission_payment_date` datetime DEFAULT NULL,
-  `commission_status` varchar(64) NOT NULL DEFAULT 'not_charged',
-  `commission_pending_reason` varchar(64) DEFAULT NULL,
+  `commission_status` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'not_charged',
+  `commission_pending_reason` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `commission_total_cents` int(11) DEFAULT NULL,
   `commission_fee_total_cents` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1358,7 +1329,7 @@ CREATE TABLE `paypal_payments` (
   UNIQUE KEY `index_paypal_payments_on_authorization_id` (`authorization_id`) USING BTREE,
   UNIQUE KEY `index_paypal_payments_on_order_id` (`order_id`) USING BTREE,
   KEY `index_paypal_payments_on_community_id` (`community_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1370,19 +1341,19 @@ DROP TABLE IF EXISTS `paypal_process_tokens`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `paypal_process_tokens` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `process_token` varchar(64) NOT NULL,
+  `process_token` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `community_id` int(11) NOT NULL,
   `transaction_id` int(11) NOT NULL,
   `op_completed` tinyint(1) NOT NULL DEFAULT '0',
-  `op_name` varchar(64) NOT NULL,
-  `op_input` text,
-  `op_output` text,
+  `op_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `op_input` text COLLATE utf8_unicode_ci,
+  `op_output` text COLLATE utf8_unicode_ci,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_paypal_process_tokens_on_process_token` (`process_token`) USING BTREE,
   UNIQUE KEY `index_paypal_process_tokens_on_transaction` (`transaction_id`,`community_id`,`op_name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1395,15 +1366,15 @@ DROP TABLE IF EXISTS `paypal_refunds`;
 CREATE TABLE `paypal_refunds` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `paypal_payment_id` int(11) DEFAULT NULL,
-  `currency` varchar(8) DEFAULT NULL,
+  `currency` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
   `payment_total_cents` int(11) DEFAULT NULL,
   `fee_total_cents` int(11) DEFAULT NULL,
-  `refunding_id` varchar(64) DEFAULT NULL,
+  `refunding_id` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_paypal_refunds_on_refunding_id` (`refunding_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1416,23 +1387,23 @@ DROP TABLE IF EXISTS `paypal_tokens`;
 CREATE TABLE `paypal_tokens` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `community_id` int(11) NOT NULL,
-  `token` varchar(64) DEFAULT NULL,
+  `token` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `transaction_id` int(11) DEFAULT NULL,
-  `payment_action` varchar(32) DEFAULT NULL,
-  `merchant_id` varchar(255) NOT NULL,
-  `receiver_id` varchar(255) NOT NULL,
+  `payment_action` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `merchant_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `receiver_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT NULL,
-  `item_name` varchar(255) DEFAULT NULL,
+  `item_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `item_quantity` int(11) DEFAULT NULL,
   `item_price_cents` int(11) DEFAULT NULL,
-  `currency` varchar(8) DEFAULT NULL,
-  `express_checkout_url` varchar(255) DEFAULT NULL,
+  `currency` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `express_checkout_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `shipping_total_cents` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_paypal_tokens_on_token` (`token`) USING BTREE,
   KEY `index_paypal_tokens_on_community_id` (`community_id`) USING BTREE,
   KEY `index_paypal_tokens_on_transaction_id` (`transaction_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1443,48 +1414,48 @@ DROP TABLE IF EXISTS `people`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `people` (
-  `id` varchar(22) NOT NULL,
-  `uuid` binary(16) NOT NULL,
+  `id` varchar(22) COLLATE utf8_unicode_ci NOT NULL,
+  `uuid` varbinary(16) NOT NULL,
   `community_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `is_admin` int(11) DEFAULT '0',
-  `locale` varchar(255) DEFAULT 'fi',
-  `preferences` text,
+  `locale` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'fi',
+  `preferences` text COLLATE utf8_unicode_ci,
   `active_days_count` int(11) DEFAULT '0',
   `last_page_load_date` datetime DEFAULT NULL,
   `test_group_number` int(11) DEFAULT '1',
-  `username` varchar(255) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `encrypted_password` varchar(255) NOT NULL DEFAULT '',
-  `legacy_encrypted_password` varchar(255) DEFAULT NULL,
-  `reset_password_token` varchar(255) DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `encrypted_password` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `legacy_encrypted_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reset_password_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `reset_password_sent_at` datetime DEFAULT NULL,
   `remember_created_at` datetime DEFAULT NULL,
   `sign_in_count` int(11) DEFAULT '0',
   `current_sign_in_at` datetime DEFAULT NULL,
   `last_sign_in_at` datetime DEFAULT NULL,
-  `current_sign_in_ip` varchar(255) DEFAULT NULL,
-  `last_sign_in_ip` varchar(255) DEFAULT NULL,
-  `password_salt` varchar(255) DEFAULT NULL,
-  `given_name` varchar(255) DEFAULT NULL,
-  `family_name` varchar(255) DEFAULT NULL,
-  `phone_number` varchar(255) DEFAULT NULL,
-  `description` text,
-  `about_us` text,
-  `image_file_name` varchar(255) DEFAULT NULL,
-  `image_content_type` varchar(255) DEFAULT NULL,
+  `current_sign_in_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_sign_in_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password_salt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `given_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `family_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `about_us` text COLLATE utf8_unicode_ci,
+  `image_file_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `image_file_size` int(11) DEFAULT NULL,
   `image_updated_at` datetime DEFAULT NULL,
   `image_processing` tinyint(1) DEFAULT NULL,
-  `facebook_id` varchar(255) DEFAULT NULL,
-  `authentication_token` varchar(255) DEFAULT NULL,
+  `facebook_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `authentication_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `community_updates_last_sent_at` datetime DEFAULT NULL,
   `min_days_between_community_updates` int(11) DEFAULT '1',
   `deleted` tinyint(1) DEFAULT '0',
-  `cloned_from` varchar(22) DEFAULT NULL,
+  `cloned_from` varchar(22) COLLATE utf8_unicode_ci DEFAULT NULL,
   UNIQUE KEY `index_people_on_username_and_community_id` (`username`,`community_id`) USING BTREE,
-  UNIQUE KEY `index_people_on_uuid` (`uuid`),
+  UNIQUE KEY `index_people_on_uuid` (`uuid`) USING BTREE,
   UNIQUE KEY `index_people_on_email` (`email`) USING BTREE,
   UNIQUE KEY `index_people_on_facebook_id_and_community_id` (`facebook_id`,`community_id`) USING BTREE,
   UNIQUE KEY `index_people_on_reset_password_token` (`reset_password_token`) USING BTREE,
@@ -1493,7 +1464,25 @@ CREATE TABLE `people` (
   KEY `index_people_on_facebook_id` (`facebook_id`) USING BTREE,
   KEY `index_people_on_id` (`id`) USING BTREE,
   KEY `index_people_on_username` (`username`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `pictures`
+--
+
+DROP TABLE IF EXISTS `pictures`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pictures` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pictureable_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pictureable_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1505,11 +1494,11 @@ DROP TABLE IF EXISTS `prospect_emails`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prospect_emails` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1534,14 +1523,14 @@ DROP TABLE IF EXISTS `sessions`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sessions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `session_id` varchar(255) NOT NULL,
-  `data` text,
+  `session_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `data` text COLLATE utf8_unicode_ci,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_sessions_on_session_id` (`session_id`) USING BTREE,
   KEY `index_sessions_on_updated_at` (`updated_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1554,21 +1543,21 @@ DROP TABLE IF EXISTS `shipping_addresses`;
 CREATE TABLE `shipping_addresses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `transaction_id` int(11) NOT NULL,
-  `status` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `postal_code` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
-  `state_or_province` varchar(255) DEFAULT NULL,
-  `street1` varchar(255) DEFAULT NULL,
-  `street2` varchar(255) DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `postal_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `city` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `state_or_province` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `street1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `street2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `country_code` varchar(8) DEFAULT NULL,
+  `country_code` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_shipping_addresses_on_transaction_id` (`transaction_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1647,18 +1636,18 @@ DROP TABLE IF EXISTS `testimonials`;
 CREATE TABLE `testimonials` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `grade` float DEFAULT NULL,
-  `text` text,
-  `author_id` varchar(255) DEFAULT NULL,
+  `text` text COLLATE utf8_unicode_ci,
+  `author_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `participation_id` int(11) DEFAULT NULL,
   `transaction_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `receiver_id` varchar(255) DEFAULT NULL,
+  `receiver_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_testimonials_on_author_id` (`author_id`) USING BTREE,
   KEY `index_testimonials_on_receiver_id` (`receiver_id`) USING BTREE,
   KEY `index_testimonials_on_transaction_id` (`transaction_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1710,7 +1699,7 @@ DROP TABLE IF EXISTS `transaction_process_tokens`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transaction_process_tokens` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `process_token` binary(16) DEFAULT NULL,
+  `process_token` varbinary(16) DEFAULT NULL,
   `community_id` int(11) NOT NULL,
   `transaction_id` int(11) NOT NULL,
   `op_completed` tinyint(1) NOT NULL DEFAULT '0',
@@ -1720,8 +1709,8 @@ CREATE TABLE `transaction_process_tokens` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_paypal_process_tokens_on_transaction` (`transaction_id`,`community_id`,`op_name`),
-  UNIQUE KEY `index_transaction_process_tokens_on_process_token` (`process_token`)
+  UNIQUE KEY `index_paypal_process_tokens_on_transaction` (`transaction_id`,`community_id`,`op_name`) USING BTREE,
+  UNIQUE KEY `index_transaction_process_tokens_on_process_token` (`process_token`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1735,13 +1724,13 @@ DROP TABLE IF EXISTS `transaction_processes`;
 CREATE TABLE `transaction_processes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `community_id` int(11) DEFAULT NULL,
-  `process` varchar(32) NOT NULL,
+  `process` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `author_is_seller` tinyint(1) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_transaction_process_on_community_id` (`community_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1753,8 +1742,8 @@ DROP TABLE IF EXISTS `transaction_transitions`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transaction_transitions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `to_state` varchar(255) DEFAULT NULL,
-  `metadata` text,
+  `to_state` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `metadata` text COLLATE utf8_unicode_ci,
   `sort_key` int(11) DEFAULT '0',
   `transaction_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -1762,7 +1751,7 @@ CREATE TABLE `transaction_transitions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_transaction_transitions_on_sort_key_and_conversation_id` (`sort_key`,`transaction_id`) USING BTREE,
   KEY `index_transaction_transitions_on_conversation_id` (`transaction_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1774,49 +1763,49 @@ DROP TABLE IF EXISTS `transactions`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transactions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `starter_id` varchar(255) NOT NULL,
-  `starter_uuid` binary(16) NOT NULL,
+  `starter_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `starter_uuid` varbinary(16) NOT NULL,
   `listing_id` int(11) NOT NULL,
-  `listing_uuid` binary(16) NOT NULL,
+  `listing_uuid` varbinary(16) NOT NULL,
   `conversation_id` int(11) DEFAULT NULL,
   `automatic_confirmation_after_days` int(11) NOT NULL,
   `community_id` int(11) NOT NULL,
-  `community_uuid` binary(16) NOT NULL,
+  `community_uuid` varbinary(16) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `starter_skipped_feedback` tinyint(1) DEFAULT '0',
   `author_skipped_feedback` tinyint(1) DEFAULT '0',
   `last_transition_at` datetime DEFAULT NULL,
-  `current_state` varchar(255) DEFAULT NULL,
+  `current_state` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `commission_from_seller` int(11) DEFAULT NULL,
   `minimum_commission_cents` int(11) DEFAULT '0',
-  `minimum_commission_currency` varchar(255) DEFAULT NULL,
-  `payment_gateway` varchar(255) NOT NULL DEFAULT 'none',
+  `minimum_commission_currency` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `payment_gateway` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'none',
   `listing_quantity` int(11) DEFAULT '1',
-  `listing_author_id` varchar(255) NOT NULL,
-  `listing_author_uuid` binary(16) NOT NULL,
-  `listing_title` varchar(255) DEFAULT NULL,
-  `unit_type` varchar(32) DEFAULT NULL,
+  `listing_author_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `listing_author_uuid` varbinary(16) NOT NULL,
+  `listing_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unit_type` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `unit_price_cents` int(11) DEFAULT NULL,
-  `unit_price_currency` varchar(8) DEFAULT NULL,
-  `unit_tr_key` varchar(64) DEFAULT NULL,
-  `unit_selector_tr_key` varchar(64) DEFAULT NULL,
-  `payment_process` varchar(31) DEFAULT 'none',
-  `delivery_method` varchar(31) DEFAULT 'none',
+  `unit_price_currency` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unit_tr_key` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unit_selector_tr_key` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `payment_process` varchar(31) COLLATE utf8_unicode_ci DEFAULT 'none',
+  `delivery_method` varchar(31) COLLATE utf8_unicode_ci DEFAULT 'none',
   `shipping_price_cents` int(11) DEFAULT NULL,
-  `availability` varchar(32) DEFAULT 'none',
-  `booking_uuid` binary(16) DEFAULT NULL,
+  `availability` varchar(32) COLLATE utf8_unicode_ci DEFAULT 'none',
+  `booking_uuid` varbinary(16) DEFAULT NULL,
   `deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `index_transactions_on_listing_id` (`listing_id`) USING BTREE,
-  KEY `index_transactions_on_conversation_id` (`conversation_id`) USING BTREE,
-  KEY `index_transactions_on_community_id` (`community_id`) USING BTREE,
-  KEY `index_transactions_on_last_transition_at` (`last_transition_at`) USING BTREE,
   KEY `transactions_on_cid_and_deleted` (`community_id`,`deleted`) USING BTREE,
+  KEY `index_transactions_on_community_id` (`community_id`) USING BTREE,
+  KEY `index_transactions_on_conversation_id` (`conversation_id`) USING BTREE,
   KEY `index_transactions_on_deleted` (`deleted`) USING BTREE,
-  KEY `index_transactions_on_starter_id` (`starter_id`) USING BTREE,
-  KEY `index_transactions_on_listing_author_id` (`listing_author_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `index_transactions_on_last_transition_at` (`last_transition_at`) USING BTREE,
+  KEY `index_transactions_on_listing_author_id` (`listing_author_id`) USING BTREE,
+  KEY `index_transactions_on_listing_id` (`listing_id`) USING BTREE,
+  KEY `index_transactions_on_starter_id` (`starter_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -1828,9 +1817,7 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-
--- Dump completed on 2016-12-13 19:09:51
-
+-- Dump completed on 2017-01-19 12:53:08
 INSERT INTO schema_migrations (version) VALUES ('20080806070738');
 
 INSERT INTO schema_migrations (version) VALUES ('20080807071903');
