@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Stripe Countries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Country name</th>
+      <th>Country code</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stripe_countries.each do |stripe_country| %>
+      <tr>
+        <td><%= stripe_country.country_name %></td>
+        <td><%= stripe_country.country_code %></td>
+        <td><%= link_to 'Show', stripe_country %></td>
+        <td><%= link_to 'Edit', edit_stripe_country_path(stripe_country) %></td>
+        <td><%= link_to 'Destroy', stripe_country, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stripe country', new_stripe_country_path %>

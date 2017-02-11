@@ -24,6 +24,8 @@ class StripeAccountsController < ApplicationController
     @stripe_account_detail = if @current_user.stripe_account.present?
       Stripe::Account.retrieve(@current_user.stripe_account.try(:stripe_user_id)) rescue nil
     end
+    @stripe_user_details = @current_user.stripe_user_detail
+
     render(locals: {
       community_ready_for_payments: community_ready_for_payments,
       left_hand_navigation_links: settings_links_for(@current_user, @current_community),
@@ -40,6 +42,112 @@ class StripeAccountsController < ApplicationController
     else
       redirect_to url
     end
+  end
+
+  # Creating a Stripe managed account
+  def create_stripe_account
+    
+    country =  StripeCountry.find(params[:country_id])
+    Stripe.api_key = @current_community.payment_gateway.stripe_secret_key
+    @stripe_account = Stripe::Account.create(
+      {
+        :country => country.country_code.upcase,
+        :managed => true
+      }
+    )
+     idddddd  =  @stripe_account.id
+     @stripe_user_details = StripeUserDetail.new
+     @stripe_user_details.person_id = @current_user.id
+     @stripe_user_details.stripe_account_id = idddddd 
+     @stripe_user_details.account = @stripe_account.object 
+     @stripe_user_details.external_accounts = @stripe_account.external_accounts 
+     @stripe_user_details.details_submitted = @stripe_account.details_submitted 
+     @stripe_user_details.secret_key = @stripe_account.keys.secret
+     @stripe_user_details.publishable_key = @stripe_account.keys.publishable 
+     @stripe_user_details.all_keys = @stripe_account.keys
+     @stripe_user_details.legal_entity = @stripe_account.legal_entity 
+     @stripe_user_details.address = @stripe_account.legal_entity.address 
+     @stripe_user_details.country = @stripe_account.legal_entity.address.country 
+     @stripe_user_details.personal_address = @stripe_account.legal_entity.personal_address 
+     @stripe_user_details.personal_id_number_provided = @stripe_account.legal_entity.personal_id_number_provided 
+     @stripe_user_details.ssn_last_4_provided = @stripe_account.legal_entity.ssn_last_4_provided
+     @stripe_user_details.account_type = @stripe_account.legal_entity.type 
+     @stripe_user_details.legal_entity_verification = @stripe_account.legal_entity.verification 
+     @stripe_user_details.account_status = @stripe_account.legal_entity.verification.status 
+     @stripe_user_details.managed_type = @stripe_account.managed
+     @stripe_user_details.transfers_enabled = @stripe_account.transfers_enabled 
+     @stripe_user_details.verification = @stripe_account.verification
+
+     @stripe_user_details.save
+     redirect_to :back
+ 
+  end
+
+  def update_stripe_user_details
+   
+    Stripe.api_key = @current_community.payment_gateway.stripe_secret_key
+    
+    stripe_account = Stripe::Account.retrieve(@current_user.stripe_user_detail.stripe_account_id)
+    stripe_account.business_name = params[:stripe_user_detail][:business_name]
+    stripe_account.business_url  = params[:stripe_user_detail][:business_url]
+    stripe_account.legal_entity.address.city = params[:stripe_user_detail][:city]
+    stripe_account.legal_entity.address.line1 = params[:stripe_user_detail][:line1]
+    stripe_account.legal_entity.address.line2 = params[:stripe_user_detail][:line2]
+    stripe_account.legal_entity.address.postal_code = params[:stripe_user_detail][:postal_code]
+    stripe_account.legal_entity.address.postal_code = params[:stripe_user_detail][:postal_code]
+    stripe_account.legal_entity.address.state = params[:stripe_user_detail][:state]
+    stripe_account.legal_entity.first_name    = params[:stripe_user_detail][:first_name]
+    stripe_account.legal_entity.last_name     = params[:stripe_user_detail][:last_name]
+
+    stripe_account.legal_entity.dob.day     = params[:stripe_user_detail]["dob(3i)"]
+    stripe_account.legal_entity.dob.month   = params[:stripe_user_detail]["dob(2i)"]
+    stripe_account.legal_entity.dob.year    = params[:stripe_user_detail]["dob(1i)"]
+    # save
+    stripe_account.save
+
+    if params[:stripe_user_detail][:document]
+      attached_document = Stripe::FileUpload.create(
+        {
+          :purpose => 'identity_document',
+          :file => File.new(params[:stripe_user_detail][:document].path)
+        },
+        {:stripe_account => stripe_account.id}
+      )
+    stripe_account.legal_entity.verification.document = attached_document.id
+    stripe_account.save
+    # save
+    end
+
+    user_details  = @current_user.stripe_user_detail
+
+    user_details.business_name = stripe_account.business_name
+    user_details.business_url  = stripe_account.business_url
+    user_details.legal_entity  = stripe_account.legal_entity
+    user_details.address        = stripe_account.legal_entity.address, 
+    user_details.country        = stripe_account.legal_entity.address.country, 
+    user_details.personal_address = stripe_account.legal_entity.personal_address, 
+    user_details.personal_id_number_provided =  stripe_account.legal_entity.personal_id_number_provided, 
+    user_details.ssn_last_4_provided =stripe_account.legal_entity.ssn_last_4_provided, 
+    user_details.account_type        = stripe_account.legal_entity.type, 
+    user_details.legal_entity_verification = stripe_account.legal_entity.verification, 
+    user_details.account_status      = stripe_account.legal_entity.verification.status, 
+    user_details.managed_type        = stripe_account.managed, 
+    user_details.transfers_enabled   = stripe_account.transfers_enabled, 
+    user_details.verification        = stripe_account.verification
+
+    user_details.save
+    # save
+    if stripe_account.legal_entity.verification.status == "verified"
+      stripe_acc = StripeAccount.new(person_id: @current_user.id, 
+        publishable_key: user_details.publishable_key, 
+        secret_key: user_details.secret_key, stripe_user_id: user_details.stripe_account_id, 
+        currency: stripe_account.country, stripe_account_type: 'string', 
+        stripe_account_status: stripe_account.legal_entity.verification)
+      
+      stripe_acc.save
+    end
+
+    redirect_to :back
   end
 
   private

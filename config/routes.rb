@@ -1,6 +1,7 @@
 # coding: utf-8
 Kassi::Application.routes.draw do
 
+  resources :stripe_countries
   namespace :mercury do
     resources :images
   end
@@ -148,7 +149,11 @@ Kassi::Application.routes.draw do
     get "/listing_bubble_multiple/:ids" => "listings#listing_bubble_multiple", :as => :listing_bubble_multiple
     get '/:person_id/settings/payments/paypal_account' => 'paypal_accounts#index', :as => :paypal_account_settings_payment
     get '/:person_id/settings/payments/stripe_account' => 'stripe_accounts#index', :as => :stripe_account_settings_payment
+    post '/:person_id/settings/payments/stripe_account'=> 'stripe_accounts#create_stripe_account', :as => :create_stripe_account_settings_payment
 
+    post '/:person_id/settings/payments/update_stripe_user_details'=> 'stripe_accounts#update_stripe_user_details'
+
+    patch '/:person_id/settings/payments/update_stripe_user_details'=> 'stripe_accounts#update_stripe_user_details', :as => :update_stripe_user_details
     # community membership related actions
 
     get  '/community_memberships/pending_consent' => 'community_memberships#pending_consent', as: :pending_consent

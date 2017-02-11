@@ -22,7 +22,61 @@
         .paypal-connected-change
           %a.btn.btn-lg.btn-primary{ href: stripe_deauthorize_path } Disconnect Account
       - else
-        %a.btn.btn-lg.btn-primary{ href: stripe_oauth_path } Connect Stripe Account
+        / %a.btn.btn-lg.btn-primary{ href: stripe_oauth_path } Connect Stripe Account
+        -if @stripe_user_details.nil?
+          = form_for create_stripe_account_settings_payment_path(@current_user) do |form|
+            = form.label :country_name, t("settings.profile.country_name")
+            = select_tag :country_id, options_from_collection_for_select(StripeCountry.all, "id", "country_name"), :class => "text_field", include_blank: true
+            = form.button t("settings.save_information"), :class => "send_button"
+        -else
+          = 'Stripe Acccount Created Please fill the below details to verify the Stripe Account'
+          %h3
+            = "Account Status: #{@stripe_user_details.legal_entity['verification']['status']}"
+          = form_for @stripe_user_details, url: update_stripe_user_details_path(@current_user), :multipart => true  do |form|
+            = form.label :business_name, 'Business Name'
+            = form.text_field :business_name
+            = form.label :business_url, "Business Url"
+            = form.text_field :business_url
+            =# form.label :business_logo, "Business Logo"
+            =# form.file_field :business_logo
+            = form.label :city, "City"
+            = form.text_field :city, :value => @stripe_user_details.legal_entity["address"]["city"]
+            = form.label :line1, "Line1"
+            = form.text_field :line1, :value => @stripe_user_details.legal_entity["address"]["line1"]
+
+            = form.label :line2, "Line2"
+            = form.text_field :line2, :value => @stripe_user_details.legal_entity["address"]["line2"]
+
+            = form.label :postal_code, "postal Code"
+            = form.text_field :postal_code, :value => @stripe_user_details.legal_entity["address"]["postal_code"]
+
+            = form.label :state, "State"
+            = form.text_field :state, :value => @stripe_user_details.legal_entity["address"]["state"]
+            
+            %h3
+              ="Legal entity verification"
+
+            = form.label :first_name, "First Name"
+            = form.text_field :first_name, :value => @stripe_user_details.legal_entity["first_name"]
+
+            = form.label :last_name, "Last Name"
+            = form.text_field :last_name, :value => @stripe_user_details.legal_entity["last_name"]
+
+            = form.label :dob, "dob"
+            = form.date_select :dob, :value => @stripe_user_details.legal_entity["dob"]
+            -if @stripe_user_details.legal_entity['verification']['status'] !="verified"
+              = form.label :document, "Document"
+              = form.file_field :document, :value => @stripe_user_details.legal_entity["verification"]["document"]
+
+            = form.label :details, "Details"
+            = @stripe_user_details.legal_entity["verification"]["details"]
+
+            = form.label :details_code, "Details Code"
+            = @stripe_user_details.legal_entity["verification"]["details_code"]
+
+            = form.button t("settings.save_information"), :class => "send_button"
+            
+
     - else
       = t("stripe_accounts.admin_account_not_connected",
         contact_admin_link: link_to(t("stripe_accounts.contact_admin_link_text"),

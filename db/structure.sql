@@ -1583,6 +1583,23 @@ CREATE TABLE `stripe_accounts` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `stripe_countries`
+--
+
+DROP TABLE IF EXISTS `stripe_countries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `stripe_countries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `country_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `country_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `stripe_payment_gateways`
 --
 
@@ -1622,6 +1639,45 @@ CREATE TABLE `stripe_payments` (
   `stripe_transaction_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `stripe_user_details`
+--
+
+DROP TABLE IF EXISTS `stripe_user_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `stripe_user_details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `person_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `stripe_account_id` text COLLATE utf8_unicode_ci,
+  `account` text COLLATE utf8_unicode_ci,
+  `external_accounts` text COLLATE utf8_unicode_ci,
+  `details_submitted` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `secret_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `all_keys` text COLLATE utf8_unicode_ci,
+  `publishable_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `legal_entity` text COLLATE utf8_unicode_ci,
+  `address` text COLLATE utf8_unicode_ci,
+  `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `personal_address` text COLLATE utf8_unicode_ci,
+  `personal_id_number_provided` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ssn_last_4_provided` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `account_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `legal_entity_verification` text COLLATE utf8_unicode_ci,
+  `account_status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `managed_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `transfers_enabled` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `verification` text COLLATE utf8_unicode_ci,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `business_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `business_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `business_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `decline_charge_on` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1817,7 +1873,7 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-19 12:53:08
+-- Dump completed on 2017-02-10 23:28:26
 INSERT INTO schema_migrations (version) VALUES ('20080806070738');
 
 INSERT INTO schema_migrations (version) VALUES ('20080807071903');
@@ -3491,4 +3547,10 @@ INSERT INTO schema_migrations (version) VALUES ('20161120080226');
 INSERT INTO schema_migrations (version) VALUES ('20161127092110');
 
 INSERT INTO schema_migrations (version) VALUES ('20161206073957');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209142357');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210075239');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210091204');
 
