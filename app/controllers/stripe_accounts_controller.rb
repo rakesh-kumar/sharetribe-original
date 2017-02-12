@@ -51,7 +51,7 @@ class StripeAccountsController < ApplicationController
     Stripe.api_key = @current_community.payment_gateway.stripe_secret_key
     @stripe_account = Stripe::Account.create(
       {
-        :country => country.country_code.upcase,
+        :country => 'US',
         :managed => true
       }
     )
@@ -85,68 +85,165 @@ class StripeAccountsController < ApplicationController
 
   def update_stripe_user_details
    
-    Stripe.api_key = @current_community.payment_gateway.stripe_secret_key
-    
-    stripe_account = Stripe::Account.retrieve(@current_user.stripe_user_detail.stripe_account_id)
-    stripe_account.business_name = params[:stripe_user_detail][:business_name]
-    stripe_account.business_url  = params[:stripe_user_detail][:business_url]
-    stripe_account.legal_entity.address.city = params[:stripe_user_detail][:city]
-    stripe_account.legal_entity.address.line1 = params[:stripe_user_detail][:line1]
-    stripe_account.legal_entity.address.line2 = params[:stripe_user_detail][:line2]
-    stripe_account.legal_entity.address.postal_code = params[:stripe_user_detail][:postal_code]
-    stripe_account.legal_entity.address.postal_code = params[:stripe_user_detail][:postal_code]
-    stripe_account.legal_entity.address.state = params[:stripe_user_detail][:state]
-    stripe_account.legal_entity.first_name    = params[:stripe_user_detail][:first_name]
-    stripe_account.legal_entity.last_name     = params[:stripe_user_detail][:last_name]
-
-    stripe_account.legal_entity.dob.day     = params[:stripe_user_detail]["dob(3i)"]
-    stripe_account.legal_entity.dob.month   = params[:stripe_user_detail]["dob(2i)"]
-    stripe_account.legal_entity.dob.year    = params[:stripe_user_detail]["dob(1i)"]
-    # save
-    stripe_account.save
-
-    if params[:stripe_user_detail][:document]
-      attached_document = Stripe::FileUpload.create(
-        {
-          :purpose => 'identity_document',
-          :file => File.new(params[:stripe_user_detail][:document].path)
-        },
-        {:stripe_account => stripe_account.id}
-      )
-    stripe_account.legal_entity.verification.document = attached_document.id
-    stripe_account.save
-    # save
-    end
-
-    user_details  = @current_user.stripe_user_detail
-
-    user_details.business_name = stripe_account.business_name
-    user_details.business_url  = stripe_account.business_url
-    user_details.legal_entity  = stripe_account.legal_entity
-    user_details.address        = stripe_account.legal_entity.address, 
-    user_details.country        = stripe_account.legal_entity.address.country, 
-    user_details.personal_address = stripe_account.legal_entity.personal_address, 
-    user_details.personal_id_number_provided =  stripe_account.legal_entity.personal_id_number_provided, 
-    user_details.ssn_last_4_provided =stripe_account.legal_entity.ssn_last_4_provided, 
-    user_details.account_type        = stripe_account.legal_entity.type, 
-    user_details.legal_entity_verification = stripe_account.legal_entity.verification, 
-    user_details.account_status      = stripe_account.legal_entity.verification.status, 
-    user_details.managed_type        = stripe_account.managed, 
-    user_details.transfers_enabled   = stripe_account.transfers_enabled, 
-    user_details.verification        = stripe_account.verification
-
-    user_details.save
-    # save
-    if stripe_account.legal_entity.verification.status == "verified"
-      stripe_acc = StripeAccount.new(person_id: @current_user.id, 
-        publishable_key: user_details.publishable_key, 
-        secret_key: user_details.secret_key, stripe_user_id: user_details.stripe_account_id, 
-        currency: stripe_account.country, stripe_account_type: 'string', 
-        stripe_account_status: stripe_account.legal_entity.verification)
+      Stripe.api_key = @current_community.payment_gateway.stripe_secret_key
       
-      stripe_acc.save
+      stripe_account = Stripe::Account.retrieve(@current_user.stripe_user_detail.stripe_account_id)
+
+      city = params[:stripe_user_detail][:city] rescue ''
+      address_line = params[:stripe_user_detail][:line1] rescue ''
+      postal_code = params[:stripe_user_detail][:postal_code].delete(' ') rescue ''
+      state = params[:stripe_user_detail][:state] rescue ''
+      begin
+        addressInput = {
+            'city' => city,
+            'country' => 'US',
+            'line1' => address_line,
+            # 'line2' => !params[:user][:address].blank? ? params[:user][:address] : nil,
+            'postal_code' => postal_code,
+            'state' => state
+        }
+
+        # birth = params[:user][:birthday].to_date rescue nil
+        st_year  = params[:stripe_user_detail]["dob(1i)"] rescue ''
+        st_month = params[:stripe_user_detail]["dob(2i)"] rescue ''
+        st_day   = params[:stripe_user_detail]["dob(3i)"] rescue '' 
+        dob = {year: st_year, month: st_month, day: st_day} rescue {}
+        
+        # legalEntityInput = {
+        #     'address' => addressInput,
+        #     'dob' => dob,
+        #     'first_name' => params[:stripe_user_detail][:first_name].delete(' '),
+        #     'last_name' => params[:stripe_user_detail][:last_name].delete(' '),
+        #     'personal_address' => addressInput,
+        #     'type' => 'individual'
+        # }
+
+        # externalAccountInput = {
+        #     'object' => 'bank_account',
+        #     'country' => 'us',
+        #     'currency' => 'usd',
+        #     'account_holder_name' => params[:stripe_user_detail][:account_holder_name],
+        #     'routing_number' => params[:stripe_user_detail][:routing_number].delete(' '),
+        #     'account_number' => params[:stripe_user_detail][:account_number].delete(' ')
+        # }
+
+        token_obj =  Stripe::Token.create(
+          :bank_account => {
+            :country => "US",
+            :currency => "usd",
+            :account_holder_name => params[:stripe_user_detail][:account_holder_name],
+            :account_holder_type => "individual",
+            :routing_number =>  params[:stripe_user_detail][:routing_number].delete(' '),
+            :account_number =>  params[:stripe_user_detail][:account_number].delete(' '),
+          },
+        )
+
+        data = external_accounts.create(:external_account => token_obj.id)
+        # data =  [{
+        #           "object" => "bank_account",
+        #           "account" => @current_user.stripe_user_detail.stripe_account_id,
+        #           "account_holder_name" => params[:stripe_user_detail][:account_holder_name],
+        #           "account_holder_type" => "individual",
+        #           "bank_name" => params[:stripe_user_detail][:bank_name],
+        #           "country" => "US",
+        #           "currency" => "usd",
+        #           "default_for_currency" => false,
+        #           "routing_number" => params[:stripe_user_detail][:routing_number].delete(' '),
+        #           'account_number' => params[:stripe_user_detail][:account_number].delete(' '),
+        #           "status" => "update"
+        #         }]
+
+        # stripe_account.email = @current_user.email rescue '' 
+        stripe_account.business_name = params[:stripe_user_detail][:business_name]
+        stripe_account.business_url  = params[:stripe_user_detail][:business_url]
+
+        stripe_account.tos_acceptance.ip = request.remote_ip
+        stripe_account.tos_acceptance.date = Time.now.to_i
+        stripe_account.external_accounts.data = data
+        # stripe_account.legal_entity = legalEntityInput
+        stripe_account.legal_entity.address.city = params[:stripe_user_detail][:city]
+        stripe_account.legal_entity.address.line1 = params[:stripe_user_detail][:line1]
+        stripe_account.legal_entity.address.line2 = params[:stripe_user_detail][:line2]
+        stripe_account.legal_entity.address.postal_code = params[:stripe_user_detail][:postal_code]
+        stripe_account.legal_entity.address.postal_code = params[:stripe_user_detail][:postal_code]
+        stripe_account.legal_entity.address.state = params[:stripe_user_detail][:state]
+        stripe_account.legal_entity.first_name    = params[:stripe_user_detail][:first_name]
+        stripe_account.legal_entity.last_name     = params[:stripe_user_detail][:last_name]
+
+        stripe_account.legal_entity.personal_address = addressInput
+        stripe_account.legal_entity.dob.day     = st_day 
+        stripe_account.legal_entity.dob.month   = st_month
+        stripe_account.legal_entity.dob.year    = st_year
+        stripe_account.save
+
+
+
+
+      # stripe_account = Stripe::Account.retrieve(@current_user.stripe_user_detail.stripe_account_id)
+      # stripe_account.business_name = params[:stripe_user_detail][:business_name]
+      # stripe_account.business_url  = params[:stripe_user_detail][:business_url]
+      # stripe_account.legal_entity.address.city = params[:stripe_user_detail][:city]
+      # stripe_account.legal_entity.address.line1 = params[:stripe_user_detail][:line1]
+      # stripe_account.legal_entity.address.line2 = params[:stripe_user_detail][:line2]
+      # stripe_account.legal_entity.address.postal_code = params[:stripe_user_detail][:postal_code]
+      # stripe_account.legal_entity.address.postal_code = params[:stripe_user_detail][:postal_code]
+      # stripe_account.legal_entity.address.state = params[:stripe_user_detail][:state]
+      # stripe_account.legal_entity.first_name    = params[:stripe_user_detail][:first_name]
+      # stripe_account.legal_entity.last_name     = params[:stripe_user_detail][:last_name]
+
+      # stripe_account.legal_entity.dob.day     = params[:stripe_user_detail]["dob(3i)"]
+      # stripe_account.legal_entity.dob.month   = params[:stripe_user_detail]["dob(2i)"]
+      # stripe_account.legal_entity.dob.year    = params[:stripe_user_detail]["dob(1i)"]
+      # save
+      # stripe_account.save
+
+      if params[:stripe_user_detail][:document]
+        attached_document = Stripe::FileUpload.create(
+          {
+            :purpose => 'identity_document',
+            :file => File.new(params[:stripe_user_detail][:document].path)
+          },
+          {:stripe_account => stripe_account.id}
+        )
+        stripe_account.legal_entity.verification.document = attached_document.id
+        stripe_account.save
+      end
+
+      user_details  = @current_user.stripe_user_detail
+      user_details.business_name = stripe_account.business_name
+      user_details.business_url  = stripe_account.business_url
+      user_details.legal_entity  = stripe_account.legal_entity
+      user_details.address        = stripe_account.legal_entity.address, 
+      user_details.country        = stripe_account.legal_entity.address.country, 
+      user_details.personal_address = stripe_account.legal_entity.personal_address, 
+      user_details.personal_id_number_provided =  stripe_account.legal_entity.personal_id_number_provided, 
+      user_details.ssn_last_4_provided =stripe_account.legal_entity.ssn_last_4_provided, 
+      user_details.account_type        = stripe_account.legal_entity.type, 
+      user_details.legal_entity_verification = stripe_account.legal_entity.verification, 
+      user_details.account_status      = stripe_account.legal_entity.verification.status, 
+      user_details.managed_type        = stripe_account.managed, 
+      user_details.transfers_enabled   = stripe_account.transfers_enabled, 
+      user_details.verification        = stripe_account.verification
+      # user_details.bank_account_details = data
+
+      user_details.save
+
+      # save
+      if stripe_account.legal_entity.verification.status == "verified"
+        stripe_acc = StripeAccount.new(person_id: @current_user.id, 
+          publishable_key: user_details.publishable_key, 
+          secret_key: user_details.secret_key, stripe_user_id: user_details.stripe_account_id, 
+          currency: stripe_account.country, stripe_account_type: 'string', 
+          stripe_account_status: stripe_account.legal_entity.verification)
+        
+        stripe_acc.save
+      end
+    rescue => error
+      flash[:error] = "An error occurred when verifying up your payment details: #{error.message}."
+      return redirect_to :back
     end
 
+    # flash[:notice] = "Awesome! Now that you've setup your account, go <a href='/en/listings/new'>here</a> to create a session now.".html_safe
     redirect_to :back
   end
 

@@ -914,3 +914,40 @@ function initialize_stripe_preauthorize_form(locale, beforeSubmit) {
   }
 
 }
+
+function initialize_stripe_info_form(locale, person_id){
+  auto_resize_text_areas("update_profile_description_text_area");
+  $('input.text_field:first').focus();
+  var form_id = "#stripe_edit_" + person_id;
+  $(form_id).validate({
+    rules: {
+      "stripe_user_detail[business_name]": {required: true, maxlength: 30},
+      "stripe_user_detail[business_url]": {required: true, maxlength: 30},
+      "stripe_user_detail[city]": {required: true, maxlength: 30},
+      "stripe_user_detail[line1]": {required: true, maxlength: 30},
+      "stripe_user_detail[line2]": {required: false, maxlength: 30},
+      "stripe_user_detail[postal_code]": {required: true, maxlength: 30},
+      "stripe_user_detail[state]": {required: true, maxlength: 30},
+      "stripe_user_detail[first_name]": {required: true, maxlength: 30},
+      "stripe_user_detail[last_name]": {required: true, maxlength: 30},
+      "stripe_user_detail[dob(1i)]": {required: true, maxlength: 30},
+      "stripe_user_detail[dob(2i)]": {required: true, maxlength: 30},
+      "stripe_user_detail[dob(3i)]": {required: true, maxlength: 30},
+      "stripe_user_detail[document]": {required: true},
+      "stripe_user_detail[account_holder_name]": {required: true, maxlength: 30},
+      "stripe_user_detail[account_holder_type]": {required: true, maxlength: 30},
+      "stripe_user_detail[bank_name]": {required: true, maxlength: 30},
+      "stripe_user_detail[account_number]": {required: true, maxlength: 30},
+      "stripe_user_detail[routing_number]": {required: true, maxlength: 30},
+
+
+    },
+    onkeyup: false,
+    onclick: false,
+    onfocusout: false,
+    onsubmit: true,
+    submitHandler: function(form) {
+      disable_and_submit(form_id, form, "false", locale);
+    }
+  });
+}

@@ -1,3 +1,5 @@
+- content_for :javascript do
+  initialize_stripe_info_form("#{I18n.locale}","#{@current_user.id.to_s}", #{@current_community.real_name_required?});
 - content_for :title_header do
   %h1= t("layouts.no_tribe.settings")
 
@@ -32,7 +34,7 @@
           = 'Stripe Acccount Created Please fill the below details to verify the Stripe Account'
           %h3
             = "Account Status: #{@stripe_user_details.legal_entity['verification']['status']}"
-          = form_for @stripe_user_details, url: update_stripe_user_details_path(@current_user), :multipart => true  do |form|
+          = form_for @stripe_user_details, url: update_stripe_user_details_path(@current_user), :multipart => true, :html =>{:id => "stripe_edit_#{@current_user.id}"}  do |form|
             = form.label :business_name, 'Business Name'
             = form.text_field :business_name
             = form.label :business_url, "Business Url"
@@ -63,7 +65,7 @@
             = form.text_field :last_name, :value => @stripe_user_details.legal_entity["last_name"]
 
             = form.label :dob, "dob"
-            = form.date_select :dob, :value => @stripe_user_details.legal_entity["dob"]
+            = form.date_select :dob, :value => @stripe_user_details.legal_entity["dob"], :start_year => 1950, :end_year => Time.now.year
             -if @stripe_user_details.legal_entity['verification']['status'] !="verified"
               = form.label :document, "Document"
               = form.file_field :document, :value => @stripe_user_details.legal_entity["verification"]["document"]
@@ -73,6 +75,25 @@
 
             = form.label :details_code, "Details Code"
             = @stripe_user_details.legal_entity["verification"]["details_code"]
+            %h3
+              ="Please fill Bank Details"
+
+            = form.label :account_holder_name, "Account Holder Name"
+            = form.text_field :account_holder_name, :value => @stripe_user_details.legal_entity["address"]["account_holder_name"]
+
+            = form.label :account_holder_type, "Account Holder Type"
+            = form.text_field :account_holder_type, :value => @stripe_user_details.legal_entity["address"]["account_holder_type"]
+
+            = form.label :bank_name, "Bank Name"
+            = form.text_field :bank_name, :value => @stripe_user_details.legal_entity["address"]["bank_name"]
+
+            = form.label :account_number, "Account Number"
+            = form.number_field :account_number, :value => @stripe_user_details.legal_entity["address"]["account_number"]
+
+            = form.label :routing_number, "Routing Number"
+            = form.number_field :routing_number, :value => @stripe_user_details.legal_entity["address"]["routing_number"]
+
+
 
             = form.button t("settings.save_information"), :class => "send_button"
             
