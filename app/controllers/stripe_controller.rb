@@ -32,6 +32,7 @@ class StripeController < ApplicationController
   # Only works on the currently logged in user.
   def deauthorize
     connector = StripeOauth.new( @current_user, @current_community )
+    StripeUserDetail.delete(@current_user.stripe_user_detail.id)
     connector.deauthorize!
     flash[:notice] = "Account disconnected from Stripe."
     redirect_to stripe_account_settings_payment_path( @current_user )

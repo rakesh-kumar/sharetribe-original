@@ -154,8 +154,8 @@ class StripeAccountsController < ApplicationController
         #         }]
 
         # stripe_account.email = @current_user.email rescue '' 
-        stripe_account.business_name = params[:stripe_user_detail][:business_name]
-        stripe_account.business_url  = params[:stripe_user_detail][:business_url]
+        # stripe_account.business_name = params[:stripe_user_detail][:business_name]
+        # stripe_account.business_url  = params[:stripe_user_detail][:business_url]
 
         stripe_account.tos_acceptance.ip = request.remote_ip
         stripe_account.tos_acceptance.date = Time.now.to_i
@@ -163,7 +163,7 @@ class StripeAccountsController < ApplicationController
         # stripe_account.legal_entity = legalEntityInput
         stripe_account.legal_entity.address.city = params[:stripe_user_detail][:city]
         stripe_account.legal_entity.address.line1 = params[:stripe_user_detail][:line1]
-        stripe_account.legal_entity.address.line2 = params[:stripe_user_detail][:line2]
+        # stripe_account.legal_entity.address.line2 = params[:stripe_user_detail][:line2]
         stripe_account.legal_entity.address.postal_code = params[:stripe_user_detail][:postal_code]
         stripe_account.legal_entity.address.postal_code = params[:stripe_user_detail][:postal_code]
         stripe_account.legal_entity.address.state = params[:stripe_user_detail][:state]
