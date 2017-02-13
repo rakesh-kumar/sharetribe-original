@@ -896,6 +896,7 @@ en:
       subtotal: "Subtotal:"
       total: Total
       price: Price
+      deposit_price: Deposit Price
       service_fee: "Service fee"
       money_will_be_transferred: "The money will be transferred to %{recipient_name} when a) you have marked the request completed or b) %{automatic_confirmation_days} days have passed since you paid."
     new_testimonial:
@@ -1463,6 +1464,7 @@ en:
         location: Location
       price:
         price: Price
+        deposit_price: Deposit Price
         per: per
         per_day: "per day"
         mass: "piece, kg, l, m2, ..."

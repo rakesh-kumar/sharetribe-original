@@ -3,8 +3,8 @@ module ListingFormViewUtils
 
   def filter(params, shape)
     filter_fields = []
-
     filter_fields << :price unless shape[:price_enabled]
+    filter_fields << :deposit_price unless shape[:price_enabled]
     filter_fields << :currency unless shape[:price_enabled]
     filter_fields << :unit unless shape[:units].present?
     filter_fields << :shipping_price unless shape[:shipping_enabled]
@@ -27,6 +27,7 @@ module ListingFormViewUtils
     errors = []
 
     errors << :price_required if shape[:price_enabled] && params[:price].nil?
+    errors << :deposit_price_required if shape[:price_enabled] && params[:deposit_price].nil?
     errors << :currency_required if shape[:price_enabled] && params[:currency].blank?
     errors << :delivery_method_required if shape[:shipping_enabled] && params[:delivery_methods].empty?
     errors << :unknown_delivery_method if shape[:shipping_enabled] && params[:delivery_methods].any? { |method| !["shipping", "pickup"].include?(method) }

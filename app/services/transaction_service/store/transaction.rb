@@ -16,6 +16,7 @@ module TransactionService::Store::Transaction
     [:listing_author_uuid, :string, :mandatory, transform_with: UUIDUtils::RAW], # :string type for raw bytes
     [:unit_type, :to_symbol, one_of: [:hour, :day, :night, :week, :month, :custom, nil]],
     [:unit_price, :money, default: Money.new(0)],
+    [:unit_deposit_price, :money, default: Money.new(0)],
     [:unit_tr_key, :string],
     [:unit_selector_tr_key, :string],
     [:availability, :to_symbol, one_of: [:none, :booking]],
@@ -44,6 +45,7 @@ module TransactionService::Store::Transaction
     [:listing_author_uuid, :uuid, :mandatory, transform_with: UUIDUtils::PARSE_RAW],
     [:unit_type, :to_symbol, one_of: [:hour, :day, :night, :week, :month, :custom, nil]],
     [:unit_price, :money, default: Money.new(0)],
+    [:unit_deposit_price, :money, default: Money.new(0)],
     [:unit_price_currency, :string, :mandatory],
     [:unit_tr_key, :string],
     [:unit_selector_tr_key, :string],
@@ -168,10 +170,12 @@ module TransactionService::Store::Transaction
   ## Privates
 
   def from_model(model)
+   
+    
     Maybe(model)
       .map { |m|
         hash = EntityUtils.model_to_hash(m)
-               .merge({unit_price: m.unit_price, minimum_commission: m.minimum_commission, shipping_price: m.shipping_price })
+               .merge({unit_price: m.unit_price, unit_deposit_price: m.unit_deposit_price, minimum_commission: m.minimum_commission, shipping_price: m.shipping_price })
 
         hash = add_opt_shipping_address(hash, m)
         hash = add_opt_booking(hash, m)

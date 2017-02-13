@@ -13,6 +13,7 @@ module TransactionService::DataTypes::Transaction
     [:listing_uuid, :uuid], # This will be mandatory once the migrations have run
     [:listing_title, :string, :mandatory],
     [:listing_price, :money, :optional],
+    [:listing_deposit_price, :money, :optional],
     [:item_total, :money, :mandatory],
     [:shipping_price, :money],
     [:listing_author_id, :string, :mandatory],

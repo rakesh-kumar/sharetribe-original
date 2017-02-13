@@ -468,13 +468,15 @@ window.ST = window.ST || {};
         "listing[title]": {required: true, minlength: 2, maxlength: 60},
         "listing[origin]": {address_validator: true},
         "listing[price]": {required: pr, money: true, minimum_price_required: [minimum_price, subunit_to_unit]},
+        "listing[deposit_price]": {required: pr, money: true, minimum_price_required: [minimum_price, subunit_to_unit]},
         "listing[shipping_price]": {money: true},
         "listing[shipping_price_additional]": {money: true},
         "listing[valid_until(1i)]": { min_date: true, max_date: true }
       }),
       messages: {
         "listing[valid_until(1i)]": { min_date: date_message, max_date: date_message },
-        "listing[price]": { minimum_price_required: minimum_price_message }
+        "listing[price]": { minimum_price_required: minimum_price_message },
+        "listing[deposit_price]": { minimum_price_required: minimum_price_message }
       },
       // Run validations only when submitting the form.
       onkeyup: false,

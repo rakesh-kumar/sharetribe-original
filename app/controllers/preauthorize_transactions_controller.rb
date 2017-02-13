@@ -269,7 +269,7 @@ class PreauthorizeTransactionsController < ApplicationController
       order_total = OrderTotal.new(
         item_total: item_total,
         shipping_total: shipping_total)
-
+      
       render "listing_conversations/stripe_preauthorize",
         locals: {
           start_on: tx_params[:start_on],
@@ -284,6 +284,7 @@ class PreauthorizeTransactionsController < ApplicationController
           country_code: LocalizationUtils.valid_country_code(@current_community.country),
           price_break_down_locals: TransactionViewUtils.price_break_down_locals(
             booking:  is_booking,
+            listing_deposit_price: listing_entity[:price],
             quantity: quantity,
             start_on: tx_params[:start_on],
             end_on:   tx_params[:end_on],

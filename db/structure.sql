@@ -957,6 +957,7 @@ CREATE TABLE `listings` (
   `shipping_price_cents` int(11) DEFAULT NULL,
   `shipping_price_additional_cents` int(11) DEFAULT NULL,
   `availability` varchar(32) COLLATE utf8_unicode_ci DEFAULT 'none',
+  `deposit_price_cents` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_listings_on_uuid` (`uuid`) USING BTREE,
   KEY `index_listings_on_new_category_id` (`category_id`) USING BTREE,
@@ -1852,6 +1853,7 @@ CREATE TABLE `transactions` (
   `availability` varchar(32) COLLATE utf8_unicode_ci DEFAULT 'none',
   `booking_uuid` varbinary(16) DEFAULT NULL,
   `deleted` tinyint(1) DEFAULT '0',
+  `unit_deposit_price_cents` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `transactions_on_cid_and_deleted` (`community_id`,`deleted`) USING BTREE,
   KEY `index_transactions_on_community_id` (`community_id`) USING BTREE,
@@ -1873,7 +1875,7 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-10 23:28:26
+-- Dump completed on 2017-02-13  6:52:35
 INSERT INTO schema_migrations (version) VALUES ('20080806070738');
 
 INSERT INTO schema_migrations (version) VALUES ('20080807071903');
@@ -3553,4 +3555,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170209142357');
 INSERT INTO schema_migrations (version) VALUES ('20170210075239');
 
 INSERT INTO schema_migrations (version) VALUES ('20170210091204');
+
+INSERT INTO schema_migrations (version) VALUES ('20170212202032');
+
+INSERT INTO schema_migrations (version) VALUES ('20170213000708');
 

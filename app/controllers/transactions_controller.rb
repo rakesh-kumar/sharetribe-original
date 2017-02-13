@@ -91,6 +91,7 @@ class TransactionsController < ApplicationController
               listing_author_uuid: author_model.uuid_object,
               unit_type: listing_model.unit_type,
               unit_price: listing_model.price,
+              unit_deposit_price: listing_model.deposit_price,
               unit_tr_key: listing_model.unit_tr_key,
               availability: listing_model.availability,
               listing_quantity: quantity,
@@ -130,7 +131,7 @@ class TransactionsController < ApplicationController
       .map { |tx_with_conv| [tx_with_conv, :admin] }
 
     transaction_conversation, role = m_participant.or_else { m_admin.or_else([]) }
-
+    
     tx = transaction_service.get(community_id: @current_community.id, transaction_id: params[:id])
          .maybe()
          .or_else(nil)
@@ -157,11 +158,11 @@ class TransactionsController < ApplicationController
       else
         listing.author_id == @current_user.id
       end
-
     render "transactions/show", locals: {
       messages: messages_and_actions.reverse,
       transaction: tx,
       listing: listing,
+      listing_deposit_price: listing.deposit_price,
       transaction_model: tx_model,
       conversation_other_party: person_entity_with_url(other_party(conversation)),
       is_author: is_author,
@@ -170,6 +171,7 @@ class TransactionsController < ApplicationController
       message_form_action: person_message_messages_path(@current_user, :message_id => conversation[:id]),
       price_break_down_locals: price_break_down_locals(tx),
       transaction_detail: transaction_detail
+
     }
   end
 
@@ -404,9 +406,9 @@ class TransactionsController < ApplicationController
       quantity = tx[:listing_quantity]
       show_subtotal = !!tx[:booking] || quantity.present? && quantity > 1 || tx[:shipping_price].present?
       total_label = (tx[:payment_process] != :preauthorize) ? t("transactions.price") : t("transactions.total")
-      
       TransactionViewUtils.price_break_down_locals({
         listing_price: tx[:listing_price],
+        listing_deposit_price: tx[:listing_deposit_price],
         localized_unit_type: localized_unit_type,
         localized_selector_label: localized_selector_label,
         booking: booking,
@@ -419,6 +421,7 @@ class TransactionsController < ApplicationController
         shipping_price: tx[:shipping_price],
         total_label: total_label,
         unit_type: tx[:unit_type]
+
       })
     end
   end
@@ -455,6 +458,7 @@ class TransactionsController < ApplicationController
       TransactionViewUtils.price_break_down_locals(
         {
           listing_price: l_model.price,
+          listing_deposit_price: l_model.deposit_price,
           localized_unit_type: unit_type,
           localized_selector_label: localized_selector_label,
           booking: booking,
@@ -463,15 +467,17 @@ class TransactionsController < ApplicationController
           duration: quantity,
           quantity: quantity,
           subtotal: quantity != 1 ? l_model.price * quantity : nil,
-          total: l_model.price * quantity,
+          total: l_model.price * quantity + l_model.deposit_price,
           shipping_price: nil,
           total_label: total_label,
           unit_type: l_model.unit_type
+          
         })
     }
 
     render "transactions/new", locals: {
              listing: listing,
+             listing_deposit_price: listing_model.deposit_price,
              author: author,
              action_button_label: t(listing_model.action_button_tr_key),
              m_price_break_down: m_price_break_down,

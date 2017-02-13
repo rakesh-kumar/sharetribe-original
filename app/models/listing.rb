@@ -47,6 +47,7 @@
 #  shipping_price_cents            :integer
 #  shipping_price_additional_cents :integer
 #  availability                    :string(32)       default("none")
+#  deposit_price_cents             :integer
 #
 # Indexes
 #
@@ -90,6 +91,7 @@ class Listing < ActiveRecord::Base
   monetize :price_cents, :allow_nil => true, with_model_currency: :currency
   monetize :shipping_price_cents, allow_nil: true, with_model_currency: :currency
   monetize :shipping_price_additional_cents, allow_nil: true, with_model_currency: :currency
+  monetize :deposit_price_cents, :allow_nil => true, with_model_currency: :currency
 
   before_validation :set_valid_until_time
 
@@ -134,6 +136,7 @@ class Listing < ActiveRecord::Base
   validates_presence_of :category
   validates_inclusion_of :valid_until, :allow_nil => :true, :in => DateTime.now..DateTime.now + 7.months
   validates_numericality_of :price_cents, :only_integer => true, :greater_than_or_equal_to => 0, :message => "price must be numeric", :allow_nil => true
+  validates_numericality_of :deposit_price_cents, :only_integer => true, :greater_than_or_equal_to => 0, :message => "price must be numeric", :allow_nil => true
 
   def self.currently_open(status="open")
     status = "open" if status.blank?
@@ -220,6 +223,10 @@ class Listing < ActiveRecord::Base
   # The price symbol based on this listing's price or community default, if no price set
   def price_symbol
     price ? price.symbol : MoneyRails.default_currency.symbol
+  end
+
+  def deposit_price_symbol
+    deposit_price ? deposit_price.symbol : MoneyRails.default_currency.symbol
   end
 
   def answer_for(custom_field)

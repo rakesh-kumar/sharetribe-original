@@ -12,6 +12,10 @@
         = t(".per")
         = unit_option[:display]
       = hidden_field_tag("listing[unit]", unit_option[:value])
+      
+      = form.label :deposit_price, t(".deposit_price")
+      = form.text_field :deposit_price, :class => "price-field", :maxlength => "10", :placeholder => "0", :value => (@listing.deposit_price ? @listing.deposit_price.to_s: 0)
+      = render partial: "listings/form/currency_selector", locals: {form: form}
     - else
       .quantity-description
         = t(".per")

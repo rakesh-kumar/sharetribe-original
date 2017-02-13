@@ -12,6 +12,7 @@ module TransactionViewUtils
 
   PriceBreakDownLocals = EntityUtils.define_builder(
     [:listing_price, :money, :mandatory],
+    [:listing_deposit_price, :money, :mandatory],
     [:localized_unit_type, :string],
     [:localized_selector_label, :string],
     [:booking, :to_bool, default: false],

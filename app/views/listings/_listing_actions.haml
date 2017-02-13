@@ -19,10 +19,11 @@
   - if is_author
     = render partial: "delivery_opts", locals: { delivery_opts: delivery_opts, is_author: is_author }
   - else
-
+    
     = form_tag form_path, :method => :get, :id => "booking-dates" do
 
       - if [:day, :night].include?(@listing.quantity_selector&.to_sym)
+        = "Refundable deposit fee of #{humanized_money_with_symbol(@listing.deposit_price).upcase}" 
         - blocked_dates_result.on_success do |blocked_dates|
           - days = [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday]
           - months = [:january, :february, :march, :april, :may, :june, :july, :august, :september, :october, :november, :december]
@@ -118,6 +119,8 @@
 
         - blocked_dates_result.on_error do
           = t("listings.listing_actions.unable_load_availability")
+
+
 
       - elsif listing_unit_type.present?
         - delivery_type = delivery_opts.length > 0 ? delivery_opts.first[:name].to_s : ""
