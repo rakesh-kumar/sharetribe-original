@@ -127,18 +127,18 @@ class StripeAccountsController < ApplicationController
         #     'account_number' => params[:stripe_user_detail][:account_number].delete(' ')
         # }
 
-        token_obj =  Stripe::Token.create(
-          :bank_account => {
-            :country => "US",
-            :currency => "usd",
-            :account_holder_name => params[:stripe_user_detail][:account_holder_name],
-            :account_holder_type => "individual",
-            :routing_number =>  params[:stripe_user_detail][:routing_number].delete(' '),
-            :account_number =>  params[:stripe_user_detail][:account_number].delete(' '),
-          },
-        )
+        # token_obj =  Stripe::Token.create(
+        #   :bank_account => {
+        #     :country => "US",
+        #     :currency => "usd",
+        #     :account_holder_name => params[:stripe_user_detail][:account_holder_name],
+        #     :account_holder_type => "individual",
+        #     :routing_number =>  params[:stripe_user_detail][:routing_number].delete(' '),
+        #     :account_number =>  params[:stripe_user_detail][:account_number].delete(' '),
+        #   },
+        # )
 
-        data = external_accounts.create(:external_account => token_obj.id)
+        # data = external_accounts.create(:external_account => token_obj.id)
         # data =  [{
         #           "object" => "bank_account",
         #           "account" => @current_user.stripe_user_detail.stripe_account_id,
@@ -159,7 +159,7 @@ class StripeAccountsController < ApplicationController
 
         stripe_account.tos_acceptance.ip = request.remote_ip
         stripe_account.tos_acceptance.date = Time.now.to_i
-        stripe_account.external_accounts.data = data
+        # stripe_account.external_accounts.data = data
         # stripe_account.legal_entity = legalEntityInput
         stripe_account.legal_entity.address.city = params[:stripe_user_detail][:city]
         stripe_account.legal_entity.address.line1 = params[:stripe_user_detail][:line1]
