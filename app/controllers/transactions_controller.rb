@@ -140,7 +140,6 @@ class TransactionsController < ApplicationController
       flash[:error] = t("layouts.notifications.you_are_not_authorized_to_view_this_content")
       return redirect_to search_path
     end
-
     tx_model = Transaction.where(id: tx[:id]).first
     conversation = transaction_conversation[:conversation]
     listing = Listing.where(id: tx[:listing_id]).first
@@ -400,6 +399,11 @@ class TransactionsController < ApplicationController
     if tx[:payment_process] == :none && tx[:listing_price].cents == 0
       nil
     else
+      if tx[:listing_deposit_price].present?
+        listing_deposit_price = tx[:listing_deposit_price]
+      else
+        listing_deposit_price = 0
+      end
       localized_unit_type = tx[:unit_type].present? ? ListingViewUtils.translate_unit(tx[:unit_type], tx[:unit_tr_key]) : nil
       localized_selector_label = tx[:unit_type].present? ? ListingViewUtils.translate_quantity(tx[:unit_type], tx[:unit_selector_tr_key]) : nil
       booking = !!tx[:booking]
@@ -417,7 +421,7 @@ class TransactionsController < ApplicationController
         duration: booking ? tx[:booking][:duration] : nil,
         quantity: quantity,
         subtotal: show_subtotal ? tx[:listing_price] * quantity : nil,
-        total: Maybe(tx[:payment_total]).or_else(tx[:checkout_total]),
+        total: Maybe(tx[:payment_total] + listing_deposit_price ).or_else(tx[:checkout_total] + listing_deposit_price),
         shipping_price: tx[:shipping_price],
         total_label: total_label,
         unit_type: tx[:unit_type]

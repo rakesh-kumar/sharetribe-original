@@ -16,7 +16,7 @@ module TransactionService::Store::Transaction
     [:listing_author_uuid, :string, :mandatory, transform_with: UUIDUtils::RAW], # :string type for raw bytes
     [:unit_type, :to_symbol, one_of: [:hour, :day, :night, :week, :month, :custom, nil]],
     [:unit_price, :money, default: Money.new(0)],
-    [:unit_deposit_price, :money, default: Money.new(0)],
+    [:unit_deposit_price, :money, default: Money.new(0, 'USD')],
     [:unit_tr_key, :string],
     [:unit_selector_tr_key, :string],
     [:availability, :to_symbol, one_of: [:none, :booking]],
@@ -45,7 +45,7 @@ module TransactionService::Store::Transaction
     [:listing_author_uuid, :uuid, :mandatory, transform_with: UUIDUtils::PARSE_RAW],
     [:unit_type, :to_symbol, one_of: [:hour, :day, :night, :week, :month, :custom, nil]],
     [:unit_price, :money, default: Money.new(0)],
-    [:unit_deposit_price, :money, default: Money.new(0)],
+    [:unit_deposit_price, :money, default: Money.new(0, 'USD')],
     [:unit_price_currency, :string, :mandatory],
     [:unit_tr_key, :string],
     [:unit_selector_tr_key, :string],
@@ -89,6 +89,7 @@ module TransactionService::Store::Transaction
   module_function
 
   def create(opts)
+    
     tx_data = HashUtils.compact(NewTransaction.call(opts))
     tx_model = TransactionModel.new(tx_data.except(:content, :booking_fields))
 
@@ -170,6 +171,7 @@ module TransactionService::Store::Transaction
   ## Privates
 
   def from_model(model)
+    
    
     
     Maybe(model)
@@ -195,6 +197,7 @@ module TransactionService::Store::Transaction
   end
 
   def add_opt_booking(hash, m)
+    
     if m.booking
       booking_data = EntityUtils.model_to_hash(m.booking)
       hash.merge(booking: Booking.call(
@@ -209,6 +212,7 @@ module TransactionService::Store::Transaction
   end
 
   def build_conversation(tx_model, tx_data)
+    
     conversation = tx_model.build_conversation(
       tx_data.slice(:community_id, :listing_id))
 
@@ -230,6 +234,7 @@ module TransactionService::Store::Transaction
   end
 
   def build_booking(tx_model, tx_data)
+    
     if is_booking?(tx_data)
       start_on = tx_data[:booking_fields][:start_on]
       end_on = tx_data[:booking_fields][:end_on]
