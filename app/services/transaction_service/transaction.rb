@@ -275,9 +275,10 @@ module TransactionService::Transaction
   end
 
   def calculate_commission(item_total, commission_from_seller, minimum_commission)
-    [(item_total * (commission_from_seller / 100.0) unless commission_from_seller.nil?),
-     (minimum_commission unless minimum_commission.nil? || minimum_commission.zero?),
-     Money.new(0, item_total.currency)]
+    # [(item_total * (commission_from_seller / 100.0) unless commission_from_seller.nil?),
+    #  (minimum_commission unless minimum_commission.nil? || minimum_commission.zero?),
+    #  Money.new(0, item_total.currency)]
+    [Money.new(0, 'USD')]
       .compact
       .max
   end

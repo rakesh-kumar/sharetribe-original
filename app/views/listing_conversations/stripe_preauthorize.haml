@@ -62,44 +62,44 @@
     .preauthorize-section
       %h2.preauthorize-details-title
         Booking Details
+    -if listing[:unit_type] != :day
+      .row
+        .col-12
+          %label
+            Product Name
+            %input{name: 'transaction_detail[product_name]' ,:placeholder => "Product Name", :type => "text", required: true, autofocus: true}
 
-    .row
-      .col-12
-        %label
-          Product Name
-          %input{name: 'transaction_detail[product_name]' ,:placeholder => "Product Name", :type => "text", required: true, autofocus: true}
-
-    .row
-      .col-12
-        %label
-          Product Description
-          %textarea{name: 'transaction_detail[description]', :placeholder => "Description"}
-    .row
-      .col-12
-        %label
-          Product Images (Max size 1 MB)
-          .row
-            = file_field_tag 'transaction_detail[image_one]'
-          .row
-            = file_field_tag 'transaction_detail[image_two]'
-          .row
-            = file_field_tag 'transaction_detail[image_three]'
-          .row
-            = file_field_tag 'transaction_detail[image_four]'
-          .row
-            = file_field_tag 'transaction_detail[image_five]'
+      .row
+        .col-12
+          %label
+            Product Description
+            %textarea{name: 'transaction_detail[description]', :placeholder => "Description"}
+      .row
+        .col-12
+          %label
+            Product Images (Max size 1 MB)
+            .row
+              = file_field_tag 'transaction_detail[image_one]'
+            .row
+              = file_field_tag 'transaction_detail[image_two]'
+            .row
+              = file_field_tag 'transaction_detail[image_three]'
+            .row
+              = file_field_tag 'transaction_detail[image_four]'
+            .row
+              = file_field_tag 'transaction_detail[image_five]'
   
-    .row
-      .col-12
-        %label
-          Recommended Retail Price
-          %input{name: 'transaction_detail[recommended_retail_price]', :pattern => "\\d*", :placeholder => "Recommended Reatil Price", :type => "number", min: 0, required: true}
+        .row
+          .col-12
+            %label
+              Recommended Retail Price
+              %input{name: 'transaction_detail[recommended_retail_price]', :pattern => "\\d*", :placeholder => "Recommended Reatil Price", :type => "number", min: 0, required: true}
 
-    .row
-      .col-12
-        %label
-          Wholesale Price
-          %input{name: 'transaction_detail[wholesale_price]', :pattern => "\\d*", :placeholder => "Wholesale Price", :type => "number", min: 0, required: true}
+        .row
+          .col-12
+            %label
+              Wholesale Price
+              %input{name: 'transaction_detail[wholesale_price]', :pattern => "\\d*", :placeholder => "Wholesale Price", :type => "number", min: 0, required: true}
 
     %ul.no-bullets
       %li
