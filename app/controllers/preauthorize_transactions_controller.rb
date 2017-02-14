@@ -369,7 +369,8 @@ class PreauthorizeTransactionsController < ApplicationController
         })
 
       handle_tx_response(tx_response)
-      if tx_response.data[:transaction].present?
+      
+      if tx_response.data[:transaction].present? && tx_response.data[:transaction][:unit_type] != :day
         params[:transaction_detail][:transaction_id] = tx_response.data[:transaction][:id]
         transaction_detail = TransactionDetail.new(params.require(:transaction_detail).permit!)
         transaction_detail.save
@@ -417,6 +418,7 @@ class PreauthorizeTransactionsController < ApplicationController
   end
 
   def handle_tx_response(tx_response)
+    
     if !tx_response[:success]
       render_error_response(request.xhr?, t("error_messages.paypal.generic_error"), action: :initiate)
     elsif (tx_response[:data][:gateway_fields][:redirect_url])
