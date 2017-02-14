@@ -154,6 +154,11 @@ Kassi::Application.routes.draw do
     post '/:person_id/settings/payments/update_stripe_user_details'=> 'stripe_accounts#update_stripe_user_details'
 
     patch '/:person_id/settings/payments/update_stripe_user_details'=> 'stripe_accounts#update_stripe_user_details', :as => :update_stripe_user_details
+    get '/:person_id/settings/payments/refund'=> 'stripe_accounts#amount_refund', :as => :amount_refund
+
+    patch '/:person_id/settings/payments/refund'=> 'stripe_accounts#amount_refund_update', :as => :amount_refund_update
+
+
     # community membership related actions
 
     get  '/community_memberships/pending_consent' => 'community_memberships#pending_consent', as: :pending_consent

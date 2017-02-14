@@ -247,6 +247,37 @@ class StripeAccountsController < ApplicationController
     redirect_to :back
   end
 
+  def amount_refund
+    @stripe_user_details = @current_user
+    @stripe_payment = StripePayment.find_by(transaction_id: params[:transaction_id])
+    @transaction = Transaction.find(params[:transaction_id])
+    Stripe.api_key = @current_community.payment_gateway.stripe_secret_key
+    @stripe_refunds = @stripe_payment.stripe_refunds
+
+    # stripe_account = Stripe::Account.retrieve(@current_user.stripe_user_detail.stripe_account_id)
+  end
+
+  def amount_refund_update
+    @stripe_payment = StripePayment.find_by(transaction_id: params[:transaction_id])
+    @transaction = Transaction.find(params[:transaction_id])
+    Stripe.api_key = @current_community.payment_gateway.stripe_secret_key
+
+    retrive = Stripe::Refund.create(charge: @stripe_payment.stripe_transaction_id, 
+        amount: params[:stripe_payment][:sum_cents].to_i
+      )
+    
+    stripe_refunds = StripeRefund.new
+    stripe_refunds.stripe_payment_id = @stripe_payment.id
+    stripe_refunds.stripe_refund_id = retrive.id
+    stripe_refunds.amount  =  params[:stripe_payment][:sum_cents].to_i
+    stripe_refunds.details = retrive
+    stripe_refunds.save!
+
+    @stripe_refunds = @stripe_payment.stripe_refunds
+
+    render 'amount_refund'
+  end
+
   private
 
   # Before filter

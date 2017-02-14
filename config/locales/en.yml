@@ -305,6 +305,7 @@ en:
           accepted: Accepted
           rejected: Rejected
           paid: Paid
+          refund: Refund
           confirmed: Confirmed
           canceled: Canceled
           initiated: "Waiting PayPal payment"

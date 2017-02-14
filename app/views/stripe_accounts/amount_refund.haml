@@ -1,0 +1,35 @@
+- content_for :javascript do
+  initialize_stripe_info_form("#{I18n.locale}","#{@current_user.id.to_s}", #{@current_community.real_name_required?});
+- content_for :title_header do
+  %h1= t("layouts.no_tribe.settings")
+
+
+
+.left-navi-section.settings-section.payment-settings
+  = form_for @stripe_payment, url: amount_refund_path(person_id: @current_user.id, transaction_id: params[:transaction_id] )  do |form|
+
+    
+    = form.label :sum_cents, "Amount"
+    = form.text_field :sum_cents, :class => "price-field", :maxlength => "10", :placeholder => "0", :value => (@transaction.listing.deposit_price ? @transaction.listing.deposit_price.to_s: 0)
+    .currency-selector
+      = Money.new(1, "USD").symbol
+
+    = form.button "Refund Amount", :class => "send_button"
+
+
+%table#admin_transactions
+  %thead
+    %tr
+      %th= "Amount"
+      %th="Object type"
+      %th="Refund Reason"
+      
+  %tbody
+    -@stripe_refunds.each do |f| 
+      %tr
+        %td= f.amount
+        %td= f.details["object"]
+        %td= f.details["reason"]
+       
+       
+

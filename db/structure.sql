@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.5.53, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: sharetribe_last_last
+-- Host: localhost    Database: sharetribe_rentel_sharetribe
 -- ------------------------------------------------------
 -- Server version	5.5.53-0ubuntu0.14.04.1
 
@@ -1645,6 +1645,25 @@ CREATE TABLE `stripe_payments` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `stripe_refunds`
+--
+
+DROP TABLE IF EXISTS `stripe_refunds`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `stripe_refunds` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `stripe_payment_id` int(11) DEFAULT NULL,
+  `stripe_refund_id` text COLLATE utf8_unicode_ci,
+  `amount` int(11) DEFAULT NULL,
+  `details` text COLLATE utf8_unicode_ci,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `stripe_user_details`
 --
 
@@ -1875,7 +1894,7 @@ CREATE TABLE `transactions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-13  6:52:35
+-- Dump completed on 2017-02-14 20:13:13
 INSERT INTO schema_migrations (version) VALUES ('20080806070738');
 
 INSERT INTO schema_migrations (version) VALUES ('20080807071903');
@@ -3559,4 +3578,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170210091204');
 INSERT INTO schema_migrations (version) VALUES ('20170212202032');
 
 INSERT INTO schema_migrations (version) VALUES ('20170213000708');
+
+INSERT INTO schema_migrations (version) VALUES ('20170214143311');
 

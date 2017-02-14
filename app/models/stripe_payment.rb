@@ -19,13 +19,14 @@
 class StripePayment < ActiveRecord::Base
   include MathHelper
 
+ 
   belongs_to :tx, class_name: "Transaction", foreign_key: "transaction_id"
   belongs_to :community
   belongs_to :payer, foreign_key: :payer_id, class_name: 'Person'
   belongs_to :recipient, foreign_key: :recipient_id, class_name: 'Person'
 
   monetize :sum_cents, allow_nil: true, with_model_currency: :currency
-
+  has_many :stripe_refunds
   delegate :commission_from_seller, to: :community
 
   def sum_exists?

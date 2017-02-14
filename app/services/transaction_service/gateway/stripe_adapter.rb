@@ -7,11 +7,13 @@ module TransactionService::Gateway
       
       payment_gateway_id = StripePaymentGateway.where(community_id: tx[:community_id]).pluck(:id).first
       
-      if tx[:unit_deposit_price].present?
-        unit_deposit_price =  tx[:unit_deposit_price]
-      else
-        unit_deposit_price = 0
-      end
+      # if tx[:unit_deposit_price].present?
+      #   unit_deposit_price =  tx[:unit_deposit_price]
+      # else
+      #   unit_deposit_price = 0
+      # end
+      unit_deposit_price = Listing.find(tx[:listing_id]).deposit_price
+
       payment = StripePayment.create({
         transaction_id: tx[:id],
         community_id: tx[:community_id],
