@@ -37,6 +37,7 @@ module TransactionViewUtils
   end
 
   def create_messages_from_actions(transitions, author, starter, payment_sum)
+    
     return [] if transitions.blank?
 
     ignored_transitions = [
@@ -72,14 +73,22 @@ module TransactionViewUtils
   end
 
   def transition_messages(transaction, conversation, name_display_type)
+    
     if transaction.present?
       author = conversation[:other_person].merge(
         display_name: PersonViewUtils.person_entity_display_name(conversation[:other_person], name_display_type))
       starter = conversation[:starter_person].merge(
         display_name: PersonViewUtils.person_entity_display_name(conversation[:starter_person], name_display_type))
 
+      # deposite amount
+      if transaction[:listing][:deposit_price]
+        deposit_price = transaction[:listing][:deposit_price]
+      else
+        deposit_price = 0
+      end 
+
       transitions = transaction[:transitions]
-      payment_sum = transaction[:payment_total]
+      payment_sum = transaction[:payment_total] + deposit_price
 
       create_messages_from_actions(transitions, author, starter, payment_sum)
     else
@@ -88,6 +97,7 @@ module TransactionViewUtils
   end
 
   def create_message_from_action(transition, old_state, author, starter, payment_sum)
+    
     preauthorize_accepted = ->(new_state) { new_state == "paid" && old_state == "preauthorized" }
     post_pay_accepted = ->(new_state) {
       # The condition here is simply "if new_state is paid", since due to migrations from old system there might be
@@ -144,6 +154,7 @@ module TransactionViewUtils
   end
 
   def create_content_from_action(state, old_state, payment_sum)
+    
     preauthorize_accepted = ->(new_state) { new_state == "paid" && old_state == "preauthorized" }
     post_pay_accepted = ->(new_state) {
       # The condition here is simply "if new_state is paid", since due to migrations from old system there might be
@@ -174,6 +185,7 @@ module TransactionViewUtils
   end
 
   def price_break_down_locals(opts)
+    
     PriceBreakDownLocals.call(opts)
   end
 

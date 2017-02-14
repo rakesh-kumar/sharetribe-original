@@ -400,7 +400,7 @@ class TransactionsController < ApplicationController
       nil
     else
       if tx[:listing_deposit_price].present?
-        listing_deposit_price = tx[:listing_deposit_price]
+        listing_deposit_price = Listing.find(tx[:listing_id]).deposit_price
       else
         listing_deposit_price = 0
       end
@@ -412,7 +412,7 @@ class TransactionsController < ApplicationController
       total_label = (tx[:payment_process] != :preauthorize) ? t("transactions.price") : t("transactions.total")
       TransactionViewUtils.price_break_down_locals({
         listing_price: tx[:listing_price],
-        listing_deposit_price: tx[:listing_deposit_price],
+        listing_deposit_price: listing_deposit_price ,
         localized_unit_type: localized_unit_type,
         localized_selector_label: localized_selector_label,
         booking: booking,
