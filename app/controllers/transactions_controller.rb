@@ -152,13 +152,20 @@ class TransactionsController < ApplicationController
     MarketplaceService::Transaction::Command.mark_as_seen_by_current(params[:id], @current_user.id)
     
     @stripe_payment = StripePayment.find_by(transaction_id: params[:id])
+
+    if @stripe_payment.present?
+      amount  = Money.new(@stripe_payment.stripe_refunds.sum(:amount), 'USD')
+    else
+      amount  = 0
+    end
+
     @transaction    = Transaction.find_by(id: params[:id])
     @finished_depost = false
     
     @deposit_price_remaing =  @transaction.listing.deposit_price
-    @refund_amount =  Money.new(@stripe_payment.stripe_refunds.sum(:amount), 'USD')
+    @refund_amount  =  amount
     
-    @deposit_amount =  @transaction.listing.deposit_price - Money.new(@stripe_payment.stripe_refunds.sum(:amount), 'USD')
+    @deposit_amount =  @transaction.listing.deposit_price - amount
 
     if @deposit_price_remaing == @refund_amount 
       @finished_depost = true
