@@ -156,7 +156,7 @@ class TransactionsController < ApplicationController
     if @stripe_payment.present?
       amount  = Money.new(@stripe_payment.stripe_refunds.sum(:amount), 'USD')
     else
-      amount  = 0
+      amount  = Money.new(0, 'USD')
     end
 
     @transaction    = Transaction.find_by(id: params[:id])
