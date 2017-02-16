@@ -150,7 +150,20 @@ class TransactionsController < ApplicationController
       TransactionViewUtils.transition_messages(transaction_conversation, conversation, @current_community.name_display_type))
 
     MarketplaceService::Transaction::Command.mark_as_seen_by_current(params[:id], @current_user.id)
+    
+    @stripe_payment = StripePayment.find_by(transaction_id: params[:id])
+    @transaction    = Transaction.find_by(id: params[:id])
+    @finished_depost = false
+    
+    @deposit_price_remaing =  @transaction.listing.deposit_price
+    @refund_amount =  Money.new(@stripe_payment.stripe_refunds.sum(:amount), 'USD')
+    
+    @deposit_amount =  @transaction.listing.deposit_price - Money.new(@stripe_payment.stripe_refunds.sum(:amount), 'USD')
 
+    if @deposit_price_remaing == @refund_amount 
+      @finished_depost = true
+      @deposit_amount  = 0  
+    end
     is_author =
       if role == :admin
         true
@@ -402,8 +415,13 @@ class TransactionsController < ApplicationController
       if tx[:listing_deposit_price].present?
         listing_deposit_price = Listing.find(tx[:listing_id]).deposit_price
       else
-        listing_deposit_price = 0
+        listing_deposit_price = nil
       end
+
+      if tx[:payment_total].present?
+        tx[:payment_total] =  Maybe(tx[:payment_total] + listing_deposit_price).or_else(listing_deposit_price)
+      end
+
       localized_unit_type = tx[:unit_type].present? ? ListingViewUtils.translate_unit(tx[:unit_type], tx[:unit_tr_key]) : nil
       localized_selector_label = tx[:unit_type].present? ? ListingViewUtils.translate_quantity(tx[:unit_type], tx[:unit_selector_tr_key]) : nil
       booking = !!tx[:booking]
@@ -421,7 +439,7 @@ class TransactionsController < ApplicationController
         duration: booking ? tx[:booking][:duration] : nil,
         quantity: quantity,
         subtotal: show_subtotal ? tx[:listing_price] * quantity : nil,
-        total: Maybe(tx[:payment_total] + listing_deposit_price ).or_else(tx[:checkout_total] + listing_deposit_price),
+        total: Maybe(tx[:payment_total]).or_else(tx[:checkout_total]),
         shipping_price: tx[:shipping_price],
         total_label: total_label,
         unit_type: tx[:unit_type]

@@ -1,0 +1,12 @@
+-if @transaction.payment.recipient_id == @current_user.id && @transaction.payment.status == "paid"
+  - if status_payment_info[:info_text_part] == "Completed"
+    -if @finished_depost == false 
+      = form_for @stripe_payment, url: amount_refund_path(person_id: @current_user.id, transaction_id: params[:id] )  do |form|
+        = form.label :sum_cents, "Refund Deposit Price :- Till now you have refund #{@refund_amount}" + Money.new(1, "USD").symbol
+        = form.text_field :sum_cents, :class => "price-field", :maxlength => "10", :placeholder => "0", :value => (@deposit_amount  ? @deposit_amount : 0)
+        .currency-selector
+          = Money.new(1, "USD").symbol
+        = form.button "Refund Amount", :class => "send_button"
+    -else
+      %h3="Till now you have refund #{@refund_amount}" + Money.new(1, "USD").symbol
+	  

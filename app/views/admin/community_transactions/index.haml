@@ -19,7 +19,7 @@
       %tr
         %th= render partial: "layouts/sort_link", locals: { column: "listing", direction: sort_link_direction("listing"), title: t("admin.communities.transactions.headers.listing") }
         %th=t("admin.communities.transactions.headers.status")
-        %th="Refund"
+        / %th="Refund"
         %th=t("admin.communities.transactions.headers.sum")
         %th= render partial: "layouts/sort_link", locals: { column: "started", direction: sort_link_direction("started"), title: t("admin.communities.transactions.headers.started") }
         %th= render partial: "layouts/sort_link", locals: { column: "last_activity", direction: sort_link_direction("last_activity"), title: t("admin.communities.transactions.headers.last_activity") }
@@ -34,11 +34,11 @@
           %td
             = link_to person_transaction_path(person_id: @current_user.id, id: conversation[:id]) do
               = t("admin.communities.transactions.status.#{conversation[:status]}")
-          %th
-            -if t("admin.communities.transactions.status.#{conversation[:status]}") == "Paid" 
-              = link_to t("admin.communities.transactions.status.refund"), amount_refund_path(person_id: @current_user.id, transaction_id: conversation[:id])            
-            -else
-              = 'Not Allow'
+          / %th
+          /   -if t("admin.communities.transactions.status.#{conversation[:status]}") == "Paid" 
+          /     = link_to t("admin.communities.transactions.status.refund"), amount_refund_path(person_id: @current_user.id, transaction_id: conversation[:id])            
+          /   -else
+          /     = 'Not Allow'
           %td=conversation[:payment_total] ? humanized_money_with_symbol(conversation[:payment_total]) : ""
           %td=l(conversation[:created_at], format: :short_date)
           %td=l(conversation[:last_activity_at], format: :short_date)

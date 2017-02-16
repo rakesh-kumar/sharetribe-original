@@ -269,13 +269,26 @@ class StripeAccountsController < ApplicationController
     stripe_refunds = StripeRefund.new
     stripe_refunds.stripe_payment_id = @stripe_payment.id
     stripe_refunds.stripe_refund_id = retrive.id
-    stripe_refunds.amount  =  params[:stripe_payment][:sum_cents].to_i
+    stripe_refunds.amount  =  params[:stripe_payment][:sum_cents].to_i * 100
     stripe_refunds.details = retrive
     stripe_refunds.save!
+    @finished_depost = false
+    
+    @deposit_price_remaing =  @transaction.listing.deposit_price
+    @refund_amount =  Money.new(@stripe_payment.stripe_refunds.sum(:amount), 'USD')
+    
+    @deposit_amount =  @transaction.listing.deposit_price - Money.new(@stripe_payment.stripe_refunds.sum(:amount), 'USD')
 
+    if @deposit_price_remaing == @refund_amount 
+      @finished_depost = true
+      @deposit_amount  = 0  
+    end
+    
     @stripe_refunds = @stripe_payment.stripe_refunds
 
-    render 'amount_refund'
+    redirect_to "/en/#{@current_user.id}/transactions/#{@transaction.id}" 
+
+    # render 'amount_refund'
   end
 
   private
