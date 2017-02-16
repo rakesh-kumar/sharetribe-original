@@ -263,9 +263,8 @@ class StripeAccountsController < ApplicationController
     Stripe.api_key = @current_community.payment_gateway.stripe_secret_key
 
     retrive = Stripe::Refund.create(charge: @stripe_payment.stripe_transaction_id, 
-        amount: params[:stripe_payment][:sum_cents].to_i
+        amount: params[:stripe_payment][:sum_cents].to_i * 100
       )
-    
     stripe_refunds = StripeRefund.new
     stripe_refunds.stripe_payment_id = @stripe_payment.id
     stripe_refunds.stripe_refund_id = retrive.id
